@@ -1,4 +1,7 @@
 
+import 'package:dataroutine6/features/tasks/data/models/extensions/category_models_extension.dart';
+import 'package:dataroutine6/features/tasks/domain/entities/extensions/category_entity_extension.dart';
+
 import '../../data/datasources/local/sources/category_local_data_source.dart';
 
 import '../../domain/repositories/category_repository.dart';
@@ -13,21 +16,20 @@ class CategoryRepositoryImpl implements CategoryRepository {
   @override
   Future<List<CategoryEntity>> getCategories() async {
     final categoryModels = await _localDataSource.getCategories();
-    return categoryModels
-        .map((model) => CategoryEntity(id: model.id, title: model.title))
-        .toList();
+    return categoryModels.toEntities();
+
   }
 
   @override
   Future<CategoryEntity> getCategoryById(int id) async {
     final model = await _localDataSource.getCategoryById(id);
-    return CategoryEntity(id: model.id, title: model.title);
+    return model.toEntity();
+    
   }
 
   @override
   Future<int> createCategory(CategoryEntity category) {
-    return _localDataSource.createCategory(
-      CategoryModel(id: category.id, title: category.title),
+    return _localDataSource.createCategory(category.toModel()
     );
   }
 
