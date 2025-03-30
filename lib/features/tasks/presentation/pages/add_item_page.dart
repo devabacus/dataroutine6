@@ -37,7 +37,7 @@ class _AddItemPageState extends ConsumerState<AddItemPage> {
               ElevatedButton(
                 onPressed: () {
                   categContr.addCategory(
-                    CategoryEntity(id: 1, title: titleController.text),
+                    CategoryEntity(id: -1, title: titleController.text),
                   );
                 },
                 child: Text("Сохранить"),
