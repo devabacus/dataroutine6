@@ -24,7 +24,7 @@ class CategoryRepositoryImpl implements CategoryRepository {
   Future<CategoryEntity> getCategoryById(int id) async {
     final model = await _localDataSource.getCategoryById(id);
     return model.toEntity();
-    
+
   }
 
   @override
