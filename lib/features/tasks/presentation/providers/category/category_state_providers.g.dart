@@ -1,29 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'navigation_provider.dart';
+part of 'category_state_providers.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$navigationServiceHash() => r'7aa3a928ff02a6149ab847e3fe985a33abd8b01d';
+String _$categoriesHash() => r'c255caa5fe2e962a9e81c34665fe3ae92fc5c9c6';
 
-/// See also [navigationService].
-@ProviderFor(navigationService)
-final navigationServiceProvider =
-    AutoDisposeProvider<NavigationService>.internal(
-      navigationService,
-      name: r'navigationServiceProvider',
+/// See also [Categories].
+@ProviderFor(Categories)
+final categoriesProvider =
+    AutoDisposeAsyncNotifierProvider<Categories, List<CategoryEntity>>.internal(
+      Categories.new,
+      name: r'categoriesProvider',
       debugGetCreateSourceHash:
           const bool.fromEnvironment('dart.vm.product')
               ? null
-              : _$navigationServiceHash,
+              : _$categoriesHash,
       dependencies: null,
       allTransitiveDependencies: null,
     );
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef NavigationServiceRef = AutoDisposeProviderRef<NavigationService>;
+typedef _$Categories = AutoDisposeAsyncNotifier<List<CategoryEntity>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
