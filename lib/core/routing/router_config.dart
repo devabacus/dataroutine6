@@ -1,3 +1,4 @@
+import '../../features/tasks/presentation/routing/tasks_router_config.dart';
 import '../../features/home/presentation/routing/home_router_config.dart';
 
 // ignore_for_file: unused_import
@@ -17,6 +18,7 @@ GoRouter appRouter(Ref ref) {
     // observers: [TalkerRouteObserver(log.talker)],
     initialLocation: HomeRoutes.homePath,
     routes: [
+			...getTasksRoutes(),
 			...getHomeRoutes(),
         
     ]); 
