@@ -5,6 +5,11 @@ import '../routing/tasks_routes_constants.dart';
 
 
 class TasksNavigationService {
+
+    void navigateToViewTable(BuildContext context) {
+      context.goNamed(TasksRoutes.viewTable);
+    }
+  
   
   void navigateToTasks(BuildContext context){
       context.goNamed(TasksRoutes.tasks);
