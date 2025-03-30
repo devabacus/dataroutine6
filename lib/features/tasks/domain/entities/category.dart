@@ -7,7 +7,7 @@ final String title;
 
   const CategoryEntity({
   required this.id,
-required this.title,
+  required this.title,
   });
 
   @override
