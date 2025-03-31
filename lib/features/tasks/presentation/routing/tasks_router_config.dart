@@ -1,7 +1,7 @@
-import '../../presentation/pages/edit_item_page.dart';
-import '../../presentation/pages/edit_item_page.dart';
-import '../../presentation/pages/add_item_page.dart';
-import '../../presentation/pages/view_table_page.dart';
+import '../pages/category/edit_item_page.dart';
+import '../pages/category/edit_item_page.dart';
+import '../pages/category/add_item_page.dart';
+import '../pages/category/view_table_page.dart';
 
 import '../../presentation/pages/tasks_page.dart';
 import 'tasks_routes_constants.dart';

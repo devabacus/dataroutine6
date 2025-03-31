@@ -1,7 +1,9 @@
 import 'package:dataroutine6/features/tasks/domain/entities/category.dart';
 import 'package:dataroutine6/features/tasks/presentation/providers/category/category_state_providers.dart';
+import 'package:dataroutine6/features/tasks/presentation/routing/tasks_routes_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ui_kit/ui_kit.dart';
 
 class EditItemPage extends ConsumerStatefulWidget {
@@ -19,20 +21,17 @@ class _EditItemPageState extends ConsumerState<EditItemPage> {
 
   @override
   void initState() {
-
     super.initState();
     categoryId = int.parse(widget.categoryId);
 
-   WidgetsBinding.instance.addPostFrameCallback((_) {
-    _loadCategory();
-  });
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _loadCategory();
+    });
   }
 
   void _loadCategory() async {
     final categories = await ref.read(categoriesProvider.future);
-    final category = categories.firstWhere(
-      (cat) => cat.id == categoryId,
-    );
+    final category = categories.firstWhere((cat) => cat.id == categoryId);
 
     setState(() {
       controller.text = category.title;
@@ -56,7 +55,7 @@ class _EditItemPageState extends ConsumerState<EditItemPage> {
                 categContr.updateCategory(
                   CategoryEntity(id: categoryId, title: controller.text),
                 );
-
+                return context.goNamed(TasksRoutes.viewTable);
               },
               child: Text("Сохранить"),
             ),

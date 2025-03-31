@@ -35,10 +35,12 @@ class ViewTablePage extends ConsumerWidget {
                         onTap: () {
                           final idStr = categories[index].id.toString();
 
-                          context.goNamed(
+                          context.goNamed(    
+                            
                             TasksRoutes.editItem,
                             pathParameters: {
-                              'categoryId': idStr,
+                              // 'categoryId': idStr,
+                               TasksRoutes.categoryId : idStr,
                             },
                           );
                         },
