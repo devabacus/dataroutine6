@@ -28,7 +28,7 @@ class UpdateTaskPageState extends ConsumerState<EditTaskPage> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       // Здесь можно безопасно использовать провайдеры
-      final selectedTask = ref.watch(selectedTaskProvider)!;
+      final selectedTask = ref.read(selectedTaskProvider)!;
       titleController.text = selectedTask.title;
       descripController.text = selectedTask.description;
       categIdController.text = selectedTask.categoryId.toString();
