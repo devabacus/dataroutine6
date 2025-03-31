@@ -1,4 +1,5 @@
 import '../../presentation/pages/edit_item_page.dart';
+import '../../presentation/pages/edit_item_page.dart';
 import '../../presentation/pages/add_item_page.dart';
 import '../../presentation/pages/view_table_page.dart';
 
@@ -18,8 +19,8 @@ List<RouteBase> getTasksRoutes() {
       path: TasksRoutes.editItemPath,
       builder: (BuildContext context, state) {
         
-      
-      return EditItemPage();
+      final categoryId = state.pathParameters['categoryId'];
+      return EditItemPage(categoryId: categoryId!);
     
       }
   ),

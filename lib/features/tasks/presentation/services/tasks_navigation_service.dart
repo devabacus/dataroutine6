@@ -6,10 +6,9 @@ import '../routing/tasks_routes_constants.dart';
 
 class TasksNavigationService {
 
-    void navigateToEditItem(BuildContext context) {
-      context.goNamed(TasksRoutes.editItem);
+    void navigateToEditItem(BuildContext context, String categoryId) {
+      context.goNamed(TasksRoutes.editItem, pathParameters: {'categoryId': categoryId});
     }
-  
 
     void navigateToAddItem(BuildContext context) {
       context.goNamed(TasksRoutes.addItem);

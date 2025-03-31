@@ -2,8 +2,7 @@
 abstract class TasksRoutes {
 
     static const editItem = 'tasks_edit_item';
-    static const editItemPath = '/tasks/edit_item';
-  
+    static const editItemPath = '/tasks/edit_item/:categoryId';
 
     static const addItem = 'tasks_add_item';
     static const addItemPath = '/tasks/add_item';
