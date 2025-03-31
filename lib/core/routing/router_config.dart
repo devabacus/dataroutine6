@@ -18,7 +18,7 @@ part 'router_config.g.dart';
 GoRouter appRouter(Ref ref) {
   return GoRouter(
     // observers: [TalkerRouteObserver(log.talker)],
-    initialLocation: TasksRoutes.viewTablePath,
+    initialLocation: TasksRoutes.viewTagPath,
     routes: [
 			...getTasksRoutes(),
 			...getHomeRoutes(),

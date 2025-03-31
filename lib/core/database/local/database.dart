@@ -1,3 +1,4 @@
+import '../../../features/tasks/data/datasources/local/tables/tag_table.dart';
 import '../../../features/tasks/data/datasources/local/tables/category_table.dart';
 
 import 'package:drift/drift.dart';
@@ -5,7 +6,7 @@ import 'package:drift_flutter/drift_flutter.dart';
 
 part 'database.g.dart';
 
-@DriftDatabase(tables: [CategoryTable])
+@DriftDatabase(tables: [CategoryTable, TagTable])
 class AppDatabase extends _$AppDatabase {
   AppDatabase([QueryExecutor? excutor]) : super(excutor ?? _openConnection());
 

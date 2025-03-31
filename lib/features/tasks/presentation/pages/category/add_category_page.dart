@@ -36,10 +36,7 @@ class _AddItemPageState extends ConsumerState<AddItemPage> {
                   titleController,
                 ),
                 AppGap.l(),
-
-       
                 ElevatedButton(
-
                   style: AppButtonStyle.basicStyle,
                   onPressed: () {
                     categContr.addCategory(
