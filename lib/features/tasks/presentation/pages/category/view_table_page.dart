@@ -18,7 +18,7 @@ class ViewTablePage extends ConsumerWidget {
     final categories = ref.watch(categoriesProvider);
 
     return Scaffold(
-      appBar: AppBar(title: Text("data", style: TextStyle(fontSize: 20))),
+      appBar: AppBar(title: Text("Категории", style: TextStyle(fontSize: 20))),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
