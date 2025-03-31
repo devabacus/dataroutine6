@@ -11,7 +11,12 @@ part 'task_selected_provider.g.dart';
 class SelectedTask extends _$SelectedTask {
   @override
   TaskEntity? build() {
+
+    ref.keepAlive();
+
+
     return null;
+
   }
 
 
