@@ -1,3 +1,4 @@
+import '../../../features/tasks/data/datasources/local/tables/task_tag_map_table.dart';
 import '../../../features/tasks/data/datasources/local/tables/task_table.dart';
 import '../../../features/tasks/data/datasources/local/tables/tag_table.dart';
 import '../../../features/tasks/data/datasources/local/tables/category_table.dart';
@@ -7,7 +8,7 @@ import 'package:drift_flutter/drift_flutter.dart';
 
 part 'database.g.dart';
 
-@DriftDatabase(tables: [CategoryTable, TagTable, TaskTable])
+@DriftDatabase(tables: [CategoryTable, TagTable, TaskTable, TaskTagMapTable])
 class AppDatabase extends _$AppDatabase {
   AppDatabase([QueryExecutor? excutor]) : super(excutor ?? _openConnection());
 

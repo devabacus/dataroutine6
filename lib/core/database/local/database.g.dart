@@ -860,12 +860,235 @@ class TaskTableCompanion extends UpdateCompanion<TaskTableData> {
   }
 }
 
+class $TaskTagMapTableTable extends TaskTagMapTable
+    with TableInfo<$TaskTagMapTableTable, TaskTagMapTableData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $TaskTagMapTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _taskIdMeta = const VerificationMeta('taskId');
+  @override
+  late final GeneratedColumn<int> taskId = GeneratedColumn<int>(
+    'task_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES task_table (id)',
+    ),
+  );
+  static const VerificationMeta _tagIdMeta = const VerificationMeta('tagId');
+  @override
+  late final GeneratedColumn<int> tagId = GeneratedColumn<int>(
+    'tag_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES tag_table (id)',
+    ),
+  );
+  @override
+  List<GeneratedColumn> get $columns => [taskId, tagId];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'task_tag_map_table';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<TaskTagMapTableData> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('task_id')) {
+      context.handle(
+        _taskIdMeta,
+        taskId.isAcceptableOrUnknown(data['task_id']!, _taskIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_taskIdMeta);
+    }
+    if (data.containsKey('tag_id')) {
+      context.handle(
+        _tagIdMeta,
+        tagId.isAcceptableOrUnknown(data['tag_id']!, _tagIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_tagIdMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {taskId, tagId};
+  @override
+  TaskTagMapTableData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return TaskTagMapTableData(
+      taskId:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.int,
+            data['${effectivePrefix}task_id'],
+          )!,
+      tagId:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.int,
+            data['${effectivePrefix}tag_id'],
+          )!,
+    );
+  }
+
+  @override
+  $TaskTagMapTableTable createAlias(String alias) {
+    return $TaskTagMapTableTable(attachedDatabase, alias);
+  }
+}
+
+class TaskTagMapTableData extends DataClass
+    implements Insertable<TaskTagMapTableData> {
+  final int taskId;
+  final int tagId;
+  const TaskTagMapTableData({required this.taskId, required this.tagId});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['task_id'] = Variable<int>(taskId);
+    map['tag_id'] = Variable<int>(tagId);
+    return map;
+  }
+
+  TaskTagMapTableCompanion toCompanion(bool nullToAbsent) {
+    return TaskTagMapTableCompanion(taskId: Value(taskId), tagId: Value(tagId));
+  }
+
+  factory TaskTagMapTableData.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return TaskTagMapTableData(
+      taskId: serializer.fromJson<int>(json['taskId']),
+      tagId: serializer.fromJson<int>(json['tagId']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'taskId': serializer.toJson<int>(taskId),
+      'tagId': serializer.toJson<int>(tagId),
+    };
+  }
+
+  TaskTagMapTableData copyWith({int? taskId, int? tagId}) =>
+      TaskTagMapTableData(
+        taskId: taskId ?? this.taskId,
+        tagId: tagId ?? this.tagId,
+      );
+  TaskTagMapTableData copyWithCompanion(TaskTagMapTableCompanion data) {
+    return TaskTagMapTableData(
+      taskId: data.taskId.present ? data.taskId.value : this.taskId,
+      tagId: data.tagId.present ? data.tagId.value : this.tagId,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('TaskTagMapTableData(')
+          ..write('taskId: $taskId, ')
+          ..write('tagId: $tagId')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(taskId, tagId);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is TaskTagMapTableData &&
+          other.taskId == this.taskId &&
+          other.tagId == this.tagId);
+}
+
+class TaskTagMapTableCompanion extends UpdateCompanion<TaskTagMapTableData> {
+  final Value<int> taskId;
+  final Value<int> tagId;
+  final Value<int> rowid;
+  const TaskTagMapTableCompanion({
+    this.taskId = const Value.absent(),
+    this.tagId = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  TaskTagMapTableCompanion.insert({
+    required int taskId,
+    required int tagId,
+    this.rowid = const Value.absent(),
+  }) : taskId = Value(taskId),
+       tagId = Value(tagId);
+  static Insertable<TaskTagMapTableData> custom({
+    Expression<int>? taskId,
+    Expression<int>? tagId,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (taskId != null) 'task_id': taskId,
+      if (tagId != null) 'tag_id': tagId,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  TaskTagMapTableCompanion copyWith({
+    Value<int>? taskId,
+    Value<int>? tagId,
+    Value<int>? rowid,
+  }) {
+    return TaskTagMapTableCompanion(
+      taskId: taskId ?? this.taskId,
+      tagId: tagId ?? this.tagId,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (taskId.present) {
+      map['task_id'] = Variable<int>(taskId.value);
+    }
+    if (tagId.present) {
+      map['tag_id'] = Variable<int>(tagId.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('TaskTagMapTableCompanion(')
+          ..write('taskId: $taskId, ')
+          ..write('tagId: $tagId, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
   late final $CategoryTableTable categoryTable = $CategoryTableTable(this);
   late final $TagTableTable tagTable = $TagTableTable(this);
   late final $TaskTableTable taskTable = $TaskTableTable(this);
+  late final $TaskTagMapTableTable taskTagMapTable = $TaskTagMapTableTable(
+    this,
+  );
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -874,6 +1097,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     categoryTable,
     tagTable,
     taskTable,
+    taskTagMapTable,
   ];
 }
 
@@ -1123,6 +1347,31 @@ typedef $$TagTableTableCreateCompanionBuilder =
 typedef $$TagTableTableUpdateCompanionBuilder =
     TagTableCompanion Function({Value<int> id, Value<String> title});
 
+final class $$TagTableTableReferences
+    extends BaseReferences<_$AppDatabase, $TagTableTable, TagTableData> {
+  $$TagTableTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static MultiTypedResultKey<$TaskTagMapTableTable, List<TaskTagMapTableData>>
+  _taskTagMapTableRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.taskTagMapTable,
+    aliasName: $_aliasNameGenerator(db.tagTable.id, db.taskTagMapTable.tagId),
+  );
+
+  $$TaskTagMapTableTableProcessedTableManager get taskTagMapTableRefs {
+    final manager = $$TaskTagMapTableTableTableManager(
+      $_db,
+      $_db.taskTagMapTable,
+    ).filter((f) => f.tagId.id.sqlEquals($_itemColumn<int>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(
+      _taskTagMapTableRefsTable($_db),
+    );
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+}
+
 class $$TagTableTableFilterComposer
     extends Composer<_$AppDatabase, $TagTableTable> {
   $$TagTableTableFilterComposer({
@@ -1141,6 +1390,31 @@ class $$TagTableTableFilterComposer
     column: $table.title,
     builder: (column) => ColumnFilters(column),
   );
+
+  Expression<bool> taskTagMapTableRefs(
+    Expression<bool> Function($$TaskTagMapTableTableFilterComposer f) f,
+  ) {
+    final $$TaskTagMapTableTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.taskTagMapTable,
+      getReferencedColumn: (t) => t.tagId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$TaskTagMapTableTableFilterComposer(
+            $db: $db,
+            $table: $db.taskTagMapTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
 }
 
 class $$TagTableTableOrderingComposer
@@ -1177,6 +1451,31 @@ class $$TagTableTableAnnotationComposer
 
   GeneratedColumn<String> get title =>
       $composableBuilder(column: $table.title, builder: (column) => column);
+
+  Expression<T> taskTagMapTableRefs<T extends Object>(
+    Expression<T> Function($$TaskTagMapTableTableAnnotationComposer a) f,
+  ) {
+    final $$TaskTagMapTableTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.taskTagMapTable,
+      getReferencedColumn: (t) => t.tagId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$TaskTagMapTableTableAnnotationComposer(
+            $db: $db,
+            $table: $db.taskTagMapTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
 }
 
 class $$TagTableTableTableManager
@@ -1190,12 +1489,9 @@ class $$TagTableTableTableManager
           $$TagTableTableAnnotationComposer,
           $$TagTableTableCreateCompanionBuilder,
           $$TagTableTableUpdateCompanionBuilder,
-          (
-            TagTableData,
-            BaseReferences<_$AppDatabase, $TagTableTable, TagTableData>,
-          ),
+          (TagTableData, $$TagTableTableReferences),
           TagTableData,
-          PrefetchHooks Function()
+          PrefetchHooks Function({bool taskTagMapTableRefs})
         > {
   $$TagTableTableTableManager(_$AppDatabase db, $TagTableTable table)
     : super(
@@ -1222,11 +1518,44 @@ class $$TagTableTableTableManager
                       .map(
                         (e) => (
                           e.readTable(table),
-                          BaseReferences(db, table, e),
+                          $$TagTableTableReferences(db, table, e),
                         ),
                       )
                       .toList(),
-          prefetchHooksCallback: null,
+          prefetchHooksCallback: ({taskTagMapTableRefs = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [
+                if (taskTagMapTableRefs) db.taskTagMapTable,
+              ],
+              addJoins: null,
+              getPrefetchedDataCallback: (items) async {
+                return [
+                  if (taskTagMapTableRefs)
+                    await $_getPrefetchedData<
+                      TagTableData,
+                      $TagTableTable,
+                      TaskTagMapTableData
+                    >(
+                      currentTable: table,
+                      referencedTable: $$TagTableTableReferences
+                          ._taskTagMapTableRefsTable(db),
+                      managerFromTypedResult:
+                          (p0) =>
+                              $$TagTableTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).taskTagMapTableRefs,
+                      referencedItemsForCurrentItem:
+                          (item, referencedItems) =>
+                              referencedItems.where((e) => e.tagId == item.id),
+                      typedResults: items,
+                    ),
+                ];
+              },
+            );
+          },
         ),
       );
 }
@@ -1241,12 +1570,9 @@ typedef $$TagTableTableProcessedTableManager =
       $$TagTableTableAnnotationComposer,
       $$TagTableTableCreateCompanionBuilder,
       $$TagTableTableUpdateCompanionBuilder,
-      (
-        TagTableData,
-        BaseReferences<_$AppDatabase, $TagTableTable, TagTableData>,
-      ),
+      (TagTableData, $$TagTableTableReferences),
       TagTableData,
-      PrefetchHooks Function()
+      PrefetchHooks Function({bool taskTagMapTableRefs})
     >;
 typedef $$TaskTableTableCreateCompanionBuilder =
     TaskTableCompanion Function({
@@ -1289,6 +1615,26 @@ final class $$TaskTableTableReferences
     if (item == null) return manager;
     return ProcessedTableManager(
       manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+
+  static MultiTypedResultKey<$TaskTagMapTableTable, List<TaskTagMapTableData>>
+  _taskTagMapTableRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.taskTagMapTable,
+    aliasName: $_aliasNameGenerator(db.taskTable.id, db.taskTagMapTable.taskId),
+  );
+
+  $$TaskTagMapTableTableProcessedTableManager get taskTagMapTableRefs {
+    final manager = $$TaskTagMapTableTableTableManager(
+      $_db,
+      $_db.taskTagMapTable,
+    ).filter((f) => f.taskId.id.sqlEquals($_itemColumn<int>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(
+      _taskTagMapTableRefsTable($_db),
+    );
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
     );
   }
 }
@@ -1353,6 +1699,31 @@ class $$TaskTableTableFilterComposer
           ),
     );
     return composer;
+  }
+
+  Expression<bool> taskTagMapTableRefs(
+    Expression<bool> Function($$TaskTagMapTableTableFilterComposer f) f,
+  ) {
+    final $$TaskTagMapTableTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.taskTagMapTable,
+      getReferencedColumn: (t) => t.taskId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$TaskTagMapTableTableFilterComposer(
+            $db: $db,
+            $table: $db.taskTagMapTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
   }
 }
 
@@ -1472,6 +1843,31 @@ class $$TaskTableTableAnnotationComposer
     );
     return composer;
   }
+
+  Expression<T> taskTagMapTableRefs<T extends Object>(
+    Expression<T> Function($$TaskTagMapTableTableAnnotationComposer a) f,
+  ) {
+    final $$TaskTagMapTableTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.taskTagMapTable,
+      getReferencedColumn: (t) => t.taskId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$TaskTagMapTableTableAnnotationComposer(
+            $db: $db,
+            $table: $db.taskTagMapTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
 }
 
 class $$TaskTableTableTableManager
@@ -1487,7 +1883,7 @@ class $$TaskTableTableTableManager
           $$TaskTableTableUpdateCompanionBuilder,
           (TaskTableData, $$TaskTableTableReferences),
           TaskTableData,
-          PrefetchHooks Function({bool categoryId})
+          PrefetchHooks Function({bool categoryId, bool taskTagMapTableRefs})
         > {
   $$TaskTableTableTableManager(_$AppDatabase db, $TaskTableTable table)
     : super(
@@ -1546,10 +1942,15 @@ class $$TaskTableTableTableManager
                         ),
                       )
                       .toList(),
-          prefetchHooksCallback: ({categoryId = false}) {
+          prefetchHooksCallback: ({
+            categoryId = false,
+            taskTagMapTableRefs = false,
+          }) {
             return PrefetchHooks(
               db: db,
-              explicitlyWatchedTables: [],
+              explicitlyWatchedTables: [
+                if (taskTagMapTableRefs) db.taskTagMapTable,
+              ],
               addJoins: <
                 T extends TableManagerState<
                   dynamic,
@@ -1583,7 +1984,29 @@ class $$TaskTableTableTableManager
                 return state;
               },
               getPrefetchedDataCallback: (items) async {
-                return [];
+                return [
+                  if (taskTagMapTableRefs)
+                    await $_getPrefetchedData<
+                      TaskTableData,
+                      $TaskTableTable,
+                      TaskTagMapTableData
+                    >(
+                      currentTable: table,
+                      referencedTable: $$TaskTableTableReferences
+                          ._taskTagMapTableRefsTable(db),
+                      managerFromTypedResult:
+                          (p0) =>
+                              $$TaskTableTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).taskTagMapTableRefs,
+                      referencedItemsForCurrentItem:
+                          (item, referencedItems) =>
+                              referencedItems.where((e) => e.taskId == item.id),
+                      typedResults: items,
+                    ),
+                ];
               },
             );
           },
@@ -1603,7 +2026,378 @@ typedef $$TaskTableTableProcessedTableManager =
       $$TaskTableTableUpdateCompanionBuilder,
       (TaskTableData, $$TaskTableTableReferences),
       TaskTableData,
-      PrefetchHooks Function({bool categoryId})
+      PrefetchHooks Function({bool categoryId, bool taskTagMapTableRefs})
+    >;
+typedef $$TaskTagMapTableTableCreateCompanionBuilder =
+    TaskTagMapTableCompanion Function({
+      required int taskId,
+      required int tagId,
+      Value<int> rowid,
+    });
+typedef $$TaskTagMapTableTableUpdateCompanionBuilder =
+    TaskTagMapTableCompanion Function({
+      Value<int> taskId,
+      Value<int> tagId,
+      Value<int> rowid,
+    });
+
+final class $$TaskTagMapTableTableReferences
+    extends
+        BaseReferences<
+          _$AppDatabase,
+          $TaskTagMapTableTable,
+          TaskTagMapTableData
+        > {
+  $$TaskTagMapTableTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
+
+  static $TaskTableTable _taskIdTable(_$AppDatabase db) =>
+      db.taskTable.createAlias(
+        $_aliasNameGenerator(db.taskTagMapTable.taskId, db.taskTable.id),
+      );
+
+  $$TaskTableTableProcessedTableManager get taskId {
+    final $_column = $_itemColumn<int>('task_id')!;
+
+    final manager = $$TaskTableTableTableManager(
+      $_db,
+      $_db.taskTable,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_taskIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+
+  static $TagTableTable _tagIdTable(_$AppDatabase db) =>
+      db.tagTable.createAlias(
+        $_aliasNameGenerator(db.taskTagMapTable.tagId, db.tagTable.id),
+      );
+
+  $$TagTableTableProcessedTableManager get tagId {
+    final $_column = $_itemColumn<int>('tag_id')!;
+
+    final manager = $$TagTableTableTableManager(
+      $_db,
+      $_db.tagTable,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_tagIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
+class $$TaskTagMapTableTableFilterComposer
+    extends Composer<_$AppDatabase, $TaskTagMapTableTable> {
+  $$TaskTagMapTableTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  $$TaskTableTableFilterComposer get taskId {
+    final $$TaskTableTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.taskId,
+      referencedTable: $db.taskTable,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$TaskTableTableFilterComposer(
+            $db: $db,
+            $table: $db.taskTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$TagTableTableFilterComposer get tagId {
+    final $$TagTableTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.tagId,
+      referencedTable: $db.tagTable,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$TagTableTableFilterComposer(
+            $db: $db,
+            $table: $db.tagTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$TaskTagMapTableTableOrderingComposer
+    extends Composer<_$AppDatabase, $TaskTagMapTableTable> {
+  $$TaskTagMapTableTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  $$TaskTableTableOrderingComposer get taskId {
+    final $$TaskTableTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.taskId,
+      referencedTable: $db.taskTable,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$TaskTableTableOrderingComposer(
+            $db: $db,
+            $table: $db.taskTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$TagTableTableOrderingComposer get tagId {
+    final $$TagTableTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.tagId,
+      referencedTable: $db.tagTable,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$TagTableTableOrderingComposer(
+            $db: $db,
+            $table: $db.tagTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$TaskTagMapTableTableAnnotationComposer
+    extends Composer<_$AppDatabase, $TaskTagMapTableTable> {
+  $$TaskTagMapTableTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  $$TaskTableTableAnnotationComposer get taskId {
+    final $$TaskTableTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.taskId,
+      referencedTable: $db.taskTable,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$TaskTableTableAnnotationComposer(
+            $db: $db,
+            $table: $db.taskTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$TagTableTableAnnotationComposer get tagId {
+    final $$TagTableTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.tagId,
+      referencedTable: $db.tagTable,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$TagTableTableAnnotationComposer(
+            $db: $db,
+            $table: $db.tagTable,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$TaskTagMapTableTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $TaskTagMapTableTable,
+          TaskTagMapTableData,
+          $$TaskTagMapTableTableFilterComposer,
+          $$TaskTagMapTableTableOrderingComposer,
+          $$TaskTagMapTableTableAnnotationComposer,
+          $$TaskTagMapTableTableCreateCompanionBuilder,
+          $$TaskTagMapTableTableUpdateCompanionBuilder,
+          (TaskTagMapTableData, $$TaskTagMapTableTableReferences),
+          TaskTagMapTableData,
+          PrefetchHooks Function({bool taskId, bool tagId})
+        > {
+  $$TaskTagMapTableTableTableManager(
+    _$AppDatabase db,
+    $TaskTagMapTableTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer:
+              () =>
+                  $$TaskTagMapTableTableFilterComposer($db: db, $table: table),
+          createOrderingComposer:
+              () => $$TaskTagMapTableTableOrderingComposer(
+                $db: db,
+                $table: table,
+              ),
+          createComputedFieldComposer:
+              () => $$TaskTagMapTableTableAnnotationComposer(
+                $db: db,
+                $table: table,
+              ),
+          updateCompanionCallback:
+              ({
+                Value<int> taskId = const Value.absent(),
+                Value<int> tagId = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => TaskTagMapTableCompanion(
+                taskId: taskId,
+                tagId: tagId,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required int taskId,
+                required int tagId,
+                Value<int> rowid = const Value.absent(),
+              }) => TaskTagMapTableCompanion.insert(
+                taskId: taskId,
+                tagId: tagId,
+                rowid: rowid,
+              ),
+          withReferenceMapper:
+              (p0) =>
+                  p0
+                      .map(
+                        (e) => (
+                          e.readTable(table),
+                          $$TaskTagMapTableTableReferences(db, table, e),
+                        ),
+                      )
+                      .toList(),
+          prefetchHooksCallback: ({taskId = false, tagId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins: <
+                T extends TableManagerState<
+                  dynamic,
+                  dynamic,
+                  dynamic,
+                  dynamic,
+                  dynamic,
+                  dynamic,
+                  dynamic,
+                  dynamic,
+                  dynamic,
+                  dynamic,
+                  dynamic
+                >
+              >(state) {
+                if (taskId) {
+                  state =
+                      state.withJoin(
+                            currentTable: table,
+                            currentColumn: table.taskId,
+                            referencedTable: $$TaskTagMapTableTableReferences
+                                ._taskIdTable(db),
+                            referencedColumn:
+                                $$TaskTagMapTableTableReferences
+                                    ._taskIdTable(db)
+                                    .id,
+                          )
+                          as T;
+                }
+                if (tagId) {
+                  state =
+                      state.withJoin(
+                            currentTable: table,
+                            currentColumn: table.tagId,
+                            referencedTable: $$TaskTagMapTableTableReferences
+                                ._tagIdTable(db),
+                            referencedColumn:
+                                $$TaskTagMapTableTableReferences
+                                    ._tagIdTable(db)
+                                    .id,
+                          )
+                          as T;
+                }
+
+                return state;
+              },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ),
+      );
+}
+
+typedef $$TaskTagMapTableTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $TaskTagMapTableTable,
+      TaskTagMapTableData,
+      $$TaskTagMapTableTableFilterComposer,
+      $$TaskTagMapTableTableOrderingComposer,
+      $$TaskTagMapTableTableAnnotationComposer,
+      $$TaskTagMapTableTableCreateCompanionBuilder,
+      $$TaskTagMapTableTableUpdateCompanionBuilder,
+      (TaskTagMapTableData, $$TaskTagMapTableTableReferences),
+      TaskTagMapTableData,
+      PrefetchHooks Function({bool taskId, bool tagId})
     >;
 
 class $AppDatabaseManager {
@@ -1615,4 +2409,6 @@ class $AppDatabaseManager {
       $$TagTableTableTableManager(_db, _db.tagTable);
   $$TaskTableTableTableManager get taskTable =>
       $$TaskTableTableTableManager(_db, _db.taskTable);
+  $$TaskTagMapTableTableTableManager get taskTagMapTable =>
+      $$TaskTagMapTableTableTableManager(_db, _db.taskTagMapTable);
 }
