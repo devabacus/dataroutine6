@@ -9,7 +9,6 @@ class SelectedTask extends _$SelectedTask {
   @override
   TaskEntity? build() {
     ref.keepAlive();
-
     return null;
   }
 
