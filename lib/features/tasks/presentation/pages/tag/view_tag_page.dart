@@ -26,7 +26,16 @@ class ViewTagPage extends ConsumerWidget {
                     itemCount: tags.length,
                     itemBuilder: (context, index) {
                       final tagStr = tags[index].title;
-                      return ListTile(title: Text(tagStr));
+                      return ListTile(
+                        title: Text(tagStr),
+                        onTap: () {
+                          final tagId = tags[index].id.toString();
+                          context.goNamed(
+                            TasksRoutes.updateTag,
+                            pathParameters: {TasksRoutes.tagId: tagId},
+                          );
+                        },
+                      );
                     },
                   );
                 },

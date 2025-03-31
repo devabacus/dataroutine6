@@ -1,3 +1,4 @@
+import '../../presentation/pages/tag/update_tag_page.dart';
 import '../../presentation/pages/tag/add_tag_page.dart';
 import 'dart:core';
 
@@ -15,13 +16,21 @@ List<RouteBase> getTasksRoutes() {
   return [
 
     GoRoute(
+      name: TasksRoutes.updateTag,
+      path: TasksRoutes.updateTagPath,
+      builder: (BuildContext context, state) {
+      final tagId = state.pathParameters['tagId'];
+      return UpdateTagPage(tagId: tagId!);
+    
+      }
+  ),
+  
+
+    GoRoute(
       name: TasksRoutes.addTag,
       path: TasksRoutes.addTagPath,
       builder: (BuildContext context, state) {
-        
-      
       return AddTagPage();
-    
       }
   ),
   

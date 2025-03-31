@@ -11,7 +11,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase([QueryExecutor? excutor]) : super(excutor ?? _openConnection());
 
   @override
-  int get schemaVersion => 1;
+  int get schemaVersion => 2;
 
 @override
 MigrationStrategy get migration => MigrationStrategy(
@@ -22,7 +22,8 @@ MigrationStrategy get migration => MigrationStrategy(
             
         if (from < 2) {
           //await m.addColumn(taskItems, taskItems.createAt);
-          //TODO
+        await m.createTable(tagTable);
+
         }        
         
       },

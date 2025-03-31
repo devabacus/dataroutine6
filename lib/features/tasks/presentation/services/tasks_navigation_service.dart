@@ -6,6 +6,11 @@ import '../routing/tasks_routes_constants.dart';
 
 class TasksNavigationService {
 
+    void navigateToUpdateTag(BuildContext context, String tagId) {
+      context.goNamed(TasksRoutes.updateTag, pathParameters: {'tagId': tagId});
+    }
+  
+
     void navigateToAddTag(BuildContext context) {
       context.goNamed(TasksRoutes.addTag);
     }
