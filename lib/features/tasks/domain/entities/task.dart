@@ -1,32 +1,21 @@
-import 'package:equatable/equatable.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-class TaskEntity extends Equatable {
-  final int id;
-  final String title;
-  final String description;
-  final int duration;
-  final DateTime createdAt;
-  final DateTime dueDateTime;
-  final int categoryId;
+part 'task.freezed.dart';
+part 'task.g.dart';
 
-  const TaskEntity({
-    required this.id,
-    required this.title,
-    required this.description,
-    required this.duration,
-    required this.createdAt,
-    required this.dueDateTime,
-    required this.categoryId,
-  });
+@freezed
+abstract class TaskEntity with _$TaskEntity {
+  const factory TaskEntity({
+    required int id,
+required String title,
+required String description,
+required int duration,
+required DateTime createdAt,
+required DateTime dueDateTime,
+required int categoryId,
+  }) = _TaskEntity;
 
-  @override
-  List<Object?> get props => [
-    id,
-    title,
-    description,
-    duration,
-    createdAt,
-    dueDateTime,
-    categoryId,
-  ];
+  factory TaskEntity.fromJson(Map<String, dynamic> json) => _$TaskEntityFromJson(json);
 }
+
+

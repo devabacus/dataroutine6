@@ -1,3 +1,4 @@
+import 'package:dataroutine6/features/tasks/domain/entities/task.dart';
 import 'package:dataroutine6/features/tasks/presentation/providers/category/category_state_providers.dart';
 import 'package:dataroutine6/features/tasks/presentation/providers/task/task_selected_provider.dart';
 import 'package:dataroutine6/features/tasks/presentation/routing/tasks_routes_constants.dart';
@@ -38,9 +39,10 @@ class ViewCategoryPage extends ConsumerWidget {
                         trailing: Text(categories[index].id.toString()),
                         onTap: () {
                           if (isFromTask.isNotEmpty) {
-                            selectedTask.copyWith(
-                              categoryId: categories[index].id,
-                            );
+                            // selectedTask.setTask(
+                              
+                            //   categoryId: categories[index].id,
+                            // );
                             context.goNamed(TasksRoutes.editTask);
                           } else {
                             final idStr = categories[index].id.toString();
