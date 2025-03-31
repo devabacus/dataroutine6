@@ -7,14 +7,14 @@ import 'package:go_router/go_router.dart';
 import 'package:ui_kit/ui_kit.dart';
 import '../../utils/extesnsion.dart';
 
-class AddItemPage extends ConsumerStatefulWidget {
-  const AddItemPage({super.key});
+class AddCategoryPage extends ConsumerStatefulWidget {
+  const AddCategoryPage({super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _AddItemPageState();
 }
 
-class _AddItemPageState extends ConsumerState<AddItemPage> {
+class _AddItemPageState extends ConsumerState<AddCategoryPage> {
   TextEditingController titleController = TextEditingController();
   final formKey = GlobalKey();
 
@@ -45,10 +45,10 @@ class _AddItemPageState extends ConsumerState<AddItemPage> {
                   },
                   child: Text("Сохранить"),
                 ),
-                SizedBox(height: 30,),
+                SizedBox(height: 30),
                 ElevatedButton(
                   style: AppButtonStyle.basicStyle,
-                  onPressed: () => context.goNamed(TasksRoutes.viewTable),
+                  onPressed: () => context.goNamed(TasksRoutes.viewCategory),
                   child: Text("Показать все категории"),
                 ),
               ],

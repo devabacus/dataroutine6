@@ -6,6 +6,12 @@ import '../routing/tasks_routes_constants.dart';
 
 class TasksNavigationService {
 
+    void navigateToViewCategory(BuildContext context, String isFromTask) {
+      context.goNamed(TasksRoutes.viewCategory, pathParameters: {'isFromTask': isFromTask});
+    }
+  
+
+   
     void navigateToEditTask(BuildContext context) {
       context.goNamed(TasksRoutes.editTask);
     }
@@ -42,11 +48,6 @@ class TasksNavigationService {
 
     void navigateToAddItem(BuildContext context) {
       context.goNamed(TasksRoutes.addItem);
-    }
-  
-
-    void navigateToViewTable(BuildContext context) {
-      context.goNamed(TasksRoutes.viewTable);
     }
   
   

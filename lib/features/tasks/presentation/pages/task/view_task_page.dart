@@ -38,7 +38,7 @@ class ViewTaskPage extends ConsumerWidget {
                         final dueDateTime = tasks[index].dueDateTime;
                         final categoryId = tasks[index].categoryId;
 
-                        selectedTask.selectTask(
+                        selectedTask.setTask(
                           TaskEntity(
                             id: id,
                             title: title,
@@ -58,7 +58,7 @@ class ViewTaskPage extends ConsumerWidget {
                 );
               },
               error: (_, __) => Text("Error"),
-              loading: () => CircularProgressIndicator(),
+              loading: () => Center(child: CircularProgressIndicator()),
             ),
           ),
           AppGap.m(),

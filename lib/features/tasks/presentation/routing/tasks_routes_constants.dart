@@ -1,6 +1,13 @@
 
 abstract class TasksRoutes {
 
+    static const isFromTask = 'isFromTask';
+
+    static const viewCategory = 'tasks_view_category';
+    static const viewCategoryPath = '/tasks/view_category/:$isFromTask';
+  
+
+
     static const editTask = 'tasks_edit_task';
     static const editTaskPath = '/tasks/edit_task';
   
@@ -34,8 +41,6 @@ abstract class TasksRoutes {
     static const addItemPath = '/tasks/add_item';
   
 
-    static const viewTable = 'tasks_view_table';
-    static const viewTablePath = '/tasks/view_table';
   
     static const tasks = 'tasks';
     static const tasksPath = '/tasks';

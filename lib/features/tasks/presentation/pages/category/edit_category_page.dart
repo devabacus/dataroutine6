@@ -6,15 +6,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ui_kit/ui_kit.dart';
 
-class EditItemPage extends ConsumerStatefulWidget {
+class EditCategoryPage extends ConsumerStatefulWidget {
   final String categoryId;
-  const EditItemPage({required this.categoryId, super.key});
+  const EditCategoryPage({required this.categoryId, super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _EditItemPageState();
 }
 
-class _EditItemPageState extends ConsumerState<EditItemPage> {
+class _EditItemPageState extends ConsumerState<EditCategoryPage> {
   TextEditingController controller = TextEditingController();
   late int categoryId;
   GlobalKey key = GlobalKey();
@@ -55,7 +55,7 @@ class _EditItemPageState extends ConsumerState<EditItemPage> {
                 categContr.updateCategory(
                   CategoryEntity(id: categoryId, title: controller.text),
                 );
-                return context.goNamed(TasksRoutes.viewTable);
+                return context.goNamed(TasksRoutes.viewCategory);
               },
               child: Text("Сохранить"),
             ),
