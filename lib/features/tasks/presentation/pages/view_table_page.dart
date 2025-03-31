@@ -3,9 +3,11 @@ import 'package:dataroutine6/features/tasks/presentation/routing/tasks_routes_co
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mlogger/mlogger.dart';
+import 'package:ui_kit/ui_kit.dart';
 // import '../providers/tasks_navigation_provider.dart';
 
-final tStyle = TextStyle(fontSize: 20);
+final tStyle = TextStyle(fontSize: 15);
 
 class ViewTablePage extends ConsumerWidget {
   const ViewTablePage({super.key});
@@ -23,16 +25,14 @@ class ViewTablePage extends ConsumerWidget {
           children: [
             Expanded(
               child: categories.when(
-                data: (categ) {
+                data: (categories) {
                   return ListView.builder(
-                    itemCount: categ.length,
+                    itemCount: categories.length,
                     itemBuilder: (context, index) {
                       return ListTile(
-                        title: Text(categ[index].title, style: tStyle),
-                        trailing: Text(categ[index].id.toString()),
-                        onTap: () {
-                          print("tap on the item");
-                        },
+                        title: Text(categories[index].title, style: tStyle),
+                        trailing: Text(categories[index].id.toString()),
+                        onTap: () {},
                       );
                     },
                   );
@@ -45,6 +45,7 @@ class ViewTablePage extends ConsumerWidget {
               onPressed: () => context.goNamed(TasksRoutes.addItem),
               child: Text("Добавить категорию"),
             ),
+            AppGap.l(),
           ],
         ),
       ),

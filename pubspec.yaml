@@ -13,6 +13,8 @@ environment:
 dependencies:
   common_package:
     path: ../Packages/common_package
+  ui_kit:
+    path: ../Packages/ui_kit
   simple_storage:
     path: ../Packages/simple_storage  
   mlogger:

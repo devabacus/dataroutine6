@@ -4,6 +4,8 @@ import 'package:dataroutine6/features/tasks/presentation/routing/tasks_routes_co
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ui_kit/ui_kit.dart';
+import '../../presentation/utils/extesnsion.dart';
 
 class AddItemPage extends ConsumerStatefulWidget {
   const AddItemPage({super.key});
@@ -24,29 +26,36 @@ class _AddItemPageState extends ConsumerState<AddItemPage> {
       appBar: AppBar(title: Text("Add item")),
       body: Center(
         child: Form(
-          child: Column(
-            children: [
-              TextField(
-                controller: titleController,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: "Название категории",
+          child: SizedBox(
+            width: SizeUtils.width(context, 0.8),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextFieldFactory.createBasic(
+                  hint: "Название категории",
+                  titleController,
                 ),
-              ),
-              SizedBox(height: 30),
-              ElevatedButton(
-                onPressed: () {
-                  categContr.addCategory(
-                    CategoryEntity(id: -1, title: titleController.text),
-                  );
-                },
-                child: Text("Сохранить"),
-              ),
-              ElevatedButton(
-                onPressed: () => context.goNamed(TasksRoutes.viewTable),
-                child: Text("Показать все категории"),
-              ),
-            ],
+                AppGap.l(),
+
+       
+                ElevatedButton(
+
+                  style: AppButtonStyle.basicStyle,
+                  onPressed: () {
+                    categContr.addCategory(
+                      CategoryEntity(id: -1, title: titleController.text),
+                    );
+                  },
+                  child: Text("Сохранить"),
+                ),
+                SizedBox(height: 30,),
+                ElevatedButton(
+                  style: AppButtonStyle.basicStyle,
+                  onPressed: () => context.goNamed(TasksRoutes.viewTable),
+                  child: Text("Показать все категории"),
+                ),
+              ],
+            ),
           ),
         ),
       ),

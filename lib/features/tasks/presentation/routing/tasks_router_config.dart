@@ -1,3 +1,4 @@
+import '../../presentation/pages/edit_item_page.dart';
 import '../../presentation/pages/add_item_page.dart';
 import '../../presentation/pages/view_table_page.dart';
 
@@ -11,6 +12,18 @@ import 'package:go_router/go_router.dart';
 
 List<RouteBase> getTasksRoutes() {
   return [
+
+    GoRoute(
+      name: TasksRoutes.editItem,
+      path: TasksRoutes.editItemPath,
+      builder: (BuildContext context, state) {
+        
+      
+      return EditItemPage();
+    
+      }
+  ),
+  
 
     GoRoute(
       name: TasksRoutes.addItem,
