@@ -1,3 +1,4 @@
+import '../../../features/tasks/data/datasources/local/tables/task_table.dart';
 import '../../../features/tasks/data/datasources/local/tables/tag_table.dart';
 import '../../../features/tasks/data/datasources/local/tables/category_table.dart';
 
@@ -6,12 +7,12 @@ import 'package:drift_flutter/drift_flutter.dart';
 
 part 'database.g.dart';
 
-@DriftDatabase(tables: [CategoryTable, TagTable])
+@DriftDatabase(tables: [CategoryTable, TagTable, TaskTable])
 class AppDatabase extends _$AppDatabase {
   AppDatabase([QueryExecutor? excutor]) : super(excutor ?? _openConnection());
 
   @override
-  int get schemaVersion => 2;
+  int get schemaVersion => 3;
 
 @override
 MigrationStrategy get migration => MigrationStrategy(
@@ -23,9 +24,11 @@ MigrationStrategy get migration => MigrationStrategy(
         if (from < 2) {
           //await m.addColumn(taskItems, taskItems.createAt);
         await m.createTable(tagTable);
-
         }        
-        
+        if (from < 3) {
+          await m.createTable(taskTable);
+          
+        }
       },
     );
 
