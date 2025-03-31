@@ -33,12 +33,15 @@ class ViewTablePage extends ConsumerWidget {
                         title: Text(categories[index].title, style: tStyle),
                         trailing: Text(categories[index].id.toString()),
                         onTap: () {
-                          context.goNamed(
-                            TasksRoutes.editItem,
-                            pathParameters: {
-                              'categoryId': categories[index].id.toString(),
-                            },
-                          );
+                          // final idStr = categories[index].id.toString();
+                          // context.go('/tasks/edit_item/$idStr');
+
+                          // // context.goNamed(
+                          //   TasksRoutes.editItem,
+                          //   pathParameters: {
+                          //     'categoryId': idStr,
+                          //   },
+                          // );
                         },
                       );
                     },

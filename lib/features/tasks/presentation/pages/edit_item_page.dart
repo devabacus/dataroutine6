@@ -19,9 +19,13 @@ class _EditItemPageState extends ConsumerState<EditItemPage> {
 
   @override
   void initState() {
-    categoryId = int.parse(widget.categoryId);
 
     super.initState();
+    categoryId = int.parse(widget.categoryId);
+
+   WidgetsBinding.instance.addPostFrameCallback((_) {
+    _loadCategory();
+  });
   }
 
   void _loadCategory() async {
@@ -52,7 +56,7 @@ class _EditItemPageState extends ConsumerState<EditItemPage> {
                 categContr.updateCategory(
                   CategoryEntity(id: categoryId, title: controller.text),
                 );
-                
+
               },
               child: Text("Сохранить"),
             ),

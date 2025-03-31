@@ -10,45 +10,33 @@ import 'dart:core';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-
 List<RouteBase> getTasksRoutes() {
   return [
-
     GoRoute(
       name: TasksRoutes.editItem,
       path: TasksRoutes.editItemPath,
       builder: (BuildContext context, state) {
-        
-      final categoryId = state.pathParameters['categoryId'];
-      return EditItemPage(categoryId: categoryId!);
-    
-      }
-  ),
-  
+        final categoryId = state.pathParameters['categoryId'];
+        return EditItemPage(categoryId: categoryId!);
+      },
+    ),
 
     GoRoute(
       name: TasksRoutes.addItem,
       path: TasksRoutes.addItemPath,
       builder: (BuildContext context, state) {
-        
-      
-      return AddItemPage();
-    
-      }
-  ),
-  
+        return AddItemPage();
+      },
+    ),
 
     GoRoute(
       name: TasksRoutes.viewTable,
       path: TasksRoutes.viewTablePath,
       builder: (BuildContext context, state) {
-        
-      
-      return ViewTablePage();
-    
-      }
-  ),
-  
+        return ViewTablePage();
+      },
+    ),
+
     GoRoute(
       name: TasksRoutes.tasks,
       path: TasksRoutes.tasksPath,
