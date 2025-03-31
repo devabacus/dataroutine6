@@ -1,6 +1,18 @@
 
 abstract class TasksRoutes {
 
+    static const editTask = 'tasks_edit_task';
+    static const editTaskPath = '/tasks/edit_task';
+  
+
+    static const viewTask = 'tasks_view_task';
+    static const viewTaskPath = '/tasks/view_task';
+  
+
+    static const addTask = 'tasks_add_task';
+    static const addTaskPath = '/tasks/add_task';
+  
+
     static const tagId = 'tagId';
     static const updateTag = 'tasks_update_tag';
     static const updateTagPath = '/tasks/update_tag/:$tagId';

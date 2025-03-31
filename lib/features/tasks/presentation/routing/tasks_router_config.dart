@@ -1,3 +1,6 @@
+import '../../presentation/pages/task/edit_task_page.dart';
+import '../../presentation/pages/task/view_task_page.dart';
+import '../../presentation/pages/task/add_task_page.dart';
 import '../../presentation/pages/tag/update_tag_page.dart';
 import '../../presentation/pages/tag/add_tag_page.dart';
 import 'dart:core';
@@ -14,38 +17,55 @@ import 'tasks_routes_constants.dart';
 
 List<RouteBase> getTasksRoutes() {
   return [
+    GoRoute(
+      name: TasksRoutes.editTask,
+      path: TasksRoutes.editTaskPath,
+      builder: (BuildContext context, state) {
+        return EditTaskPage();
+      },
+    ),
+
+    GoRoute(
+      name: TasksRoutes.viewTask,
+      path: TasksRoutes.viewTaskPath,
+      builder: (BuildContext context, state) {
+        return ViewTaskPage();
+      },
+    ),
+
+    GoRoute(
+      name: TasksRoutes.addTask,
+      path: TasksRoutes.addTaskPath,
+      builder: (BuildContext context, state) {
+        return AddTaskPage();
+      },
+    ),
 
     GoRoute(
       name: TasksRoutes.updateTag,
       path: TasksRoutes.updateTagPath,
       builder: (BuildContext context, state) {
-      final tagId = state.pathParameters['tagId'];
-      return UpdateTagPage(tagId: tagId!);
-    
-      }
-  ),
-  
+        final tagId = state.pathParameters['tagId'];
+        return UpdateTagPage(tagId: tagId!);
+      },
+    ),
 
     GoRoute(
       name: TasksRoutes.addTag,
       path: TasksRoutes.addTagPath,
       builder: (BuildContext context, state) {
-      return AddTagPage();
-      }
-  ),
-  
+        return AddTagPage();
+      },
+    ),
 
     GoRoute(
       name: TasksRoutes.viewTag,
       path: TasksRoutes.viewTagPath,
       builder: (BuildContext context, state) {
-        
-      
-      return ViewTagPage();
-    
-      }
-  ),
-  
+        return ViewTagPage();
+      },
+    ),
+
     GoRoute(
       name: TasksRoutes.editItem,
       path: TasksRoutes.editItemPath,
