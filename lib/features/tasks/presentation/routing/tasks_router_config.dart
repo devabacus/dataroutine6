@@ -6,7 +6,6 @@ import 'package:go_router/go_router.dart';
 import '../../presentation/pages/category/upsert_category_page.dart';
 import '../../presentation/pages/category/view_category_page.dart';
 import '../../presentation/pages/tag/view_tag_page.dart';
-import '../../presentation/pages/task/add_task_page.dart';
 import '../../presentation/pages/task/view_task_page.dart';
 import '../../presentation/pages/tasks_page.dart';
 import '../pages/tag/upsert_tag_page.dart';
