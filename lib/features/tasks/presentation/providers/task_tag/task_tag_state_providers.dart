@@ -9,7 +9,9 @@ part 'task_tag_state_providers.g.dart';
 class TaskTags extends _$TaskTags {
   @override
   Future<List<TagEntity>> build({required int taskId}) {
+    ref.keepAlive();
     return ref.read(getTagsForTaskUseCaseProvider)(taskId);
+
   }
 
   Future<void> addTagToTask(int taskId, int tagId) async {
