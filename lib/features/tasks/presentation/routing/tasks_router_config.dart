@@ -80,13 +80,29 @@ List<RouteBase> getTasksRoutes() {
       },
     ),
 
-    GoRoute(
-      name: TasksRoutes.viewTag,
-      path: TasksRoutes.viewTagPath,
-      builder: (BuildContext context, state) {
-        return ViewTagPage();
-      },
-    ),
+GoRoute(
+  name: TasksRoutes.viewTag,
+  path: TasksRoutes.viewTagPath,
+  builder: (BuildContext context, state) {
+    final bool isForTaskSelection = state.extra != null ? 
+        (state.extra as Map)['isForTaskSelection'] ?? false : false;
+    final int? taskId = state.extra != null ?
+        (state.extra as Map)['taskId'] : null;
+    
+    return ViewTagPage(
+      isForTaskSelection: isForTaskSelection, 
+      taskId: taskId
+    );
+  },
+),
+
+    // GoRoute(
+    //   name: TasksRoutes.viewTag,
+    //   path: TasksRoutes.viewTagPath,
+    //   builder: (BuildContext context, state) {
+    //     return ViewTagPage();
+    //   },
+    // ),
 
     GoRoute(
       name: TasksRoutes.tasks,

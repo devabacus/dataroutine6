@@ -1,6 +1,7 @@
 import 'package:dataroutine6/features/tasks/presentation/providers/category/category_state_providers.dart';
 import 'package:dataroutine6/features/tasks/presentation/providers/task/task_selected_provider.dart';
 import 'package:dataroutine6/features/tasks/presentation/providers/task/task_state_providers.dart';
+import 'package:dataroutine6/features/tasks/presentation/providers/task_tag/task_tag_state_providers.dart';
 import 'package:dataroutine6/features/tasks/presentation/routing/tasks_routes_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -55,6 +56,8 @@ class UpdateTaskPageState extends ConsumerState<UpsertTaskPage> {
     final categories = await ref.watch(categoriesProvider.future);
     final currentCategory = categories.firstWhere((cat) => cat.id == catId);
     categIdController.text = currentCategory.title;
+
+
   }
 
   @override
@@ -76,10 +79,6 @@ class UpdateTaskPageState extends ConsumerState<UpsertTaskPage> {
           ),
           AppGap.m(),
 
-          TextFieldFactory.createBasic(tagController, hint: "Тэг"),
-
-          AppGap.m(),
-
           ListTile(
             title: TextFieldFactory.createBasic(
               categIdController,
@@ -88,24 +87,7 @@ class UpdateTaskPageState extends ConsumerState<UpsertTaskPage> {
             trailing: IconButton(
               icon: Icon(Icons.phonelink_lock),
               onPressed: () {
-                int duration = 0;
-                duration = int.parse(durationController.text);
-
-                final createdAt = DateTime.now();
-                final dueDateTime = DateTime.now();
-
-                // сохраняем состояние задачи перед переходом на страницу категорий
-                selectedTaskContr.setTask(
-                  TaskEntity(
-                    id: taskId ?? 0,
-                    title: titleController.text,
-                    description: descripController.text,
-                    duration: duration,
-                    createdAt: createdAt,
-                    dueDateTime: dueDateTime,
-                    categoryId: catId ?? 0,
-                  ),
-                );
+                _saveCurrentTaskState(selectedTaskContr);
                 context.goNamed(
                   TasksRoutes.viewCategory,
                   pathParameters: {TasksRoutes.isFromTask: "1"},
@@ -114,46 +96,144 @@ class UpdateTaskPageState extends ConsumerState<UpsertTaskPage> {
             ),
           ),
 
+          TextFieldFactory.createBasic(tagController, hint: "Тэг"),
+
+          // ButtonFactory.basic((){
+
+          //     final tagId = int.parse(tagController.text);
+
+          //     final taskTagContr = ref.read(taskTagsProvider(taskId: taskId!).notifier);
+          //     taskTagContr.addTagToTask(taskId!, tagId);
+
+          // }, "Добавить тэги"),
+          if (taskId != null) 
+          _buildTagsSection(),
+
+
+
           AppGap.m(),
 
           ElevatedButton(
             style: AppButtonStyle.basicStyle,
             onPressed: () {
-              final duration = int.parse(durationController.text);
-              final createdAt = DateTime.now();
-              final dueDateTime = DateTime.now();
-
-              final taskEntity = TaskEntity(
-                id: taskId ?? 0,
-                title: titleController.text,
-                description: descripController.text,
-                duration: duration,
-                createdAt: createdAt,
-                dueDateTime: dueDateTime,
-                categoryId: catId!,
-              );
-
-              final selectedTask = ref.read(selectedTaskProvider);
-              if (selectedTask == null) {
-                // новая задача
-                taskContr.addTask(
-                  taskEntity,
-                ); // перешли изначально на для добавления selectedTask не сохраняли
-              } else if (selectedTask.id ==
-                  0) // перешли после выбора категории поэтому selectedTask уже есть, но id не присвоен (присваивается автоматически при добавлении категории)
-              {
-                taskContr.addTask(taskEntity);
-              } else //Зашли для редактирования task id не ноль
-              {
-                taskContr.updateTask(taskEntity);
-              }
-
-              context.goNamed(TasksRoutes.viewTask);
+              _saveTask(taskContr);
             },
             child: Text("Сохранить"),
           ),
         ],
       ),
     );
+  }
+
+  Widget _buildTagsSection() {
+  // Отображаем текущие теги задачи
+  final taskTags = ref.watch(taskTagsProvider(taskId: taskId!));
+  
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text("Теги задачи:", style: TextStyle(fontWeight: FontWeight.bold)),
+      AppGap.s(),
+      
+      taskTags.when(
+        data: (tags) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Отображаем текущие теги в виде чипов с возможностью удаления
+              if (tags.isNotEmpty)
+                Wrap(
+                  spacing: 8.0,
+                  runSpacing: 8.0,
+                  children: tags.map((tag) => Chip(
+                    label: Text(tag.title),
+                    onDeleted: () {
+                      ref.read(taskTagsProvider(taskId: taskId!).notifier)
+                          .removeTagFromTask(taskId!, tag.id);
+                    },
+                  )).toList(),
+                )
+              else
+                Text("Нет тегов", style: TextStyle(fontStyle: FontStyle.italic)),
+              
+              AppGap.s(),
+              
+              // Кнопка для перехода к экрану выбора тегов, вместо ручного ввода ID
+              OutlinedButton.icon(
+                onPressed: () {
+                  // Сохраняем текущее состояние задачи
+                  _saveCurrentTaskState(ref.read(selectedTaskProvider.notifier));
+                  
+                  // Переходим к списку тегов для выбора
+                  context.goNamed(
+                    TasksRoutes.viewTag,
+                    extra: {'isForTaskSelection': true, 'taskId': taskId},
+                  );
+                },
+                icon: Icon(Icons.add),
+                label: Text("Добавить теги"),
+              ),
+            ],
+          );
+        },
+        loading: () => Center(child: CircularProgressIndicator()),
+        error: (error, stack) => Text("Ошибка загрузки тегов: $error"),
+      ),
+    ],
+  );
+}
+
+
+  void _saveCurrentTaskState(SelectedTask selectedTaskContr) {
+    int duration = int.parse(durationController.text) ?? 0;
+
+    final createdAt = DateTime.now();
+    final dueDateTime = DateTime.now();
+
+    // сохраняем состояние задачи перед переходом на страницу категорий
+    selectedTaskContr.setTask(
+      TaskEntity(
+        id: taskId ?? 0,
+        title: titleController.text,
+        description: descripController.text,
+        duration: duration,
+        createdAt: createdAt,
+        dueDateTime: dueDateTime,
+        categoryId: catId ?? 0,
+      ),
+    );
+  }
+
+  void _saveTask(Task taskContr) {
+    final duration = int.parse(durationController.text) ?? 0;
+    final createdAt = DateTime.now();
+    final dueDateTime = DateTime.now();
+
+    final taskEntity = TaskEntity(
+      id: taskId ?? 0,
+      title: titleController.text,
+      description: descripController.text,
+      duration: duration,
+      createdAt: createdAt,
+      dueDateTime: dueDateTime,
+      categoryId: catId!,
+    );
+
+    final selectedTask = ref.read(selectedTaskProvider);
+    if (selectedTask == null) {
+      // новая задача
+      taskContr.addTask(
+        taskEntity,
+      ); // перешли изначально на для добавления selectedTask не сохраняли
+    } else if (selectedTask.id ==
+        0) // перешли после выбора категории поэтому selectedTask уже есть, но id не присвоен (присваивается автоматически при добавлении категории)
+    {
+      taskContr.addTask(taskEntity);
+    } else //Зашли для редактирования task id не ноль
+    {
+      taskContr.updateTask(taskEntity);
+    }
+
+    context.goNamed(TasksRoutes.viewTask);
   }
 }

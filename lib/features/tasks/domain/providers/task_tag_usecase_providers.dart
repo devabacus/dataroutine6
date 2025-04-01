@@ -33,7 +33,7 @@ GetTaskWithTagUseCase getTaskWithTagUseCase(Ref ref) {
 }
 
 @riverpod
-RemoveTagFromTaskUseCase removeTaskFromTaskUseCase(Ref ref) {
+RemoveTagFromTaskUseCase removeTagFromTaskUseCase(Ref ref) {
   final repository = ref.read(taskTagMapRepositoryImplProvider);
   return RemoveTagFromTaskUseCase(repository);
 }

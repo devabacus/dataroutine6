@@ -68,26 +68,26 @@ final getTaskWithTagUseCaseProvider =
 // ignore: unused_element
 typedef GetTaskWithTagUseCaseRef =
     AutoDisposeProviderRef<GetTaskWithTagUseCase>;
-String _$removeTaskFromTaskUseCaseHash() =>
-    r'ebb9267674cbbe8145d62275e56ac7e232ddb7b1';
+String _$removeTagFromTaskUseCaseHash() =>
+    r'b7042837f865bc291f27ef803139eed6dce9325a';
 
-/// See also [removeTaskFromTaskUseCase].
-@ProviderFor(removeTaskFromTaskUseCase)
-final removeTaskFromTaskUseCaseProvider =
+/// See also [removeTagFromTaskUseCase].
+@ProviderFor(removeTagFromTaskUseCase)
+final removeTagFromTaskUseCaseProvider =
     AutoDisposeProvider<RemoveTagFromTaskUseCase>.internal(
-      removeTaskFromTaskUseCase,
-      name: r'removeTaskFromTaskUseCaseProvider',
+      removeTagFromTaskUseCase,
+      name: r'removeTagFromTaskUseCaseProvider',
       debugGetCreateSourceHash:
           const bool.fromEnvironment('dart.vm.product')
               ? null
-              : _$removeTaskFromTaskUseCaseHash,
+              : _$removeTagFromTaskUseCaseHash,
       dependencies: null,
       allTransitiveDependencies: null,
     );
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-typedef RemoveTaskFromTaskUseCaseRef =
+typedef RemoveTagFromTaskUseCaseRef =
     AutoDisposeProviderRef<RemoveTagFromTaskUseCase>;
 String _$removeAllTagsFromTaskUseCaseHash() =>
     r'28b808f6d0a7872f6e6a73c7988599fc6dd8c1f8';
