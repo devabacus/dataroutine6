@@ -27,10 +27,12 @@ class _EditItemPageState extends ConsumerState<UpsertCategoryPage> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final selectedCateg = ref.read(categorySelectedProvider)!;
-      setState(() {
-        controller.text = selectedCateg.title;
-        categoryId = selectedCateg.id;
-      });
+      if (widget.isEditing) {
+        setState(() {
+          controller.text = selectedCateg.title;
+          categoryId = selectedCateg.id;
+        });
+      }
     });
   }
 
