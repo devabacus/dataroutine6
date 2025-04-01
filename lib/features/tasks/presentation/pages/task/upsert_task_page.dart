@@ -24,6 +24,7 @@ class UpdateTaskPageState extends ConsumerState<UpsertTaskPage> {
   TextEditingController categIdController = TextEditingController();
   TextEditingController createdAtController = TextEditingController();
   TextEditingController durationController = TextEditingController();
+  TextEditingController tagController = TextEditingController();
 
   TaskEntity? currentEntity;
 
@@ -75,6 +76,10 @@ class UpdateTaskPageState extends ConsumerState<UpsertTaskPage> {
           ),
           AppGap.m(),
 
+          TextFieldFactory.createBasic(tagController, hint: "Тэг"),
+
+          AppGap.m(),
+
           ListTile(
             title: TextFieldFactory.createBasic(
               categIdController,
@@ -114,7 +119,7 @@ class UpdateTaskPageState extends ConsumerState<UpsertTaskPage> {
           ElevatedButton(
             style: AppButtonStyle.basicStyle,
             onPressed: () {
-              final duration = int.parse(durationController.text);     
+              final duration = int.parse(durationController.text);
               final createdAt = DateTime.now();
               final dueDateTime = DateTime.now();
 
