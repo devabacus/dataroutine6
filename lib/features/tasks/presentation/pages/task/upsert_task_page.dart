@@ -6,7 +6,6 @@ import 'package:dataroutine6/features/tasks/presentation/routing/tasks_routes_co
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mlogger/mlogger.dart';
 import 'package:ui_kit/ui_kit.dart';
 
 import '../../../domain/entities/task.dart';
@@ -69,7 +68,10 @@ class UpdateTaskPageState extends ConsumerState<UpsertTaskPage> {
     final selectedTaskContr = ref.read(selectedTaskProvider.notifier);
 
     return Scaffold(
-      appBar: AppBar(title: Text("Редактирование задачи")),
+      appBar: AppBar(title: Text("Редактирование задачи"), leading: IconButton(onPressed: (){
+        context.goNamed(TasksRoutes.viewTask);
+
+      }, icon: Icon(Icons.arrow_back)),),
       body: Column(
         children: [
           TextFieldFactory.createBasic(titleController, hint: "Название"),
@@ -80,7 +82,7 @@ class UpdateTaskPageState extends ConsumerState<UpsertTaskPage> {
             durationController,
             hint: "Длительность",
           ),
-          AppGap.m(),
+          AppGap.m(),       
 
           ListTile(
             title: TextFieldFactory.createBasic(

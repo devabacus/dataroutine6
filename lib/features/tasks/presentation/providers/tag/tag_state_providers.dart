@@ -13,10 +13,15 @@ class Tag extends _$Tag {
   }
 
   Future<void> addTag(TagEntity tag) async {
-    state = await AsyncValue.guard(() async {
+
+
+    state = await AsyncValue.guard
+    
+    (() async {
       await ref.read(createTagUseCaseProvider)(tag);
       return ref.read(getTagUseCaseProvider)();
     });
+
   }
 
   Future<void> updateTag(TagEntity tag) async {

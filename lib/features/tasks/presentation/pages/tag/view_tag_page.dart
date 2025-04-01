@@ -2,6 +2,7 @@ import 'package:chopper/chopper.dart';
 import 'package:dataroutine6/features/tasks/domain/entities/tag.dart';
 import 'package:dataroutine6/features/tasks/presentation/providers/tag/tag_selected_provider.dart';
 import 'package:dataroutine6/features/tasks/presentation/providers/tag/tag_state_providers.dart';
+import 'package:dataroutine6/features/tasks/presentation/providers/task_tag/filter_tag_for_task_provider.dart';
 import 'package:dataroutine6/features/tasks/presentation/providers/task_tag/task_tag_state_providers.dart';
 import 'package:dataroutine6/features/tasks/presentation/routing/tasks_routes_constants.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +18,7 @@ class ViewTagPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final tags = ref.watch(tagProvider);
+      final filteredTags = ref.watch(filteredTagsForTaskProvider(taskId));
 
     return Scaffold(
       appBar: AppBar(title: Text(isForTaskSelection ? "Выберите тэг" : "Тэги")),
@@ -26,7 +27,7 @@ class ViewTagPage extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Expanded(
-              child: tags.when(
+              child: filteredTags.when(
                 data: (tags) {
                   return ListView.builder(
                     itemCount: tags.length,
