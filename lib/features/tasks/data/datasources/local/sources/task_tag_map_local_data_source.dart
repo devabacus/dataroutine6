@@ -3,10 +3,10 @@ import '../../../models/tag_model.dart';
 import '../../../models/task_model.dart';
 import '../dao/task_tag_map_dao.dart';
 
-class TaskTagMappingLocalDataSource {
+class TaskTagMapLocalDataSource {
   final TaskTagMappingDao _dao;
 
-  TaskTagMappingLocalDataSource(AppDatabase db) : _dao = TaskTagMappingDao(db);
+  TaskTagMapLocalDataSource(AppDatabase db) : _dao = TaskTagMappingDao(db);
 
   Future<List<TagModel>> getTagsForTask(int taskId) async {
     final tags = await _dao.getTagsForTask(taskId);
@@ -15,15 +15,19 @@ class TaskTagMappingLocalDataSource {
 
   Future<List<TaskModel>> getTasksWithTag(int tagId) async {
     final tasks = await _dao.getTasksWithTag(tagId);
-    return tasks.map((task) => TaskModel(
-          id: task.id,
-          title: task.title,
-          description: task.description,
-          duration: task.duration,
-          createdAt: task.createdAt,
-          dueDateTime: task.dueDateTime,
-          categoryId: task.categoryId,
-        )).toList();
+    return tasks
+        .map(
+          (task) => TaskModel(
+            id: task.id,
+            title: task.title,
+            description: task.description,
+            duration: task.duration,
+            createdAt: task.createdAt,
+            dueDateTime: task.dueDateTime,
+            categoryId: task.categoryId,
+          ),
+        )
+        .toList();
   }
 
   Future<void> addTagToTask(int taskId, int tagId) async {

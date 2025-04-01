@@ -114,7 +114,7 @@ class UpdateTaskPageState extends ConsumerState<UpsertTaskPage> {
           ElevatedButton(
             style: AppButtonStyle.basicStyle,
             onPressed: () {
-              final duration = int.parse(durationController.text);
+              final duration = int.parse(durationController.text);     
               final createdAt = DateTime.now();
               final dueDateTime = DateTime.now();
 
