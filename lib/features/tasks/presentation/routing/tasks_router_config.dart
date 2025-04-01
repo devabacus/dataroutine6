@@ -15,7 +15,6 @@ import 'tasks_routes_constants.dart';
 List<RouteBase> getTasksRoutes() {
   return [
     
-    
     GoRoute(
       name: TasksRoutes.updateTag,
       path: TasksRoutes.updateTagPath,
@@ -80,9 +79,6 @@ List<RouteBase> getTasksRoutes() {
         return ViewTaskPage();
       },
     ),
-
-
-   
 
     GoRoute(
       name: TasksRoutes.viewTag,
