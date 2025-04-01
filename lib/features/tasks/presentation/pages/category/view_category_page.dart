@@ -1,4 +1,6 @@
+import 'package:dataroutine6/features/tasks/domain/entities/category.dart';
 import 'package:dataroutine6/features/tasks/domain/entities/task.dart';
+import 'package:dataroutine6/features/tasks/presentation/providers/category/category_selected_provider.dart';
 import 'package:dataroutine6/features/tasks/presentation/providers/category/category_state_providers.dart';
 import 'package:dataroutine6/features/tasks/presentation/providers/task/task_selected_provider.dart';
 import 'package:dataroutine6/features/tasks/presentation/routing/tasks_routes_constants.dart';
@@ -12,9 +14,9 @@ import 'package:ui_kit/ui_kit.dart';
 final tStyle = TextStyle(fontSize: 15);
 
 class ViewCategoryPage extends ConsumerWidget {
-  String isFromTask = '';
+  final String isFromTask;
 
-  ViewCategoryPage({required this.isFromTask, super.key});
+  const ViewCategoryPage({this.isFromTask = "", super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -34,26 +36,31 @@ class ViewCategoryPage extends ConsumerWidget {
                   return ListView.builder(
                     itemCount: categories.length,
                     itemBuilder: (context, index) {
+                      final id = categories[index].id;
+                      final title = categories[index].title;
+
                       return ListTile(
-                        title: Text(categories[index].title, style: tStyle),
-                        trailing: Text(categories[index].id.toString()),
+                        title: Text(title, style: tStyle),
+                        trailing: Text(id.toString()),
                         onTap: () {
-                          if (isFromTask.isNotEmpty) {
-                            // selectedTask.setTask(
-                              
-                            //   categoryId: categories[index].id,
-                            // );
+                          // справочник
+                          if (isFromTask == "1") {
+                            final task = ref.read(selectedTaskProvider);
+                            if (task != null) {
+                              selectedTask.setTask(
+                                task.copyWith(categoryId: categories[index].id),
+                              );
+                            }
                             context.goNamed(TasksRoutes.editTask);
                           } else {
-                            final idStr = categories[index].id.toString();
+                            // просмотр,редактирования
+                            ref
+                                .read(categorySelectedProvider.notifier)
+                                .setCategory(
+                                  CategoryEntity(id: id, title: title),
+                                );
 
-                            context.goNamed(
-                              TasksRoutes.editItem,
-                              pathParameters: {
-                                // 'categoryId': idStr,
-                                TasksRoutes.categoryId: idStr,
-                              },
-                            );
+                            context.goNamed(TasksRoutes.editCategory);
                           }
                         },
                       );
@@ -61,11 +68,11 @@ class ViewCategoryPage extends ConsumerWidget {
                   );
                 },
                 error: (_, __) => Text("Error"),
-                loading: () => CircularProgressIndicator(),
+                loading: () => Center(child: CircularProgressIndicator()),
               ),
             ),
             ElevatedButton(
-              onPressed: () => context.goNamed(TasksRoutes.addItem),
+              onPressed: () => context.goNamed(TasksRoutes.addCategory),
               child: Text("Добавить категорию"),
             ),
             AppGap.l(),

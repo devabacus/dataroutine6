@@ -38,5 +38,6 @@ class TaskLocalDataSource {
   Future<void> deleteTask(int id) async {
       _taskDao.deleteTask(id);
     }
+    
 
 }

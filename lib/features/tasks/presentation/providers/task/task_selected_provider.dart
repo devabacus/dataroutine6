@@ -14,25 +14,7 @@ class SelectedTask extends _$SelectedTask {
 
   void setTask(TaskEntity taskEntity) {
     state = taskEntity;
+    
   }
 
-  // void copyWith({
-  //   int? id,
-  //   String? title,
-  //   String? description,
-  //   DateTime? createdAt,
-  //   DateTime? dueDateTime,
-  //   int? duration,
-  //   int? categoryId,
-  // }) {
-  //   state = TaskEntity(
-  //     id: id ?? state!.id,
-  //     title: title ?? state!.title,
-  //     description: description ?? state!.description,
-  //     duration: duration ?? state!.duration,
-  //     createdAt: createdAt ?? state!.createdAt,
-  //     dueDateTime: dueDateTime ?? state!.dueDateTime,
-  //     categoryId: categoryId ?? state!.categoryId,
-  //   );
-  // }
 }

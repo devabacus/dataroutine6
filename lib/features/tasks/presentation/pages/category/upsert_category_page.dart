@@ -7,16 +7,18 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ui_kit/ui_kit.dart';
 
-class EditCategoryPage extends ConsumerStatefulWidget {
-  const EditCategoryPage({super.key});
+class UpsertCategoryPage extends ConsumerStatefulWidget {
+  final bool isEditing;
+
+  const UpsertCategoryPage({this.isEditing = false, super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _EditItemPageState();
 }
 
-class _EditItemPageState extends ConsumerState<EditCategoryPage> {
+class _EditItemPageState extends ConsumerState<UpsertCategoryPage> {
   TextEditingController controller = TextEditingController();
-  late int categoryId;
+  late int categoryId; //если в режиме редактирования
   GlobalKey key = GlobalKey();
 
   @override
@@ -48,9 +50,13 @@ class _EditItemPageState extends ConsumerState<EditCategoryPage> {
               onPressed: () {
                 final selectedCateg = ref.read(categorySelectedProvider);
 
-                if (selectedCateg != null) {
+                if (widget.isEditing) {
                   categContr.updateCategory(
-                    selectedCateg.copyWith(title: controller.text),
+                    selectedCateg!.copyWith(title: controller.text),
+                  );
+                } else {
+                  categContr.addCategory(
+                    CategoryEntity(id: -1, title: controller.text),
                   );
                 }
 
@@ -59,7 +65,7 @@ class _EditItemPageState extends ConsumerState<EditCategoryPage> {
                   pathParameters: {TasksRoutes.isFromTask: "0"},
                 );
               },
-              child: Text("Сохранить"),
+              child: Text(widget.isEditing ? "Обновить" : "Сохранить"),
             ),
           ],
         ),

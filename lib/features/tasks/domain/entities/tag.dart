@@ -1,16 +1,15 @@
 
-import 'package:equatable/equatable.dart';          
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-class TagEntity extends Equatable {
-  final int id;
-final String title;
+part 'tag.freezed.dart';
+part 'tag.g.dart';
 
-  const TagEntity({
-  required this.id,
-required this.title,
-  });
+@freezed
+abstract class TagEntity with _$TagEntity {
+  const factory TagEntity({
+    required int id,
+required String title,
+  }) = _TagEntity;
 
-  @override
-  List<Object?> get props => [id,title];
+  factory TagEntity.fromJson(Map<String, dynamic> json) => _$TagEntityFromJson(json);
 }
-

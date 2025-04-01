@@ -1,5 +1,6 @@
 import '../../features/tasks/presentation/routing/tasks_routes_constants.dart';
 import '../../features/tasks/presentation/routing/tasks_routes_constants.dart';
+import '../../features/tasks/presentation/routing/tasks_routes_constants.dart';
 import '../../features/tasks/presentation/routing/tasks_router_config.dart';
 import '../../features/home/presentation/routing/home_router_config.dart';
 
@@ -17,8 +18,8 @@ part 'router_config.g.dart';
 @riverpod
 GoRouter appRouter(Ref ref) {
   return GoRouter(
-    // observers: [TalkerRouteObserver(log.talker)],
-    initialLocation: TasksRoutes.viewTaskPath,
+    observers: [TalkerRouteObserver(log.talker)],
+    initialLocation: TasksRoutes.viewCategoryPath,
     routes: [
 			...getTasksRoutes(),
 			...getHomeRoutes(),
