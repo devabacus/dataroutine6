@@ -56,14 +56,15 @@ class UpdateTaskPageState extends ConsumerState<UpsertTaskPage> {
     final categories = await ref.watch(categoriesProvider.future);
     final currentCategory = categories.firstWhere((cat) => cat.id == catId);
     categIdController.text = currentCategory.title;
-
-
   }
 
   @override
   Widget build(BuildContext context) {
     final taskContr = ref.read(taskProvider.notifier);
     final selectedTaskContr = ref.read(selectedTaskProvider.notifier);
+    // final taskTags = ref.read(taskTagsProvider(taskId: taskId!));
+    // print(taskTags);
+
 
     return Scaffold(
       appBar: AppBar(title: Text("Редактирование задачи")),
@@ -107,7 +108,7 @@ class UpdateTaskPageState extends ConsumerState<UpsertTaskPage> {
 
           // }, "Добавить тэги"),
           if (taskId != null) 
-          _buildTagsSection(),
+          // _buildTagsSection(),
 
 
 

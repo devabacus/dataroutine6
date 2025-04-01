@@ -4,6 +4,11 @@ import '../routing/tasks_routes_constants.dart';
 
 class TasksNavigationService {
 
+    void navigateToDbViewer(BuildContext context) {
+      context.goNamed(TasksRoutes.dbViewer);
+    }
+  
+
   void navigateToEditCategory(BuildContext context) {
     context.goNamed(TasksRoutes.editCategory);
   }

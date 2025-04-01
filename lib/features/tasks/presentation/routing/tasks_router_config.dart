@@ -1,3 +1,4 @@
+import '../../presentation/pages/db_viewer_page.dart';
 import 'dart:core';
 
 import 'package:flutter/material.dart';
@@ -14,6 +15,18 @@ import 'tasks_routes_constants.dart';
 
 List<RouteBase> getTasksRoutes() {
   return [
+
+    GoRoute(
+      name: TasksRoutes.dbViewer,
+      path: TasksRoutes.dbViewerPath,
+      builder: (BuildContext context, state) {
+        
+      
+      return DbViewerPage();
+    
+      }
+  ),
+  
     
     GoRoute(
       name: TasksRoutes.updateTag,

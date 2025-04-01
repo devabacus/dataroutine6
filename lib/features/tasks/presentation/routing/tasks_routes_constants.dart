@@ -1,4 +1,8 @@
 abstract class TasksRoutes {
+
+    static const dbViewer = 'tasks_db_viewer';
+    static const dbViewerPath = '/tasks/db_viewer';
+  
   static const updateTag = 'tasks_update_tag';
   static const updateTagPath = '/tasks/update_tag';
 

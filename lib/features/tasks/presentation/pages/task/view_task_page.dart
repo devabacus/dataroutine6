@@ -67,6 +67,10 @@ class ViewTaskPage extends ConsumerWidget {
             "Добавить задачу",
           ),
           AppGap.m(),
+          ButtonFactory.basic(
+            () => context.goNamed(TasksRoutes.dbViewer),
+            "База данных",
+          ),
         ],
       ),
     );
