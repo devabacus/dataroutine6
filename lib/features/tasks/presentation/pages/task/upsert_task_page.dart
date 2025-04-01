@@ -38,8 +38,6 @@ class UpdateTaskPageState extends ConsumerState<UpsertTaskPage> {
   void initState() {
     super.initState();
 
-
-
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (widget.isEditing) {
         final selectedTask = ref.read(selectedTaskProvider)!;
@@ -54,7 +52,6 @@ class UpdateTaskPageState extends ConsumerState<UpsertTaskPage> {
         getCurrentCategory();
         setState(() {
           isInitialized = true;
-          
         });
       }
     });
@@ -70,8 +67,6 @@ class UpdateTaskPageState extends ConsumerState<UpsertTaskPage> {
   Widget build(BuildContext context) {
     final taskContr = ref.read(taskProvider.notifier);
     final selectedTaskContr = ref.read(selectedTaskProvider.notifier);
-    
-
 
     return Scaffold(
       appBar: AppBar(title: Text("Редактирование задачи")),
@@ -106,19 +101,8 @@ class UpdateTaskPageState extends ConsumerState<UpsertTaskPage> {
 
           TextFieldFactory.createBasic(tagController, hint: "Тэг"),
 
-          ButtonFactory.basic(() async {
-            final tagId = int.parse(tagController.text);
-
-            final taskTagContr = ref.read(
-              taskTagsProvider(taskId: taskId!).notifier,
-            );
-            taskTagContr.addTagToTask(taskId!, tagId);
-            final tags = await ref.read(taskTagsProvider(taskId: taskId!).future);
-            print("Tags for task $taskId: $tags");
-          }, "Добавить тэги"),
-          if (taskId != null && isInitialized)
-            _buildTagsSection(),
-            AppGap.m(),
+         if (taskId != null && isInitialized) _buildTagsSection(),
+          AppGap.m(),
 
           ElevatedButton(
             style: AppButtonStyle.basicStyle,
@@ -134,12 +118,57 @@ class UpdateTaskPageState extends ConsumerState<UpsertTaskPage> {
 
   Widget _buildTagsSection() {
     // Отображаем текущие теги задачи
-      final taskTag = ref.watch(taskTagsProvider(taskId: taskId!));
-      return taskTag.when(
-          data: (val) => Text(val.toString(),),
+    final taskTag = ref.watch(taskTagsProvider(taskId: taskId!));
+    return Column(
+      children: [
+        taskTag.when(
+          data: (tags) {
+            return Column(
+              children: [
+                if (tags.isNotEmpty)
+                  Wrap(
+                    spacing: 8.0,
+                    runSpacing: 8.0,
+                    children:
+                        tags
+                            .map(
+                              (tag) => Chip(
+                                label: Text(tag.title),
+                                onDeleted: () {
+                                  ref
+                                      .read(
+                                        taskTagsProvider(
+                                          taskId: taskId!,
+                                        ).notifier,
+                                      )
+                                      .removeTagFromTask(taskId!, tag.id);
+                                },
+                              ),
+                            )
+                            .toList(),
+                  ),
+                ElevatedButton(
+                  onPressed: () {
+                    _saveCurrentTaskState(
+                      ref.read(selectedTaskProvider.notifier),
+                    );
+
+                    context.goNamed(
+                      TasksRoutes.viewTag,
+                      extra: {'isForTaskSelection': true, 'taskId': taskId, },
+                    );
+                  },
+                  child: Text("Добавить тэги"),
+                ),
+              ],
+            );
+          },
           error: (_, __) => Text("Error"),
           loading: () => CircularProgressIndicator(),
-      );
+        ),
+        AppGap.l(),
+      ],
+    );
   }
 
   void _saveCurrentTaskState(SelectedTask selectedTaskContr) {
