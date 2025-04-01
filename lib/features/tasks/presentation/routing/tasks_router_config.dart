@@ -7,10 +7,10 @@ import '../../presentation/pages/category/upsert_category_page.dart';
 import '../../presentation/pages/category/view_category_page.dart';
 import '../../presentation/pages/tag/view_tag_page.dart';
 import '../../presentation/pages/task/add_task_page.dart';
-import '../../presentation/pages/task/edit_task_page.dart';
 import '../../presentation/pages/task/view_task_page.dart';
 import '../../presentation/pages/tasks_page.dart';
 import '../pages/tag/upsert_tag_page.dart';
+import '../pages/task/upsert_task_page.dart';
 import 'tasks_routes_constants.dart';
 
 List<RouteBase> getTasksRoutes() {
@@ -60,10 +60,17 @@ List<RouteBase> getTasksRoutes() {
     ),
 
     GoRoute(
+      name: TasksRoutes.addTask,
+      path: TasksRoutes.addTaskPath,
+      builder: (BuildContext context, state) {
+        return UpsertTaskPage();
+      },
+    ),
+    GoRoute(
       name: TasksRoutes.editTask,
       path: TasksRoutes.editTaskPath,
       builder: (BuildContext context, state) {
-        return EditTaskPage();
+        return UpsertTaskPage(isEditing: true,);
       },
     ),
 
@@ -75,13 +82,6 @@ List<RouteBase> getTasksRoutes() {
       },
     ),
 
-    GoRoute(
-      name: TasksRoutes.addTask,
-      path: TasksRoutes.addTaskPath,
-      builder: (BuildContext context, state) {
-        return AddTaskPage();
-      },
-    ),
 
    
 

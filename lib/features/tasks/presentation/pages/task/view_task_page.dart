@@ -46,7 +46,7 @@ class ViewTaskPage extends ConsumerWidget {
                             duration: duration,
                             createdAt: createdAt,
                             dueDateTime: dueDateTime,
-                            categoryId: categoryId,
+                            categoryId: categoryId!,
                           ),
                         );
                         // print("go to edit page");

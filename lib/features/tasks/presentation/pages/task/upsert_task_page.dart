@@ -9,14 +9,16 @@ import 'package:ui_kit/ui_kit.dart';
 
 import '../../../domain/entities/task.dart';
 
-class EditTaskPage extends ConsumerStatefulWidget {
-  const EditTaskPage({super.key});
+class UpsertTaskPage extends ConsumerStatefulWidget {
+  final bool isEditing;
+
+  const UpsertTaskPage({this.isEditing = false, super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => UpdateTaskPageState();
 }
 
-class UpdateTaskPageState extends ConsumerState<EditTaskPage> {
+class UpdateTaskPageState extends ConsumerState<UpsertTaskPage> {
   TextEditingController titleController = TextEditingController();
   TextEditingController descripController = TextEditingController();
   TextEditingController categIdController = TextEditingController();
@@ -25,25 +27,26 @@ class UpdateTaskPageState extends ConsumerState<EditTaskPage> {
 
   TaskEntity? currentEntity;
 
-  late int taskId;
-  late int catId;
+  int? taskId;
+  int? catId;
 
   @override
   void initState() {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      // Здесь можно безопасно использовать провайдеры
-      final selectedTask = ref.read(selectedTaskProvider)!;
-      titleController.text = selectedTask.title;
-      descripController.text = selectedTask.description;
-      categIdController.text = selectedTask.categoryId.toString();
-      catId = selectedTask.categoryId;
+      if (widget.isEditing) {
+        final selectedTask = ref.read(selectedTaskProvider)!;
+        titleController.text = selectedTask.title;
+        descripController.text = selectedTask.description;
 
-      durationController.text = selectedTask.duration.toString();
-      taskId = selectedTask.id;
+        catId = selectedTask.categoryId;
+        categIdController.text = catId.toString();
 
-      getCurrentCategory();
+        durationController.text = selectedTask.duration.toString();
+        taskId = selectedTask.id;
+        getCurrentCategory();
+      }
     });
   }
 
@@ -56,7 +59,7 @@ class UpdateTaskPageState extends ConsumerState<EditTaskPage> {
   @override
   Widget build(BuildContext context) {
     final taskContr = ref.read(taskProvider.notifier);
-    final selectedTask = ref.read(selectedTaskProvider.notifier);
+    final selectedTaskContr = ref.read(selectedTaskProvider.notifier);
 
     return Scaffold(
       appBar: AppBar(title: Text("Редактирование задачи")),
@@ -80,19 +83,22 @@ class UpdateTaskPageState extends ConsumerState<EditTaskPage> {
             trailing: IconButton(
               icon: Icon(Icons.phonelink_lock),
               onPressed: () {
-                final duration = int.parse(durationController.text);
+                int duration = 0;
+                duration = int.parse(durationController.text);
+
                 final createdAt = DateTime.now();
                 final dueDateTime = DateTime.now();
 
-                selectedTask.setTask(
+                // сохраняем состояние задачи перед переходом на страницу категорий
+                selectedTaskContr.setTask(
                   TaskEntity(
-                    id: taskId,
+                    id: taskId ?? 0,
                     title: titleController.text,
                     description: descripController.text,
                     duration: duration,
                     createdAt: createdAt,
                     dueDateTime: dueDateTime,
-                    categoryId: catId,
+                    categoryId: catId ?? 0,
                   ),
                 );
                 context.goNamed(
@@ -112,17 +118,30 @@ class UpdateTaskPageState extends ConsumerState<EditTaskPage> {
               final createdAt = DateTime.now();
               final dueDateTime = DateTime.now();
 
-              taskContr.updateTask(
-                TaskEntity(
-                  id: taskId,
-                  title: titleController.text,
-                  description: descripController.text,
-                  duration: duration,
-                  createdAt: createdAt,
-                  dueDateTime: dueDateTime,
-                  categoryId: catId,
-                ),
+              final taskEntity = TaskEntity(
+                id: taskId ?? 0,
+                title: titleController.text,
+                description: descripController.text,
+                duration: duration,
+                createdAt: createdAt,
+                dueDateTime: dueDateTime,
+                categoryId: catId!,
               );
+
+              final selectedTask = ref.read(selectedTaskProvider);
+              if (selectedTask == null) {
+                // новая задача
+                taskContr.addTask(
+                  taskEntity,
+                ); // перешли изначально на для добавления selectedTask не сохраняли
+              } else if (selectedTask.id ==
+                  0) // перешли после выбора категории поэтому selectedTask уже есть, но id не присвоен (присваивается автоматически при добавлении категории)
+              {
+                taskContr.addTask(taskEntity);
+              } else //Зашли для редактирования task id не ноль
+              {
+                taskContr.updateTask(taskEntity);
+              }
 
               context.goNamed(TasksRoutes.viewTask);
             },

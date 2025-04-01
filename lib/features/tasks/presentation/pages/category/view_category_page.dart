@@ -46,12 +46,23 @@ class ViewCategoryPage extends ConsumerWidget {
                           // справочник
                           if (isFromTask == "1") {
                             final task = ref.read(selectedTaskProvider);
+
+                            // перешли из режима редактирования задачи
                             if (task != null) {
                               selectedTask.setTask(
                                 task.copyWith(categoryId: categories[index].id),
                               );
                             }
-                            context.goNamed(TasksRoutes.editTask);
+
+                            // перешли из режима добавляения новоной задачи selectedTask = null
+
+                            // if (task!.id == 0) {
+                            //   context.goNamed(TasksRoutes.addTask);
+                            // } else {
+                            // }
+                              context.goNamed(TasksRoutes.editTask);
+                     
+
                           } else {
                             // просмотр,редактирования
                             ref

@@ -6,7 +6,7 @@ part of 'category_selected_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$categorySelectedHash() => r'436a22b59cd692aac72fa7ff313c4a79df929e32';
+String _$categorySelectedHash() => r'568e8f8bf7637d13799b1fd9e5b4d3182df2d864';
 
 /// See also [CategorySelected].
 @ProviderFor(CategorySelected)
