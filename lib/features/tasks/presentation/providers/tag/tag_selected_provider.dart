@@ -7,7 +7,9 @@ part 'tag_selected_provider.g.dart';
 class TagSelected extends _$TagSelected {
   @override
   TagEntity? build() {
+    ref.keepAlive();
     return null;
+
   }
 
   void setTag(TagEntity tag) {

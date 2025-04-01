@@ -1,4 +1,12 @@
 abstract class TasksRoutes {
+  static const updateTag = 'tasks_update_tag';
+  static const updateTagPath = '/tasks/update_tag';
+
+  static const addTag = 'tasks_add_tag';
+  static const addTagPath = '/tasks/add_tag';
+
+  static const viewTag = 'tasks_view_tag';
+  static const viewTagPath = '/tasks/view_tag';
 
   static const addCategory = 'tasks_add_category';
   static const addCategoryPath = '/tasks/add_category';
@@ -19,18 +27,6 @@ abstract class TasksRoutes {
 
   static const addTask = 'tasks_add_task';
   static const addTaskPath = '/tasks/add_task';
-
-  static const tagId = 'tagId';
-  static const updateTag = 'tasks_update_tag';
-  static const updateTagPath = '/tasks/update_tag/:$tagId';
-
-  static const addTag = 'tasks_add_tag';
-  static const addTagPath = '/tasks/add_tag';
-
-  static const viewTag = 'tasks_view_tag';
-  static const viewTagPath = '/tasks/view_tag';
-
-
 
   static const tasks = 'tasks';
   static const tasksPath = '/tasks';

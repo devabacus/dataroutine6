@@ -5,17 +5,35 @@ import 'package:go_router/go_router.dart';
 
 import '../../presentation/pages/category/upsert_category_page.dart';
 import '../../presentation/pages/category/view_category_page.dart';
-import '../../presentation/pages/tag/add_tag_page.dart';
-import '../../presentation/pages/tag/update_tag_page.dart';
 import '../../presentation/pages/tag/view_tag_page.dart';
 import '../../presentation/pages/task/add_task_page.dart';
 import '../../presentation/pages/task/edit_task_page.dart';
 import '../../presentation/pages/task/view_task_page.dart';
 import '../../presentation/pages/tasks_page.dart';
+import '../pages/tag/upsert_tag_page.dart';
 import 'tasks_routes_constants.dart';
 
 List<RouteBase> getTasksRoutes() {
   return [
+    
+    
+    GoRoute(
+      name: TasksRoutes.updateTag,
+      path: TasksRoutes.updateTagPath,
+      builder: (BuildContext context, state) {
+        return UpserTagPage(isEditing: true);
+      },
+    ),
+
+    GoRoute(
+      name: TasksRoutes.addTag,
+      path: TasksRoutes.addTagPath,
+      builder: (BuildContext context, state) {
+        return UpserTagPage();
+      },
+    ),
+
+
     GoRoute(
       name: TasksRoutes.addCategory,
       path: TasksRoutes.addCategoryPath,
@@ -65,22 +83,7 @@ List<RouteBase> getTasksRoutes() {
       },
     ),
 
-    GoRoute(
-      name: TasksRoutes.updateTag,
-      path: TasksRoutes.updateTagPath,
-      builder: (BuildContext context, state) {
-        final tagId = state.pathParameters['tagId'];
-        return UpdateTagPage(tagId: tagId!);
-      },
-    ),
-
-    GoRoute(
-      name: TasksRoutes.addTag,
-      path: TasksRoutes.addTagPath,
-      builder: (BuildContext context, state) {
-        return AddTagPage();
-      },
-    ),
+   
 
     GoRoute(
       name: TasksRoutes.viewTag,
