@@ -6,6 +6,7 @@ import 'package:dataroutine6/features/tasks/presentation/routing/tasks_routes_co
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mlogger/mlogger.dart';
 import 'package:ui_kit/ui_kit.dart';
 
 import '../../../domain/entities/task.dart';
@@ -62,8 +63,6 @@ class UpdateTaskPageState extends ConsumerState<UpsertTaskPage> {
   Widget build(BuildContext context) {
     final taskContr = ref.read(taskProvider.notifier);
     final selectedTaskContr = ref.read(selectedTaskProvider.notifier);
-    // final taskTags = ref.read(taskTagsProvider(taskId: taskId!));
-    // print(taskTags);
 
 
     return Scaffold(
@@ -99,20 +98,19 @@ class UpdateTaskPageState extends ConsumerState<UpsertTaskPage> {
 
           TextFieldFactory.createBasic(tagController, hint: "Тэг"),
 
-          // ButtonFactory.basic((){
+          ButtonFactory.basic(() async {
+            final tagId = int.parse(tagController.text);
 
-          //     final tagId = int.parse(tagController.text);
-
-          //     final taskTagContr = ref.read(taskTagsProvider(taskId: taskId!).notifier);
-          //     taskTagContr.addTagToTask(taskId!, tagId);
-
-          // }, "Добавить тэги"),
-          if (taskId != null) 
-          // _buildTagsSection(),
-
-
-
-          AppGap.m(),
+            final taskTagContr = ref.read(
+              taskTagsProvider(taskId: taskId!).notifier,
+            );
+            taskTagContr.addTagToTask(taskId!, tagId);
+            final tags = await ref.read(taskTagsProvider(taskId: 1).future);
+            print("Tags for task 1: $tags");
+          }, "Добавить тэги"),
+          if (taskId != null)
+            _buildTagsSection(),
+            AppGap.m(),
 
           ElevatedButton(
             style: AppButtonStyle.basicStyle,
@@ -127,63 +125,77 @@ class UpdateTaskPageState extends ConsumerState<UpsertTaskPage> {
   }
 
   Widget _buildTagsSection() {
-  // Отображаем текущие теги задачи
-  final taskTags = ref.watch(taskTagsProvider(taskId: taskId!));
-  
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text("Теги задачи:", style: TextStyle(fontWeight: FontWeight.bold)),
-      AppGap.s(),
-      
-      taskTags.when(
-        data: (tags) {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Отображаем текущие теги в виде чипов с возможностью удаления
-              if (tags.isNotEmpty)
-                Wrap(
-                  spacing: 8.0,
-                  runSpacing: 8.0,
-                  children: tags.map((tag) => Chip(
-                    label: Text(tag.title),
-                    onDeleted: () {
-                      ref.read(taskTagsProvider(taskId: taskId!).notifier)
-                          .removeTagFromTask(taskId!, tag.id);
-                    },
-                  )).toList(),
-                )
-              else
-                Text("Нет тегов", style: TextStyle(fontStyle: FontStyle.italic)),
-              
-              AppGap.s(),
-              
-              // Кнопка для перехода к экрану выбора тегов, вместо ручного ввода ID
-              OutlinedButton.icon(
-                onPressed: () {
-                  // Сохраняем текущее состояние задачи
-                  _saveCurrentTaskState(ref.read(selectedTaskProvider.notifier));
-                  
-                  // Переходим к списку тегов для выбора
-                  context.goNamed(
-                    TasksRoutes.viewTag,
-                    extra: {'isForTaskSelection': true, 'taskId': taskId},
-                  );
-                },
-                icon: Icon(Icons.add),
-                label: Text("Добавить теги"),
-              ),
-            ],
-          );
-        },
-        loading: () => Center(child: CircularProgressIndicator()),
-        error: (error, stack) => Text("Ошибка загрузки тегов: $error"),
-      ),
-    ],
-  );
-}
+    // Отображаем текущие теги задачи
+    final taskTags = ref.watch(taskTagsProvider(taskId: taskId!));
 
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text("Теги задачи:", style: TextStyle(fontWeight: FontWeight.bold)),
+        AppGap.s(),
+
+        taskTags.when(
+          data: (tags) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Отображаем текущие теги в виде чипов с возможностью удаления
+                if (tags.isNotEmpty)
+                  Wrap(
+                    spacing: 8.0,
+                    runSpacing: 8.0,
+                    children:
+                        tags
+                            .map(
+                              (tag) => Chip(
+                                label: Text(tag.title),
+                                onDeleted: () {
+                                  ref
+                                      .read(
+                                        taskTagsProvider(
+                                          taskId: taskId!,
+                                        ).notifier,
+                                      )
+                                      .removeTagFromTask(taskId!, tag.id);
+                                },
+                              ),
+                            )
+                            .toList(),
+                  )
+                else
+                  Text(
+                    "Нет тегов",
+                    style: TextStyle(fontStyle: FontStyle.italic),
+                  ),
+
+                AppGap.s(),
+
+                // Кнопка для перехода к экрану выбора тегов, вместо ручного ввода ID
+                OutlinedButton.icon(
+                  onPressed: () {
+                    // Сохраняем текущее состояние задачи
+                    _saveCurrentTaskState(
+                      ref.read(selectedTaskProvider.notifier),
+                    );
+
+                    // Переходим к списку тегов для выбора
+                    context.goNamed(
+                      TasksRoutes.viewTag,
+                      extra: {'isForTaskSelection': true, 'taskId': taskId},
+                    );
+                  },
+                  icon: Icon(Icons.add),
+                  label: Text("Добавить теги"),
+                ),
+              ],
+            );
+          },
+          loading: () => Center(child: CircularProgressIndicator()),
+          error: (error, stack) => Text("Ошибка загрузки тегов: $error"),
+        ),
+      ],
+    );
+  }
 
   void _saveCurrentTaskState(SelectedTask selectedTaskContr) {
     int duration = int.parse(durationController.text) ?? 0;
