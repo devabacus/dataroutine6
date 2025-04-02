@@ -1,4 +1,5 @@
 
+import 'package:dataroutine6/features/tasks/domain/usecases/category/get_by_id.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../usecases/category/create.dart';
@@ -31,4 +32,11 @@ DeleteCategoryUseCase deleteCategoryUseCase(Ref ref) {
 UpdateCategoryUseCase updateCategoryUseCase(Ref ref) {
   final repository = ref.read(categoryRepositoryProvider);
   return UpdateCategoryUseCase(repository);
+}
+
+
+@riverpod
+GetCategoryByIdUseCase getCategoryByIdUseCase(Ref ref) {
+  final repository = ref.read(categoryRepositoryProvider);
+  return GetCategoryByIdUseCase(repository);
 }
