@@ -1,8 +1,10 @@
 import 'package:dataroutine6/features/tasks/data/repositories/task_tag_map_repository.dart';
 import 'package:dataroutine6/features/tasks/domain/entities/task.dart';
 
+import '../../repositories/task_tag_map_repository.dart';
+
 class GetTaskWithTagUseCase {
-  final TaskTagMapRepositoryImpl repository;
+  final TaskTagMapRepository repository;
 
   const GetTaskWithTagUseCase(this.repository);
 

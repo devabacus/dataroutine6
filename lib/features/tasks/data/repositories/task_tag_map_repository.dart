@@ -6,7 +6,7 @@ import '../../domain/entities/task.dart';
 import '../../domain/repositories/task_tag_map_repository.dart';
 import '../datasources/local/sources/task_tag_map_local_data_source.dart';
 
-class TaskTagMapRepositoryImpl implements TaskTagMappingRepository {
+class TaskTagMapRepositoryImpl implements TaskTagMapRepository {
   final TaskTagMapLocalDataSource _dataSource;
 
   TaskTagMapRepositoryImpl(this._dataSource);
@@ -15,14 +15,12 @@ class TaskTagMapRepositoryImpl implements TaskTagMappingRepository {
   Future<List<TagEntity>> getTagsForTask(int taskId) async {
     final tagModels = await _dataSource.getTagsForTask(taskId);
     return tagModels.toEntities(); //for tag
-
   }
 
   @override
   Future<List<TaskEntity>> getTasksWithTag(int tagId) async {
     final taskModels = await _dataSource.getTasksWithTag(tagId);
     return taskModels.toEntities(); // for task
-
   }
 
   @override
@@ -39,6 +37,4 @@ class TaskTagMapRepositoryImpl implements TaskTagMappingRepository {
   Future<void> removeAllTagsFromTask(int taskId) async {
     await _dataSource.removeAllTagsFromTask(taskId);
   }
-
-  
 }

@@ -31,7 +31,7 @@ class CategoryLocalDataSource {
   }
 
   Future<void> deleteCategory(int id) async {
-      _categoryDao.deleteCategory(id);
+      await _categoryDao.deleteCategory(id);
     }
 
 }
