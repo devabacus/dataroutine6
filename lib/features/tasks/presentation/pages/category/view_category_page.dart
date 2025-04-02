@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ui_kit/ui_kit.dart';
+
+import '../../common_widgets/drawer.dart';
 // import '../providers/tasks_navigation_provider.dart';
 
 final tStyle = TextStyle(fontSize: 15);
@@ -23,6 +25,7 @@ class ViewCategoryPage extends ConsumerWidget {
     final selectedTask = ref.read(selectedTaskProvider.notifier);
 
     return Scaffold(
+      drawer: AppDrawer(),
       appBar: AppBar(title: Text("Категории", style: TextStyle(fontSize: 20))),
       body: Center(
         child: Column(

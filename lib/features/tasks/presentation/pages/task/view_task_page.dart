@@ -1,4 +1,5 @@
 import 'package:dataroutine6/features/tasks/domain/entities/task.dart';
+import 'package:dataroutine6/features/tasks/presentation/common_widgets/drawer.dart';
 import 'package:dataroutine6/features/tasks/presentation/providers/delete_select_provider.dart';
 import 'package:dataroutine6/features/tasks/presentation/providers/task/task_selected_provider.dart';
 import 'package:dataroutine6/features/tasks/presentation/providers/task/task_state_providers.dart';
@@ -31,6 +32,7 @@ class ViewTaskPage extends ConsumerWidget {
           ),
         ],
       ),
+      drawer: AppDrawer(),
       body: Center(
         child: Column(
           children: [
@@ -94,28 +96,6 @@ class ViewTaskPage extends ConsumerWidget {
     );
   }
 }
-
-// void _saveSelectedTask(SelectedTask selectedTask, TaskEntity task) {
-//   final id = task.id;
-//   final title = task.title;
-//   final description = task.description;
-//   final duration = task.duration;
-//   final createdAt = task.createdAt;
-//   final dueDateTime = task.dueDateTime;
-//   final categoryId = task.categoryId;
-
-//   selectedTask.setTask(
-//     TaskEntity(
-//       id: id,
-//       title: title,
-//       description: description,
-//       duration: duration,
-//       createdAt: createdAt,
-//       dueDateTime: dueDateTime,
-//       categoryId: categoryId,
-//     ),
-//   );
-// }
 
 ListView _createListViewBuilder(
   BuildContext context,
