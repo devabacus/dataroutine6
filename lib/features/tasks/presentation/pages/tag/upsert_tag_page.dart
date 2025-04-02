@@ -1,67 +1,110 @@
-import 'package:dataroutine6/features/tasks/domain/entities/tag.dart';
-import 'package:dataroutine6/features/tasks/presentation/providers/tag/tag_selected_provider.dart';
-import 'package:dataroutine6/features/tasks/presentation/providers/tag/tag_state_providers.dart';
-import 'package:dataroutine6/features/tasks/presentation/routing/tasks_routes_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ui_kit/ui_kit.dart';
 
-class UpserTagPage extends ConsumerStatefulWidget {
-  final bool isEditing;
+import '../../../domain/entities/tag.dart';
+import '../../common_widgets/form_controller_mixin.dart';
+import '../../common_widgets/upser_form_factory.dart';
+import '../../common_widgets/upsert_page_base.dart';
+import '../../providers/tag/tag_selected_provider.dart';
+import '../../providers/tag/tag_state_providers.dart';
+import '../../routing/tasks_routes_constants.dart';
 
-  const UpserTagPage({this.isEditing = false, super.key});
+class UpsertTagPage extends BaseUpsertPage<TagEntity> {
+  const UpsertTagPage({super.isEditing = false, super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _UpdateTagPageState();
+  ConsumerState<BaseUpsertPage<TagEntity>> createState() => _UpsertTagPageState();
 }
 
-class _UpdateTagPageState extends ConsumerState<UpserTagPage> {
-  TextEditingController controller = TextEditingController();
-
-  late int tagId;
+class _UpsertTagPageState extends BaseUpsertPageState<TagEntity, UpsertTagPage>
+    with FormControllersMixin<TagEntity> {
+  int? _tagId;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
-  void initState() {
-    super.initState();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+  void initializeData() {
+    if (widget.isEditing) {
       final selectedTag = ref.read(tagSelectedProvider);
-      tagId = selectedTag!.id;
-      if (widget.isEditing) {
+      if (selectedTag != null) {
         setState(() {
-        controller.text = selectedTag.title;
-      });
+          setControllerValue('title', selectedTag.title);
+          _tagId = selectedTag.id;
+        });
       }
-    });
+    }
   }
 
   @override
-  Widget build(BuildContext context) {
-    final tagContr = ref.read(tagProvider.notifier);
-    return Scaffold(
-      body: Form(
-        child: Column(
-          children: [
-            TextFieldFactory.createBasic(controller),
-            AppGap.m(),
-            ElevatedButton(
-              style: AppButtonStyle.basicStyle,
-              onPressed: () {
-                final selectedTag = ref.read(tagSelectedProvider);
-                if (widget.isEditing) {
-                  tagContr.updateTag(
-                    selectedTag!.copyWith(title: controller.text),
-                  );
-                } else {
-                  tagContr.addTag(TagEntity(id: -1, title: controller.text));
-                }
-                context.goNamed(TasksRoutes.viewTag);
-              },
-              child: Text("Сохранить"),
-            ),
-          ],
-        ),
+  void dispose() {
+    disposeControllers();
+    super.dispose();
+  }
+
+  @override
+  void saveEntity() {
+    if (!_formKey.currentState!.validate()) return;
+
+    final tagController = ref.read(tagProvider.notifier);
+
+    if (widget.isEditing) {
+      final selectedTag = ref.read(tagSelectedProvider);
+      if (selectedTag != null) {
+        tagController.updateTag(
+          selectedTag.copyWith(title: getControllerValue('title')),
+        );
+      }
+    } else {
+      tagController.addTag(
+        TagEntity(id: -1, title: getControllerValue('title')),
+      );
+    }
+
+    navigateBack();
+  }
+
+  @override
+  void navigateBack() {
+    context.goNamed(TasksRoutes.viewTag);
+  }
+
+  @override
+  AppBar buildAppBar() {
+    return AppBar(
+      title: Text(
+        widget.isEditing ? 'Редактирование тега' : 'Новый тег',
+      ),
+      leading: IconButton(
+        icon: const Icon(Icons.arrow_back),
+        onPressed: navigateBack,
+      ),
+    );
+  }
+
+  @override
+  Widget buildForm() {
+    return Form(
+      key: _formKey,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          UpsertFormFactory.createBasicFormField(
+            getController('title'),
+            labelText: 'Название тега',
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Пожалуйста, введите название тега';
+              }
+              return null;
+            },
+          ),
+          AppGap.m(),
+          UpsertFormFactory.createSaveButton(
+            saveEntity,
+            isEditing: widget.isEditing,
+          ),
+        ],
       ),
     );
   }

@@ -22,7 +22,6 @@ class ViewTagPage extends ConsumerWidget {
     final filteredTags = ref.watch(filteredTagsForTaskProvider(taskId));
     final tagContr = ref.read(tagProvider.notifier);
 
-
     return EntityListPage(
       config: EntityListConfig(
         title: isForTaskSelection ? "Выберите тэг" : "Тэги",
@@ -41,15 +40,12 @@ class ViewTagPage extends ConsumerWidget {
             context.goNamed(TasksRoutes.updateTag);
           }
         },
-        itemBuilder: (context, tag, _) => Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(tag.title),
-            Text(tag.id.toString()),
-          ],
-
-        ),
-        onItemDelete: (tag)=> tagContr.deleteTag(tag.id)
+        itemBuilder:
+            (context, tag, _) => Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [Text(tag.title)],
+            ),
+        onItemDelete: (tag) => tagContr.deleteTag(tag.id),
       ),
     );
   }

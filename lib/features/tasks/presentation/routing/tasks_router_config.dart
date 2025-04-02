@@ -20,19 +20,16 @@ List<RouteBase> getTasksRoutes() {
       name: TasksRoutes.dbViewer,
       path: TasksRoutes.dbViewerPath,
       builder: (BuildContext context, state) {
-        
-      
       return DbViewerPage();
     
       }
   ),
-  
     
     GoRoute(
       name: TasksRoutes.updateTag,
       path: TasksRoutes.updateTagPath,
       builder: (BuildContext context, state) {
-        return UpserTagPage(isEditing: true);
+        return UpsertTagPage(isEditing: true);
       },
     ),
 
@@ -40,7 +37,7 @@ List<RouteBase> getTasksRoutes() {
       name: TasksRoutes.addTag,
       path: TasksRoutes.addTagPath,
       builder: (BuildContext context, state) {
-        return UpserTagPage();
+        return UpsertTagPage();
       },
     ),
 
