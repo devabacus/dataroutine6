@@ -49,15 +49,5 @@ class TaskTagMapRepositoryImpl implements TaskTagMappingRepository {
     await _dataSource.removeAllTagsFromTask(taskId);
   }
 
-  // @override
-  // Future<bool> hasTaskTag(int taskId, int tagId) {
-  //   // TODO: implement hasTaskTag
-  //   throw UnimplementedError();
-  // }
-
-  // @override
-  // Future<void> updateTaskTags(int taskId, List<int> tagIds) {
-  //   // TODO: implement updateTaskTags
-  //   throw UnimplementedError();
-  // }
+  
 }

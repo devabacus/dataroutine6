@@ -1,3 +1,4 @@
+import 'package:dataroutine6/features/tasks/presentation/pages/task/task_form_controllers.dart';
 import 'package:dataroutine6/features/tasks/presentation/providers/category/category_state_providers.dart';
 import 'package:dataroutine6/features/tasks/presentation/providers/task/task_selected_provider.dart';
 import 'package:dataroutine6/features/tasks/presentation/providers/task/task_state_providers.dart';
@@ -20,13 +21,7 @@ class UpsertTaskPage extends ConsumerStatefulWidget {
 }
 
 class UpdateTaskPageState extends ConsumerState<UpsertTaskPage> {
-  TextEditingController titleController = TextEditingController();
-  TextEditingController descripController = TextEditingController();
-  TextEditingController categIdController = TextEditingController();
-  TextEditingController createdAtController = TextEditingController();
-  TextEditingController durationController = TextEditingController();
-  TextEditingController tagController = TextEditingController();
-
+  late final TaskFormControllers ctrl;
   TaskEntity? currentEntity;
   bool isInitialized = false;
 
@@ -36,17 +31,18 @@ class UpdateTaskPageState extends ConsumerState<UpsertTaskPage> {
   @override
   void initState() {
     super.initState();
+    ctrl = TaskFormControllers();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (widget.isEditing) {
         final selectedTask = ref.read(selectedTaskProvider)!;
-        titleController.text = selectedTask.title;
-        descripController.text = selectedTask.description;
+        ctrl.title.text = selectedTask.title;
+        ctrl.description.text = selectedTask.description;
 
         catId = selectedTask.categoryId;
-        categIdController.text = catId.toString();
+        ctrl.categoryId.text = catId.toString();
 
-        durationController.text = selectedTask.duration.toString();
+        ctrl.duration.text = selectedTask.duration.toString();
         taskId = selectedTask.id;
         getCurrentCategory();
         setState(() {
@@ -56,10 +52,16 @@ class UpdateTaskPageState extends ConsumerState<UpsertTaskPage> {
     });
   }
 
+  @override
+  void dispose() {
+    ctrl.dispose();
+    super.dispose();
+  }
+
   Future<void> getCurrentCategory() async {
     final categories = await ref.watch(categoriesProvider.future);
     final currentCategory = categories.firstWhere((cat) => cat.id == catId);
-    categIdController.text = currentCategory.title;
+    ctrl.categoryId.text = currentCategory.title;
   }
 
   @override
@@ -68,44 +70,27 @@ class UpdateTaskPageState extends ConsumerState<UpsertTaskPage> {
     final selectedTaskContr = ref.read(selectedTaskProvider.notifier);
 
     return Scaffold(
-      appBar: AppBar(title: Text("Редактирование задачи"), leading: IconButton(onPressed: (){
-        context.goNamed(TasksRoutes.viewTask);
-
-      }, icon: Icon(Icons.arrow_back)),),
+      appBar: AppBar(
+        title: Text("Редактирование задачи"),
+        leading: IconButton(
+          onPressed: () {
+            context.goNamed(TasksRoutes.viewTask);
+          },
+          icon: Icon(Icons.arrow_back),
+        ),
+      ),
       body: Column(
         children: [
-          TextFieldFactory.createBasic(titleController, hint: "Название"),
-          AppGap.m(),
-          TextFieldFactory.createBasic(descripController, hint: "Описание"),
-          AppGap.m(),
-          TextFieldFactory.createBasic(
-            durationController,
-            hint: "Длительность",
+          TextFieldFactory.listTile(ctrl.title, hint: "Название"),
+          TextFieldFactory.listTile(ctrl.description, hint: "Описание"),
+          TextFieldFactory.listTile(ctrl.duration, hint: "Длительность"),
+          TextFieldFactory.listTile(
+            ctrl.categoryId,
+            hint: "Выбрать категорию",
+            trailing: _pickCategory(selectedTaskContr),
           ),
-          AppGap.m(),       
-
-          ListTile(
-            title: TextFieldFactory.createBasic(
-              categIdController,
-              hint: "Категория id",
-            ),
-            trailing: IconButton(
-              icon: Icon(Icons.phonelink_lock),
-              onPressed: () {
-                _saveCurrentTaskState(selectedTaskContr);
-                context.goNamed(
-                  TasksRoutes.viewCategory,
-                  pathParameters: {TasksRoutes.isFromTask: "1"},
-                );
-              },
-            ),
-          ),
-
-          TextFieldFactory.createBasic(tagController, hint: "Тэг"),
-
-         if (taskId != null && isInitialized) _buildTagsSection(),
-          AppGap.m(),
-
+          // tag section
+          if (taskId != null && isInitialized) _buildTagsSection(),
           ElevatedButton(
             style: AppButtonStyle.basicStyle,
             onPressed: () {
@@ -118,10 +103,24 @@ class UpdateTaskPageState extends ConsumerState<UpsertTaskPage> {
     );
   }
 
+  Widget _pickCategory(SelectedTask selectedTaskContr) {
+    return IconButton(
+      icon: Icon(Icons.phonelink_lock),
+      onPressed: () {
+        _saveCurrentTaskState(selectedTaskContr);
+        context.goNamed(
+          TasksRoutes.viewCategory,
+          pathParameters: {TasksRoutes.isFromTask: "1"},
+        );
+      },
+    );
+  }
+
   Widget _buildTagsSection() {
     // Отображаем текущие теги задачи
     final taskTag = ref.watch(taskTagsProvider(taskId: taskId!));
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         taskTag.when(
           data: (tags) {
@@ -149,19 +148,17 @@ class UpdateTaskPageState extends ConsumerState<UpsertTaskPage> {
                             )
                             .toList(),
                   ),
-                ElevatedButton(
-                  onPressed: () {
-                    _saveCurrentTaskState(
-                      ref.read(selectedTaskProvider.notifier),
-                    );
+                  AppGap.s(),
+                ButtonFactory.basic(() {
+                  _saveCurrentTaskState(
+                    ref.read(selectedTaskProvider.notifier),
+                  );
 
-                    context.goNamed(
-                      TasksRoutes.viewTag,
-                      extra: {'isForTaskSelection': true, 'taskId': taskId, },
-                    );
-                  },
-                  child: Text("Добавить тэги"),
-                ),
+                  context.goNamed(
+                    TasksRoutes.viewTag,
+                    extra: {'isForTaskSelection': true, 'taskId': taskId},
+                  );
+                }, "Добавить тэги"),
               ],
             );
           },
@@ -174,7 +171,7 @@ class UpdateTaskPageState extends ConsumerState<UpsertTaskPage> {
   }
 
   void _saveCurrentTaskState(SelectedTask selectedTaskContr) {
-    int duration = int.parse(durationController.text) ?? 0;
+    int duration = int.parse(ctrl.duration.text);
 
     final createdAt = DateTime.now();
     final dueDateTime = DateTime.now();
@@ -183,8 +180,8 @@ class UpdateTaskPageState extends ConsumerState<UpsertTaskPage> {
     selectedTaskContr.setTask(
       TaskEntity(
         id: taskId ?? 0,
-        title: titleController.text,
-        description: descripController.text,
+        title: ctrl.title.text,
+        description: ctrl.description.text,
         duration: duration,
         createdAt: createdAt,
         dueDateTime: dueDateTime,
@@ -194,14 +191,14 @@ class UpdateTaskPageState extends ConsumerState<UpsertTaskPage> {
   }
 
   void _saveTask(Task taskContr) {
-    final duration = int.parse(durationController.text) ?? 0;
+    final duration = int.parse(ctrl.duration.text);
     final createdAt = DateTime.now();
     final dueDateTime = DateTime.now();
 
     final taskEntity = TaskEntity(
       id: taskId ?? 0,
-      title: titleController.text,
-      description: descripController.text,
+      title: ctrl.title.text,
+      description: ctrl.description.text,
       duration: duration,
       createdAt: createdAt,
       dueDateTime: dueDateTime,

@@ -8,7 +8,7 @@ extension ContextExtension on BuildContext {
 
 extension InputDecorationExtension on InputDecoration {
   InputDecoration withBasicStyle(String hintText) {
-    return this.copyWith(border: OutlineInputBorder(), hintText: hintText);
+    return copyWith(border: OutlineInputBorder(), hintText: hintText);
   }
 }
 

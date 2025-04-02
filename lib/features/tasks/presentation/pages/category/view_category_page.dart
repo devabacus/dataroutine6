@@ -1,5 +1,4 @@
 import 'package:dataroutine6/features/tasks/domain/entities/category.dart';
-import 'package:dataroutine6/features/tasks/domain/entities/task.dart';
 import 'package:dataroutine6/features/tasks/presentation/providers/category/category_selected_provider.dart';
 import 'package:dataroutine6/features/tasks/presentation/providers/category/category_state_providers.dart';
 import 'package:dataroutine6/features/tasks/presentation/providers/task/task_selected_provider.dart';
@@ -7,7 +6,6 @@ import 'package:dataroutine6/features/tasks/presentation/routing/tasks_routes_co
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mlogger/mlogger.dart';
 import 'package:ui_kit/ui_kit.dart';
 // import '../providers/tasks_navigation_provider.dart';
 
