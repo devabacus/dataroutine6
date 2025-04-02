@@ -1,3 +1,4 @@
+import '../../features/tasks/presentation/routing/tasks_routes_constants.dart';
 // ignore_for_file: unused_import
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -17,7 +18,7 @@ part 'router_config.g.dart';
 GoRouter appRouter(Ref ref) {
   return GoRouter(
     // observers: [TalkerRouteObserver(log.talker)],
-    initialLocation: TasksRoutes.viewTaskPath,
+    initialLocation: TasksRoutes.viewTagPath,
     routes: [
 			...getTasksRoutes(),
 			...getHomeRoutes(),
