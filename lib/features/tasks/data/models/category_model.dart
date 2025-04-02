@@ -13,3 +13,4 @@ required String title,
 
   factory CategoryModel.fromJson(Map<String, dynamic> json) => _$CategoryModelFromJson(json);
 }
+    
