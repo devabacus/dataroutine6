@@ -148,7 +148,7 @@ class UpdateTaskPageState extends ConsumerState<UpsertTaskPage> {
                             )
                             .toList(),
                   ),
-                  AppGap.s(),
+                AppGap.s(),
                 ButtonFactory.basic(() {
                   _saveCurrentTaskState(
                     ref.read(selectedTaskProvider.notifier),
@@ -171,7 +171,9 @@ class UpdateTaskPageState extends ConsumerState<UpsertTaskPage> {
   }
 
   void _saveCurrentTaskState(SelectedTask selectedTaskContr) {
-    int duration = int.parse(ctrl.duration.text);
+    String durationText = ctrl.duration.text;
+
+    int duration = durationText.isEmpty ? 0 : int.parse(durationText) ?? 0;
 
     final createdAt = DateTime.now();
     final dueDateTime = DateTime.now();
