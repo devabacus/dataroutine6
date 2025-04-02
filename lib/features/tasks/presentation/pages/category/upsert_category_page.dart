@@ -1,76 +1,115 @@
-import 'package:dataroutine6/features/tasks/domain/entities/category.dart';
-import 'package:dataroutine6/features/tasks/presentation/providers/category/category_selected_provider.dart';
-import 'package:dataroutine6/features/tasks/presentation/providers/category/category_state_providers.dart';
-import 'package:dataroutine6/features/tasks/presentation/routing/tasks_routes_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ui_kit/ui_kit.dart';
 
-class UpsertCategoryPage extends ConsumerStatefulWidget {
-  final bool isEditing;
+import '../../../domain/entities/category.dart';
+import '../../common_widgets/form_controller_mixin.dart';
+import '../../common_widgets/upser_form_factory.dart';
+import '../../common_widgets/upsert_page_base.dart';
+import '../../providers/category/category_selected_provider.dart';
+import '../../providers/category/category_state_providers.dart';
+import '../../routing/tasks_routes_constants.dart';
 
-  const UpsertCategoryPage({this.isEditing = false, super.key});
+class UpsertCategoryPage extends BaseUpsertPage<CategoryEntity> {
+  const UpsertCategoryPage({super.isEditing = false, super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _EditItemPageState();
+  ConsumerState<BaseUpsertPage<CategoryEntity>> createState() =>
+      _UpsertCategoryPageState();
 }
 
-class _EditItemPageState extends ConsumerState<UpsertCategoryPage> {
-  TextEditingController controller = TextEditingController();
-  late int categoryId; //если в режиме редактирования
-  GlobalKey key = GlobalKey();
+class _UpsertCategoryPageState
+    extends BaseUpsertPageState<CategoryEntity, UpsertCategoryPage>
+    with FormControllersMixin<CategoryEntity> {
+  int? _categoryId;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
-  void initState() {
-    super.initState();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      final selectedCateg = ref.read(categorySelectedProvider)!;
-      if (widget.isEditing) {
+  void initializeData() {
+    if (widget.isEditing) {
+      final selectedCategory = ref.read(categorySelectedProvider);
+      if (selectedCategory != null) {
         setState(() {
-          controller.text = selectedCateg.title;
-          categoryId = selectedCateg.id;
+          setControllerValue('title', selectedCategory.title);
+          _categoryId = selectedCategory.id;
         });
       }
-    });
+    }
   }
 
   @override
-  Widget build(BuildContext context) {
-    final categContr = ref.read(categoriesProvider.notifier);
+  void dispose() {
+    disposeControllers();
+    super.dispose();
+  }
 
-    return Scaffold(
-      body: Form(
-        key: key,
-        child: Column(
-          children: [
-            TextFieldFactory.createBasic(controller),
-            AppGap.l(),
-            ElevatedButton(
-              style: AppButtonStyle.basicStyle,
-              onPressed: () {
-                final selectedCateg = ref.read(categorySelectedProvider);
+  @override
+  void saveEntity() {
+    if (!_formKey.currentState!.validate()) return;
 
-                if (widget.isEditing) {
-                  categContr.updateCategory(
-                    selectedCateg!.copyWith(title: controller.text),
-                  );
-                } else {
-                  categContr.addCategory(
-                    CategoryEntity(id: -1, title: controller.text),
-                  );
-                }
+    final categoryController = ref.read(categoriesProvider.notifier);
 
-                return context.goNamed(
-                  TasksRoutes.viewCategory,
-                  pathParameters: {TasksRoutes.isFromTask: "0"},
-                );
-              },
-              child: Text(widget.isEditing ? "Обновить" : "Сохранить"),
-            ),
-          ],
-        ),
+    if (widget.isEditing) {
+      final selectedCategory = ref.read(categorySelectedProvider);
+      if (selectedCategory != null) {
+        categoryController.updateCategory(
+          selectedCategory.copyWith(title: getControllerValue('title')),
+        );
+      }
+    } else {
+      categoryController.addCategory(
+        CategoryEntity(id: -1, title: getControllerValue('title')),
+      );
+    }
+
+    navigateBack();
+  }
+
+  @override
+  void navigateBack() {
+    context.goNamed(
+      TasksRoutes.viewCategory,
+      pathParameters: {TasksRoutes.isFromTask: "0"},
+    );
+  }
+
+  @override
+  AppBar buildAppBar() {
+    return AppBar(
+      title: Text(
+        widget.isEditing ? 'Редактирование категории' : 'Новая категория',
+      ),
+      leading: IconButton(
+        icon: const Icon(Icons.arrow_back),
+        onPressed: navigateBack,
+      ),
+    );
+  }
+
+  @override
+  Widget buildForm() {
+    return Form(
+      key: _formKey,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          UpsertFormFactory.createBasicFormField(
+            getController('title'),
+            labelText: 'Название категории',
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Пожалуйста, введите название категории';
+              }
+              return null;
+            },
+          ),
+          AppGap.l(),
+          UpsertFormFactory.createSaveButton(
+            saveEntity,
+            isEditing: widget.isEditing,
+          ),
+        ],
       ),
     );
   }
