@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 mixin FormControllersMixin<T> {
   final Map<String, TextEditingController> controllers = {};
   
+  // ленивая инициализация
   TextEditingController getController(String fieldName) {
     if (!controllers.containsKey(fieldName)) {
       controllers[fieldName] = TextEditingController();

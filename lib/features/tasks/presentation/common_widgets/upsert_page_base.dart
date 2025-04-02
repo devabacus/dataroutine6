@@ -7,6 +7,8 @@ abstract class BaseUpsertPage<T> extends ConsumerStatefulWidget {
   const BaseUpsertPage({this.isEditing = false, super.key});
 }
 
+
+
 abstract class BaseUpsertPageState<T, W extends BaseUpsertPage<T>> extends ConsumerState<W> {
   // Общие методы для всех страниц Upsert
   void initializeData();
@@ -44,3 +46,4 @@ abstract class BaseUpsertPageState<T, W extends BaseUpsertPage<T>> extends Consu
   
   Widget buildForm();
 }
+
