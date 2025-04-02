@@ -7,11 +7,9 @@ import '../tag_model.dart';
 extension TagTableDataExtension on TagTableData {
   
     TagModel toModel() => TagModel(id: id, title: title);
-
 }
 
-
-extension TagTableListTableExtension on List<TagTableData> {
+extension TagTableListDataExtension on List<TagTableData> {
   
   List<TagModel> toModels() => map((data)=>data.toModel()).toList();
 

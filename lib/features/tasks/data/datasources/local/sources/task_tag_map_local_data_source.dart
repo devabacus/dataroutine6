@@ -1,3 +1,6 @@
+import 'package:dataroutine6/features/tasks/data/models/extensions/tag_table_extension.dart';
+import 'package:dataroutine6/features/tasks/data/models/extensions/task_table_extension.dart';
+
 import '../../../../../../core/database/local/database.dart';
 import '../../../models/tag_model.dart';
 import '../../../models/task_model.dart';
@@ -10,24 +13,13 @@ class TaskTagMapLocalDataSource {
 
   Future<List<TagModel>> getTagsForTask(int taskId) async {
     final tags = await _dao.getTagsForTask(taskId);
-    return tags.map((tag) => TagModel(id: tag.id, title: tag.title)).toList();
+    return tags.toModels();
   }
 
   Future<List<TaskModel>> getTasksWithTag(int tagId) async {
     final tasks = await _dao.getTasksWithTag(tagId);
-    return tasks
-        .map(
-          (task) => TaskModel(
-            id: task.id,
-            title: task.title,
-            description: task.description,
-            duration: task.duration,
-            createdAt: task.createdAt,
-            dueDateTime: task.dueDateTime,
-            categoryId: task.categoryId,
-          ),
-        )
-        .toList();
+    return tasks.toModels();
+
   }
 
   Future<void> addTagToTask(int taskId, int tagId) async {

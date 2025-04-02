@@ -1,9 +1,10 @@
 
-import '../../data/datasources/local/sources/task_local_data_source.dart';
+import 'package:dataroutine6/features/tasks/data/models/extensions/task_model_extension.dart';
+import 'package:dataroutine6/features/tasks/domain/entities/extensions/task_entity_extension.dart';
 
-import '../../domain/repositories/task_repository.dart';
+import '../../data/datasources/local/sources/task_local_data_source.dart';
 import '../../domain/entities/task.dart';
-import '../models/task_model.dart';
+import '../../domain/repositories/task_repository.dart';
 
 class TaskRepositoryImpl implements TaskRepository {
   final TaskLocalDataSource _localDataSource;
@@ -13,21 +14,21 @@ class TaskRepositoryImpl implements TaskRepository {
   @override
   Future<List<TaskEntity>> getTask() async {
     final taskModels = await _localDataSource.getTask();
-    return taskModels
-        .map((model) => TaskEntity(id: model.id, title: model.title, description: model.description, duration: model.duration, createdAt: model.createdAt, dueDateTime: model.dueDateTime, categoryId: model.categoryId))
-        .toList();
+    return taskModels.toEntities();
+
   }
 
   @override
   Future<TaskEntity> getTaskById(int id) async {
     final model = await _localDataSource.getTaskById(id);
-    return TaskEntity(id: model.id, title: model.title, description: model.description, duration: model.duration, createdAt: model.createdAt, dueDateTime: model.dueDateTime, categoryId: model.categoryId);
+    return model.toEntity();
+
   }
 
   @override
   Future<int> createTask(TaskEntity task) {
     return _localDataSource.createTask(
-      TaskModel(id: task.id, title: task.title, description: task.description, duration: task.duration, createdAt: task.createdAt, dueDateTime: task.dueDateTime, categoryId: task.categoryId),
+      task.toModel()
     );
   }
 
@@ -39,7 +40,7 @@ class TaskRepositoryImpl implements TaskRepository {
   @override
   Future<void> updateTask(TaskEntity task) async {
     _localDataSource.updateTask(
-      TaskModel(id: task.id, title: task.title, description: task.description, duration: task.duration, createdAt: task.createdAt, dueDateTime: task.dueDateTime, categoryId: task.categoryId),
+      task.toModel()
     );
   }
     // ---------auto generated------------------//

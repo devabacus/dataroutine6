@@ -7,4 +7,4 @@ extension CategoryEntityExtension on CategoryEntity {
 
 extension CategoryEntityListExtension on List<CategoryEntity> {
   List<CategoryModel> toModels() => map((entity) => entity.toModel()).toList();
-}
+}      

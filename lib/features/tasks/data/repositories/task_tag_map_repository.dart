@@ -1,3 +1,6 @@
+import 'package:dataroutine6/features/tasks/data/models/extensions/tag_models_extension.dart';
+import 'package:dataroutine6/features/tasks/data/models/extensions/task_model_extension.dart';
+
 import '../../domain/entities/tag.dart';
 import '../../domain/entities/task.dart';
 import '../../domain/repositories/task_tag_map_repository.dart';
@@ -11,27 +14,15 @@ class TaskTagMapRepositoryImpl implements TaskTagMappingRepository {
   @override
   Future<List<TagEntity>> getTagsForTask(int taskId) async {
     final tagModels = await _dataSource.getTagsForTask(taskId);
-    return tagModels
-        .map((model) => TagEntity(id: model.id, title: model.title))
-        .toList();
+    return tagModels.toEntities(); //for tag
+
   }
 
   @override
   Future<List<TaskEntity>> getTasksWithTag(int tagId) async {
     final taskModels = await _dataSource.getTasksWithTag(tagId);
-    return taskModels
-        .map(
-          (model) => TaskEntity(
-            id: model.id,
-            title: model.title,
-            description: model.description,
-            duration: model.duration,
-            createdAt: model.createdAt,
-            dueDateTime: model.dueDateTime,
-            categoryId: model.categoryId,
-          ),
-        )
-        .toList();
+    return taskModels.toEntities(); // for task
+
   }
 
   @override
