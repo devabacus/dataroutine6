@@ -18,30 +18,30 @@ class AppProviderObserver extends ProviderObserver {
 ''');
   }
 
-  @override
-  void didAddProvider(
-    ProviderBase<Object?> provider,
-    Object? value,
-    ProviderContainer container,
-  ) {
-    debugPrint('''
-{
-  "provider": "${provider.name ?? provider.runtimeType}",
-  "value": "$value"
-}
-''');
-  }
+//   @override
+//   void didAddProvider(
+//     ProviderBase<Object?> provider,
+//     Object? value,
+//     ProviderContainer container,
+//   ) {
+//     debugPrint('''
+// {
+//   "provider": "${provider.name ?? provider.runtimeType}",
+//   "value": "$value"
+// }
+// ''');
+//   }
 
-  @override
-  void didDisposeProvider(
-    ProviderBase<Object?> provider,
-    ProviderContainer container,
-  ) {
-    debugPrint('''
-{
-  "provider": "${provider.name ?? provider.runtimeType}",
-  "action": "disposed"
-}
-''');
-  }
+//   @override
+//   void didDisposeProvider(
+//     ProviderBase<Object?> provider,
+//     ProviderContainer container,
+//   ) {
+//     debugPrint('''
+// {
+//   "provider": "${provider.name ?? provider.runtimeType}",
+//   "action": "disposed"
+// }
+// ''');
+  // }
 }

@@ -1,4 +1,5 @@
 import 'package:dataroutine6/features/tasks/presentation/pages/task/task_form_controllers.dart';
+import 'package:dataroutine6/features/tasks/presentation/providers/category/category_by_id_provider.dart';
 import 'package:dataroutine6/features/tasks/presentation/providers/category/category_state_providers.dart';
 import 'package:dataroutine6/features/tasks/presentation/providers/task/task_selected_provider.dart';
 import 'package:dataroutine6/features/tasks/presentation/providers/task/task_state_providers.dart';
@@ -59,9 +60,10 @@ class UpdateTaskPageState extends ConsumerState<UpsertTaskPage> {
   }
 
   Future<void> getCurrentCategory() async {
-    final categories = await ref.watch(categoriesProvider.future);
-    final currentCategory = categories.firstWhere((cat) => cat.id == catId);
-    ctrl.categoryId.text = currentCategory.title;
+    if (catId != null) {
+      final category = await ref.watch(getCategoryByIdProvider(catId!).future);
+      ctrl.categoryId.text = category.title;
+    }
   }
 
   @override
