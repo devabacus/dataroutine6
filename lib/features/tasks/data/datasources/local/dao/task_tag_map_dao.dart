@@ -7,8 +7,8 @@ import '../tables/task_tag_map_table.dart';
 part 'task_tag_map_dao.g.dart';
 
 @DriftAccessor(tables: [TaskTagMapTable, TaskTable, TagTable])
-class TaskTagMappingDao extends DatabaseAccessor<AppDatabase> with _$TaskTagMappingDaoMixin {
-  TaskTagMappingDao(super.db);
+class TaskTagMapDao extends DatabaseAccessor<AppDatabase> with _$TaskTagMapDaoMixin {
+  TaskTagMapDao(super.db);
 
   // Получить все теги задачи
   Future<List<TagTableData>> getTagsForTask(int taskId) {

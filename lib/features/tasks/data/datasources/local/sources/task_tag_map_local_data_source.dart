@@ -7,9 +7,9 @@ import '../../../models/task_model.dart';
 import '../dao/task_tag_map_dao.dart';
 
 class TaskTagMapLocalDataSource {
-  final TaskTagMappingDao _dao;
+  final TaskTagMapDao _dao;
 
-  TaskTagMapLocalDataSource(AppDatabase db) : _dao = TaskTagMappingDao(db);
+  TaskTagMapLocalDataSource(AppDatabase db) : _dao = TaskTagMapDao(db);
 
   Future<List<TagModel>> getTagsForTask(int taskId) async {
     final tags = await _dao.getTagsForTask(taskId);

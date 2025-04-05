@@ -3,7 +3,7 @@
 part of 'task_tag_map_dao.dart';
 
 // ignore_for_file: type=lint
-mixin _$TaskTagMappingDaoMixin on DatabaseAccessor<AppDatabase> {
+mixin _$TaskTagMapDaoMixin on DatabaseAccessor<AppDatabase> {
   $CategoryTableTable get categoryTable => attachedDatabase.categoryTable;
   $TaskTableTable get taskTable => attachedDatabase.taskTable;
   $TagTableTable get tagTable => attachedDatabase.tagTable;
