@@ -1,5 +1,5 @@
 
-import '../entities/tag.dart';
+import '../entities/tag/tag.dart';
 
 abstract class TagRepository {
   Future<List<TagEntity>> getTag();

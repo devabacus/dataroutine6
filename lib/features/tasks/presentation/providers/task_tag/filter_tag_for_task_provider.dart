@@ -4,7 +4,7 @@ import 'package:dataroutine6/features/tasks/presentation/providers/tag/tag_state
 import 'package:dataroutine6/features/tasks/presentation/providers/task_tag/task_tag_state_providers.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../../domain/entities/tag.dart';
+import '../../../domain/entities/tag/tag.dart';
 
 part 'filter_tag_for_task_provider.g.dart';
 

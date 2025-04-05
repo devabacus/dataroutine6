@@ -1,5 +1,5 @@
-import 'package:dataroutine6/features/tasks/domain/entities/category.dart';
-import 'package:dataroutine6/features/tasks/domain/providers/category_usecase_providers.dart';
+import 'package:dataroutine6/features/tasks/domain/entities/category/category.dart';
+import 'package:dataroutine6/features/tasks/domain/providers/category/category_usecase_providers.dart';
 import 'package:dataroutine6/features/tasks/presentation/providers/category/category_state_providers.dart';
 import 'package:mlogger/mlogger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';

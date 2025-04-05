@@ -10,7 +10,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ui_kit/ui_kit.dart';
 
-import '../../../domain/entities/task.dart';
+import '../../../domain/entities/task/task.dart';
 
 class UpsertTaskPage extends ConsumerStatefulWidget {
   final bool isEditing;

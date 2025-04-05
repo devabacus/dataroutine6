@@ -2,7 +2,7 @@
 
 import 'package:dataroutine6/core/database/local/database.dart';
 
-import '../tag_model.dart';
+import '../tag/tag_model.dart';
 
 extension TagTableDataExtension on TagTableData {
   

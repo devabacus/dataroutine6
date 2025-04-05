@@ -1,8 +1,8 @@
 
 
-import 'package:dataroutine6/features/tasks/domain/entities/tag.dart';
+import 'package:dataroutine6/features/tasks/domain/entities/tag/tag.dart';
 
-import '../../../data/models/tag_model.dart';
+import '../../../data/models/tag/tag_model.dart';
 
 extension TagEntityExtension on TagEntity {
   

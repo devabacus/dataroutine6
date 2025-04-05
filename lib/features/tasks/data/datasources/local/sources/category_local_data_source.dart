@@ -3,7 +3,7 @@ import 'package:dataroutine6/features/tasks/data/models/extensions/category_mode
 import 'package:dataroutine6/features/tasks/data/models/extensions/category_table_extensions.dart';
 
 import '../../../../../../core/database/local/database.dart';
-import '../../../../data/models/category_model.dart';
+import '../../../models/category/category_model.dart';
 import '../../local/dao/category_dao.dart';
 
 class CategoryLocalDataSource {

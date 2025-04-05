@@ -3,7 +3,7 @@ import 'package:dataroutine6/features/tasks/data/models/extensions/tag_models_ex
 import 'package:dataroutine6/features/tasks/data/models/extensions/tag_table_extension.dart';
 
 import '../../../../../../core/database/local/database.dart';
-import '../../../../data/models/tag_model.dart';
+import '../../../models/tag/tag_model.dart';
 import '../../local/dao/tag_dao.dart';
 
 class TagLocalDataSource {

@@ -2,8 +2,8 @@ import 'package:dataroutine6/features/tasks/data/models/extensions/tag_table_ext
 import 'package:dataroutine6/features/tasks/data/models/extensions/task_table_extension.dart';
 
 import '../../../../../../core/database/local/database.dart';
-import '../../../models/tag_model.dart';
-import '../../../models/task_model.dart';
+import '../../../models/tag/tag_model.dart';
+import '../../../models/task/task_model.dart';
 import '../dao/task_tag_map_dao.dart';
 
 class TaskTagMapLocalDataSource {

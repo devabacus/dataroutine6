@@ -1,5 +1,5 @@
-import '../../entities/category.dart';
-import '../../../data/models/category_model.dart';
+import '../category/category.dart';
+import '../../../data/models/category/category_model.dart';
 
 extension CategoryEntityExtension on CategoryEntity {
   CategoryModel toModel() => CategoryModel(id: id, title: title);

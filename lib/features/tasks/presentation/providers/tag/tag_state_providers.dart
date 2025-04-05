@@ -1,7 +1,7 @@
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import '../../../domain/entities/tag.dart';
-import '../../../domain/providers/tag_usecase_providers.dart';
+import '../../../domain/entities/tag/tag.dart';
+import '../../../domain/providers/tag/tag_usecase_providers.dart';
 
 part 'tag_state_providers.g.dart';
 

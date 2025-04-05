@@ -2,7 +2,7 @@ import 'package:dataroutine6/features/tasks/data/models/extensions/task_model_ex
 import 'package:dataroutine6/features/tasks/data/models/extensions/task_table_extension.dart';
 
 import '../../../../../../core/database/local/database.dart';
-import '../../../../data/models/task_model.dart';
+import '../../../models/task/task_model.dart';
 import '../../local/dao/task_dao.dart';
 
 class TaskLocalDataSource {

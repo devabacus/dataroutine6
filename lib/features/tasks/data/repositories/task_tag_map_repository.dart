@@ -1,8 +1,8 @@
 import 'package:dataroutine6/features/tasks/data/models/extensions/tag_models_extension.dart';
 import 'package:dataroutine6/features/tasks/data/models/extensions/task_model_extension.dart';
 
-import '../../domain/entities/tag.dart';
-import '../../domain/entities/task.dart';
+import '../../domain/entities/tag/tag.dart';
+import '../../domain/entities/task/task.dart';
 import '../../domain/repositories/task_tag_map_repository.dart';
 import '../datasources/local/sources/task_tag_map_local_data_source.dart';
 

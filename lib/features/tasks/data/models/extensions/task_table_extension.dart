@@ -1,5 +1,5 @@
 import 'package:dataroutine6/core/database/local/database.dart';
-import 'package:dataroutine6/features/tasks/data/models/task_model.dart';
+import 'package:dataroutine6/features/tasks/data/models/task/task_model.dart';
 
 extension TaskTableDataExtension on TaskTableData {
   TaskModel toModel() => TaskModel(

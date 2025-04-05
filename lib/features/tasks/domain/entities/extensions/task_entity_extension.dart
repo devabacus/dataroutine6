@@ -1,8 +1,8 @@
 
 
-import 'package:dataroutine6/features/tasks/domain/entities/task.dart';
+import 'package:dataroutine6/features/tasks/domain/entities/task/task.dart';
 
-import '../../../data/models/task_model.dart';
+import '../../../data/models/task/task_model.dart';
 
 extension TaskEntityExtension on TaskEntity {
   

@@ -2,7 +2,7 @@ import 'package:dataroutine6/features/tasks/data/models/extensions/tag_models_ex
 import 'package:dataroutine6/features/tasks/domain/entities/extensions/tag_entity_extension.dart';
 
 import '../../data/datasources/local/sources/tag_local_data_source.dart';
-import '../../domain/entities/tag.dart';
+import '../../domain/entities/tag/tag.dart';
 import '../../domain/repositories/tag_repository.dart';
 
 class TagRepositoryImpl implements TagRepository {

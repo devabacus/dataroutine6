@@ -1,7 +1,4 @@
-
-
-
-import 'package:dataroutine6/features/tasks/data/providers/task_tag_map_data_providers.dart';
+import 'package:dataroutine6/features/tasks/data/providers/task_tag/task_tag_map_data_providers.dart';
 import 'package:dataroutine6/features/tasks/domain/usecases/task_tag/add_tag_to_task.dart';
 import 'package:dataroutine6/features/tasks/domain/usecases/task_tag/get_tags_for_task.dart';
 import 'package:dataroutine6/features/tasks/domain/usecases/task_tag/get_task_with_tag.dart';

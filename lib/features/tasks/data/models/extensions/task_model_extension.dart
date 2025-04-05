@@ -1,8 +1,8 @@
 import 'package:dataroutine6/core/database/local/database.dart';
-import 'package:dataroutine6/features/tasks/domain/entities/task.dart';
+import 'package:dataroutine6/features/tasks/domain/entities/task/task.dart';
 import 'package:drift/drift.dart';
 
-import '../task_model.dart';
+import '../task/task_model.dart';
 
 extension TaskModelExtension on TaskModel {
   // for insert

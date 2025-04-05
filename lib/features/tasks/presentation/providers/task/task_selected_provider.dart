@@ -1,4 +1,4 @@
-import 'package:dataroutine6/features/tasks/domain/entities/task.dart';
+import 'package:dataroutine6/features/tasks/domain/entities/task/task.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'task_selected_provider.g.dart';

@@ -1,6 +1,6 @@
 
 import '../../repositories/tag_repository.dart';
-import '../../entities/tag.dart';
+import '../../entities/tag/tag.dart';
 
 class CreateTagUseCase {
   final TagRepository _repository;

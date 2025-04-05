@@ -1,5 +1,5 @@
 
-import '../../entities/category.dart';
+import '../../entities/category/category.dart';
 import '../../repositories/category_repository.dart';
 
 class UpdateCategoryUseCase {

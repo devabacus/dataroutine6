@@ -3,7 +3,7 @@ import 'package:dataroutine6/features/tasks/data/models/extensions/task_model_ex
 import 'package:dataroutine6/features/tasks/domain/entities/extensions/task_entity_extension.dart';
 
 import '../../data/datasources/local/sources/task_local_data_source.dart';
-import '../../domain/entities/task.dart';
+import '../../domain/entities/task/task.dart';
 import '../../domain/repositories/task_repository.dart';
 
 class TaskRepositoryImpl implements TaskRepository {

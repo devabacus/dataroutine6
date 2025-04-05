@@ -1,6 +1,6 @@
 import 'package:dataroutine6/core/database/local/database.dart';
-import 'package:dataroutine6/features/tasks/data/models/category_model.dart';
-import 'package:dataroutine6/features/tasks/domain/entities/category.dart';
+import 'package:dataroutine6/features/tasks/data/models/category/category_model.dart';
+import 'package:dataroutine6/features/tasks/domain/entities/category/category.dart';
 import 'package:drift/drift.dart';
 
 extension CategoryModelExtension on CategoryModel {

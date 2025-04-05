@@ -5,8 +5,8 @@ import 'package:dataroutine6/features/tasks/domain/entities/extensions/category_
 import '../../data/datasources/local/sources/category_local_data_source.dart';
 
 import '../../domain/repositories/category_repository.dart';
-import '../../domain/entities/category.dart';
-import '../models/category_model.dart';
+import '../../domain/entities/category/category.dart';
+import '../models/category/category_model.dart';
 
 class CategoryRepositoryImpl implements CategoryRepository {
   final CategoryLocalDataSource _localDataSource;

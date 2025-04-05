@@ -1,5 +1,5 @@
-import '../entities/tag.dart';
-import '../entities/task.dart';
+import '../entities/tag/tag.dart';
+import '../entities/task/task.dart';
 
 abstract class TaskTagMapRepository {
   /// Получить все теги для определённой задачи

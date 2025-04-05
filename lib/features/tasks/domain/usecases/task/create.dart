@@ -1,6 +1,6 @@
 
 import '../../repositories/task_repository.dart';
-import '../../entities/task.dart';
+import '../../entities/task/task.dart';
 
 class CreateTaskUseCase {
   final TaskRepository _repository;

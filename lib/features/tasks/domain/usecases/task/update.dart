@@ -1,5 +1,5 @@
 
-import '../../entities/task.dart';
+import '../../entities/task/task.dart';
 import '../../repositories/task_repository.dart';
 
 class UpdateTaskUseCase {

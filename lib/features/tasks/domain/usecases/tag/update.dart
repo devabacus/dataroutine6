@@ -1,5 +1,5 @@
 
-import '../../entities/tag.dart';
+import '../../entities/tag/tag.dart';
 import '../../repositories/tag_repository.dart';
 
 class UpdateTagUseCase {

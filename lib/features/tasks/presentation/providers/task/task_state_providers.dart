@@ -1,7 +1,7 @@
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import '../../../domain/entities/task.dart';
-import '../../../domain/providers/task_usecase_providers.dart';
+import '../../../domain/entities/task/task.dart';
+import '../../../domain/providers/task/task_usecase_providers.dart';
 
 part 'task_state_providers.g.dart';
 

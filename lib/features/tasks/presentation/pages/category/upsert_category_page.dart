@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ui_kit/ui_kit.dart';
 
-import '../../../domain/entities/category.dart';
+import '../../../domain/entities/category/category.dart';
 import '../../common_widgets/form_controller_mixin.dart';
 import '../../common_widgets/upsert_page_base.dart';
 import '../../providers/category/category_selected_provider.dart';
