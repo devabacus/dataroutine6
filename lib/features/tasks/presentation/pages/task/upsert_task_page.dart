@@ -1,6 +1,6 @@
+import 'package:dataroutine6/features/tasks/presentation/pages/task/build_tag_section_widget.dart';
 import 'package:dataroutine6/features/tasks/presentation/pages/task/task_form_controllers.dart';
 import 'package:dataroutine6/features/tasks/presentation/providers/category/category_by_id_provider.dart';
-import 'package:dataroutine6/features/tasks/presentation/providers/category/category_state_providers.dart';
 import 'package:dataroutine6/features/tasks/presentation/providers/task/task_selected_provider.dart';
 import 'package:dataroutine6/features/tasks/presentation/providers/task/task_state_providers.dart';
 import 'package:dataroutine6/features/tasks/presentation/providers/task_tag/task_tag_state_providers.dart';
@@ -92,7 +92,8 @@ class UpdateTaskPageState extends ConsumerState<UpsertTaskPage> {
             trailing: _pickCategory(selectedTaskContr),
           ),
           // tag section
-          if (taskId != null && isInitialized) _buildTagsSection(),
+          if (taskId != null && isInitialized)
+            TagSectionWidget(_saveCurrentTaskState, taskId: taskId),
           ElevatedButton(
             style: AppButtonStyle.basicStyle,
             onPressed: () {
@@ -115,60 +116,6 @@ class UpdateTaskPageState extends ConsumerState<UpsertTaskPage> {
           pathParameters: {TasksRoutes.isFromTask: "1"},
         );
       },
-    );
-  }
-
-  Widget _buildTagsSection() {
-    // Отображаем текущие теги задачи
-    final taskTag = ref.watch(taskTagsProvider(taskId: taskId!));
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        taskTag.when(
-          data: (tags) {
-            return Column(
-              children: [
-                if (tags.isNotEmpty)
-                  Wrap(
-                    spacing: 8.0,
-                    runSpacing: 8.0,
-                    children:
-                        tags
-                            .map(
-                              (tag) => Chip(
-                                label: Text(tag.title),
-                                onDeleted: () {
-                                  ref
-                                      .read(
-                                        taskTagsProvider(
-                                          taskId: taskId!,
-                                        ).notifier,
-                                      )
-                                      .removeTagFromTask(taskId!, tag.id);
-                                },
-                              ),
-                            )
-                            .toList(),
-                  ),
-                AppGap.s(),
-                ButtonFactory.basic(() {
-                  _saveCurrentTaskState(
-                    ref.read(selectedTaskProvider.notifier),
-                  );
-
-                  context.goNamed(
-                    TasksRoutes.viewTag,
-                    extra: {'isForTaskSelection': true, 'taskId': taskId},
-                  );
-                }, "Добавить тэги"),
-              ],
-            );
-          },
-          error: (_, __) => Text("Error"),
-          loading: () => CircularProgressIndicator(),
-        ),
-        AppGap.l(),
-      ],
     );
   }
 

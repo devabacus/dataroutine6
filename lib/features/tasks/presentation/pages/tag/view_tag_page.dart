@@ -1,6 +1,5 @@
 // lib/features/tasks/presentation/pages/view_tag_page.dart
 
-import 'package:chopper/chopper.dart';
 import 'package:dataroutine6/features/tasks/presentation/common_widgets/entity_list_page.dart';
 import 'package:dataroutine6/features/tasks/presentation/providers/tag/tag_selected_provider.dart';
 import 'package:dataroutine6/features/tasks/presentation/providers/tag/tag_state_providers.dart';
@@ -10,6 +9,8 @@ import 'package:dataroutine6/features/tasks/presentation/routing/tasks_routes_co
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+
+import '../../common_widgets/entity_list_page_config.dart';
 
 class ViewTagPage extends ConsumerWidget {
   final bool isForTaskSelection;

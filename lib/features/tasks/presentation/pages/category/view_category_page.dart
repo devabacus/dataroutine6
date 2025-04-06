@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../common_widgets/entity_list_page_config.dart';
+
 final tStyle = TextStyle(fontSize: 15);
 
 class ViewCategoryPage extends ConsumerWidget {

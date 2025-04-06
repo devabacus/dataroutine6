@@ -5,33 +5,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ui_kit/ui_kit.dart';
 import '../common_widgets/drawer.dart';
+import 'entity_list_page_config.dart';
 
-// Конфигурация для страницы списка
-class EntityListConfig<T> {
-  final String title;
-  final List<Widget> actions;
-  final String addButtonText;
-  final String addRouteName;
-  final String editRouteName;
-  final AsyncValue<List<T>> dataProvider;
-  final Function(T item) onItemTap;
-  final Function(T item)? onItemDelete;
-  final Function(BuildContext, T, int) itemBuilder;
-  final bool enableLongPressDelete;
 
-  EntityListConfig({
-    required this.title,
-    this.actions = const [],
-    required this.addButtonText,
-    required this.addRouteName,
-    required this.editRouteName,
-    required this.dataProvider,
-    required this.onItemTap,
-    this.onItemDelete,
-    required this.itemBuilder,
-    this.enableLongPressDelete = true,
-  });
-}
 
 class EntityListPage<T> extends ConsumerStatefulWidget {
   final EntityListConfig<T> config;
