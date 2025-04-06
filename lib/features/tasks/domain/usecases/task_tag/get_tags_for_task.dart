@@ -1,5 +1,5 @@
-import 'package:dataroutine6/features/tasks/domain/entities/tag/tag.dart';
-import 'package:dataroutine6/features/tasks/domain/repositories/task_tag_map_repository.dart';
+import '../../entities/tag/tag.dart';
+import '../../repositories/task_tag_map_repository.dart';
 
 class GetTagsForTaskUseCase {
   final TaskTagMapRepository repository;
