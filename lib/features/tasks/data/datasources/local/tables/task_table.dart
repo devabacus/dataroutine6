@@ -1,6 +1,4 @@
-
-
-import 'package:dataroutine6/features/tasks/data/datasources/local/tables/category_table.dart';
+import '../../../datasources/local/tables/category_table.dart';
 import 'package:drift/drift.dart';
 
 class TaskTable extends Table {
