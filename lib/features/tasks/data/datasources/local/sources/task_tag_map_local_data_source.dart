@@ -1,6 +1,5 @@
-import 'package:dataroutine6/features/tasks/data/models/extensions/tag_table_extension.dart';
-import 'package:dataroutine6/features/tasks/data/models/extensions/task_table_extension.dart';
-
+import '../../../models/extensions/tag_table_extension.dart';
+import '../../../models/extensions/task_table_extension.dart';
 import '../../../../../../core/database/local/database.dart';
 import '../../../models/tag/tag_model.dart';
 import '../../../models/task/task_model.dart';
@@ -19,7 +18,6 @@ class TaskTagMapLocalDataSource {
   Future<List<TaskModel>> getTasksWithTag(int tagId) async {
     final tasks = await _dao.getTasksWithTag(tagId);
     return tasks.toModels();
-
   }
 
   Future<void> addTagToTask(int taskId, int tagId) async {
