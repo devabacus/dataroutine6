@@ -19,7 +19,6 @@ class UpsertTagPage extends BaseUpsertPage<TagEntity> {
 
 class _UpsertTagPageState extends BaseUpsertPageState<TagEntity, UpsertTagPage>
     with FormControllersMixin<TagEntity> {
-  int? _tagId;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
@@ -29,7 +28,6 @@ class _UpsertTagPageState extends BaseUpsertPageState<TagEntity, UpsertTagPage>
       if (selectedTag != null) {
         setState(() {
           setControllerValue('title', selectedTag.title);
-          _tagId = selectedTag.id;
         });
       }
     }

@@ -121,7 +121,7 @@ class UpdateTaskPageState extends ConsumerState<UpsertTaskPage> {
   void _saveCurrentTaskState(SelectedTask selectedTaskContr) {
     String durationText = ctrl.duration.text;
 
-    int duration = durationText.isEmpty ? 0 : int.parse(durationText) ?? 0;
+    int duration = durationText.isEmpty ? 0 : int.parse(durationText);
 
     final createdAt = DateTime.now();
     final dueDateTime = DateTime.now();

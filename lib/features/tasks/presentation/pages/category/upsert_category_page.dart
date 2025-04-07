@@ -21,7 +21,6 @@ class UpsertCategoryPage extends BaseUpsertPage<CategoryEntity> {
 class _UpsertCategoryPageState
     extends BaseUpsertPageState<CategoryEntity, UpsertCategoryPage>
     with FormControllersMixin<CategoryEntity> {
-  int? _categoryId;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
@@ -31,7 +30,6 @@ class _UpsertCategoryPageState
       if (selectedCategory != null) {
         setState(() {
           setControllerValue('title', selectedCategory.title);
-          _categoryId = selectedCategory.id;
         });
       }
     }
