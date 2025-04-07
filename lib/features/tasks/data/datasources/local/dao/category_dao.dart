@@ -8,9 +8,8 @@ part 'category_dao.g.dart';
 
 @DriftAccessor(tables: [CategoryTable])
 class CategoryDao extends DatabaseAccessor<AppDatabase> with _$CategoryDaoMixin {
-  final IDatabaseService _databaseService;
   
-  CategoryDao(this._databaseService): super(_databaseService.database);
+  CategoryDao(IDatabaseService databaseService): super(databaseService.database);
 
   Future<List<CategoryTableData>> getCategories() => select(categoryTable).get();
   
