@@ -33,7 +33,7 @@ class _UpsertTagPageState extends BaseUpsertPageState<TagEntity, UpsertTagPage>
         });
       }
     }
-  }
+  }    
 
   @override
   void dispose() {
@@ -44,9 +44,7 @@ class _UpsertTagPageState extends BaseUpsertPageState<TagEntity, UpsertTagPage>
   @override
   void saveEntity() {
     if (!_formKey.currentState!.validate()) return;
-
     final tagController = ref.read(tagProvider.notifier);
-
     if (widget.isEditing) {
       final selectedTag = ref.read(tagSelectedProvider);
       if (selectedTag != null) {

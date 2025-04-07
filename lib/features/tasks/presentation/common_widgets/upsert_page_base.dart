@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+
 abstract class BaseUpsertPage<T> extends ConsumerStatefulWidget {
   final bool isEditing;
 
@@ -8,12 +9,12 @@ abstract class BaseUpsertPage<T> extends ConsumerStatefulWidget {
 }
 
 
-
 abstract class BaseUpsertPageState<T, W extends BaseUpsertPage<T>> extends ConsumerState<W> {
   // Общие методы для всех страниц Upsert
   void initializeData();
   void saveEntity();
   void navigateBack();
+  Widget buildForm();
   
   @override
   void initState() {
@@ -44,6 +45,5 @@ abstract class BaseUpsertPageState<T, W extends BaseUpsertPage<T>> extends Consu
     );
   }
   
-  Widget buildForm();
 }
 
