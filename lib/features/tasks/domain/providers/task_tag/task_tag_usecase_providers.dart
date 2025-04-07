@@ -13,31 +13,31 @@ part 'task_tag_usecase_providers.g.dart';
 
 @riverpod
 AddTagToTaskUseCase addTagToTaskUseCase (Ref ref) {
-  final repository = ref.read(taskTagMapRepositoryImplProvider);
+  final repository = ref.read(taskTagMapRepositoryProvider);
   return AddTagToTaskUseCase(repository);
 }
 
 @riverpod
 GetTagsForTaskUseCase getTagsForTaskUseCase(Ref ref) {
-  final repository = ref.read(taskTagMapRepositoryImplProvider);
+  final repository = ref.read(taskTagMapRepositoryProvider);
   return GetTagsForTaskUseCase(repository);
 }
 
 @riverpod
 GetTaskWithTagUseCase getTaskWithTagUseCase(Ref ref) {
-  final repository = ref.read(taskTagMapRepositoryImplProvider);
+  final repository = ref.read(taskTagMapRepositoryProvider);
   return GetTaskWithTagUseCase(repository);
 }
 
 @riverpod
 RemoveTagFromTaskUseCase removeTagFromTaskUseCase(Ref ref) {
-  final repository = ref.read(taskTagMapRepositoryImplProvider);
+  final repository = ref.read(taskTagMapRepositoryProvider);
   return RemoveTagFromTaskUseCase(repository);
 }
 
 @riverpod
 RemoveAllTagsFromTaskUseCase removeAllTagsFromTaskUseCase(Ref ref) {
-  final repository = ref.read(taskTagMapRepositoryImplProvider);
+  final repository = ref.read(taskTagMapRepositoryProvider);
   return RemoveAllTagsFromTaskUseCase(repository);
 }
 

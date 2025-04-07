@@ -27,26 +27,25 @@ final taskTagLocalDataSourceProvider =
 // ignore: unused_element
 typedef TaskTagLocalDataSourceRef =
     AutoDisposeProviderRef<ITaskTagMapLocalDataSource>;
-String _$taskTagMapRepositoryImplHash() =>
-    r'f15cedc6a806b3f0c84f648e7eb24be424b21ed2';
+String _$taskTagMapRepositoryHash() =>
+    r'27a3c06f0d17e3d565c321d0be729540c507bbd9';
 
-/// See also [taskTagMapRepositoryImpl].
-@ProviderFor(taskTagMapRepositoryImpl)
-final taskTagMapRepositoryImplProvider =
+/// See also [taskTagMapRepository].
+@ProviderFor(taskTagMapRepository)
+final taskTagMapRepositoryProvider =
     AutoDisposeProvider<ITaskTagMapRepository>.internal(
-      taskTagMapRepositoryImpl,
-      name: r'taskTagMapRepositoryImplProvider',
+      taskTagMapRepository,
+      name: r'taskTagMapRepositoryProvider',
       debugGetCreateSourceHash:
           const bool.fromEnvironment('dart.vm.product')
               ? null
-              : _$taskTagMapRepositoryImplHash,
+              : _$taskTagMapRepositoryHash,
       dependencies: null,
       allTransitiveDependencies: null,
     );
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-typedef TaskTagMapRepositoryImplRef =
-    AutoDisposeProviderRef<ITaskTagMapRepository>;
+typedef TaskTagMapRepositoryRef = AutoDisposeProviderRef<ITaskTagMapRepository>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

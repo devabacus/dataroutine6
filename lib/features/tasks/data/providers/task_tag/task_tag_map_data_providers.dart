@@ -16,7 +16,7 @@ ITaskTagMapLocalDataSource taskTagLocalDataSource(Ref ref) {
 }
 
 @riverpod
-ITaskTagMapRepository taskTagMapRepositoryImpl(Ref ref) {
+ITaskTagMapRepository taskTagMapRepository(Ref ref) {
   final localDataSource = ref.read(taskTagLocalDataSourceProvider);
   return TaskTagMapRepositoryImpl(localDataSource);
 }
