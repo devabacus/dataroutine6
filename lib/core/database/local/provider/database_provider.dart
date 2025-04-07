@@ -14,7 +14,6 @@ AppDatabase appDatabase(Ref ref) {
   return AppDatabase();
 }
 
-
 @riverpod
 IDatabaseService databaseService(Ref ref) {
   ref.keepAlive();

@@ -1,7 +1,7 @@
 import '../../repositories/task_tag_map_repository.dart';
 
 class AddTagToTaskUseCase {
-  final TaskTagMapRepository repository;
+  final ITaskTagMapRepository repository;
 
   const AddTagToTaskUseCase(this.repository);
 

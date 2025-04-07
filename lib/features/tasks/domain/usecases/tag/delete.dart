@@ -1,8 +1,7 @@
-
 import '../../repositories/tag_repository.dart';
 
 class DeleteTagUseCase {
-  final TagRepository _repository;
+  final ITagRepository _repository;
 
   DeleteTagUseCase(this._repository);
 

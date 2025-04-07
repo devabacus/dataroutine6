@@ -1,9 +1,8 @@
-
 import '../../repositories/tag_repository.dart';
 import '../../entities/tag/tag.dart';
 
 class GetTagUseCase {
-  final TagRepository _repository;
+  final ITagRepository _repository;
 
   GetTagUseCase(this._repository);
 

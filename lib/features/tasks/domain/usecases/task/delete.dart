@@ -1,8 +1,7 @@
-
 import '../../repositories/task_repository.dart';
 
 class DeleteTaskUseCase {
-  final TaskRepository _repository;
+  final ITaskRepository _repository;
 
   DeleteTaskUseCase(this._repository);
 

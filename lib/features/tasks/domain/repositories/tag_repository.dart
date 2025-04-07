@@ -1,7 +1,6 @@
-
 import '../entities/tag/tag.dart';
 
-abstract class TagRepository {
+abstract class ITagRepository {
   Future<List<TagEntity>> getTag();
   Future<TagEntity> getTagById(int id);
   Future<int> createTag(TagEntity tag);

@@ -1,7 +1,6 @@
-
 import '../entities/task/task.dart';
 
-abstract class TaskRepository {
+abstract class ITaskRepository {
   Future<List<TaskEntity>> getTask();
   Future<TaskEntity> getTaskById(int id);
   Future<int> createTask(TaskEntity task);

@@ -1,7 +1,7 @@
 import '../entities/tag/tag.dart';
 import '../entities/task/task.dart';
 
-abstract class TaskTagMapRepository {
+abstract class ITaskTagMapRepository {
   /// Получить все теги для определённой задачи
   Future<List<TagEntity>> getTagsForTask(int taskId);
 

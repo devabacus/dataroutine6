@@ -1,12 +1,12 @@
 import '../../domain/entities/tag/tag.dart';
 import '../../domain/entities/task/task.dart';
 import '../../domain/repositories/task_tag_map_repository.dart';
-import '../datasources/local/sources/task_tag_map_local_data_source.dart';
+import '../datasources/local/interface/task_tag_local_datasource_service.dart';
 import '../models/extensions/tag_models_extension.dart';
 import '../models/extensions/task_model_extension.dart';
 
-class TaskTagMapRepositoryImpl implements TaskTagMapRepository {
-  final TaskTagMapLocalDataSource _dataSource;
+class TaskTagMapRepositoryImpl implements ITaskTagMapRepository {
+  final ITaskTagMapLocalDataSource _dataSource;
 
   TaskTagMapRepositoryImpl(this._dataSource);
 

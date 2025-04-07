@@ -5,17 +5,18 @@ import 'package:dataroutine6/features/tasks/domain/repositories/task_tag_map_rep
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../../datasources/local/interface/task_tag_local_datasource_service.dart';
+
 part 'task_tag_map_data_providers.g.dart';
 
 @riverpod
-TaskTagMapLocalDataSource taskTagLocalDataSource(Ref ref) {
-    final db = ref.read(appDatabaseProvider);  
-    return TaskTagMapLocalDataSource(db);
+ITaskTagMapLocalDataSource taskTagLocalDataSource(Ref ref) {
+  final databaseService = ref.read(databaseServiceProvider);
+  return TaskTagMapLocalDataSource(databaseService);
 }
 
 @riverpod
-TaskTagMapRepository taskTagMapRepositoryImpl(Ref ref) {
+ITaskTagMapRepository taskTagMapRepositoryImpl(Ref ref) {
   final localDataSource = ref.read(taskTagLocalDataSourceProvider);
-  return TaskTagMapRepositoryImpl(localDataSource);  
+  return TaskTagMapRepositoryImpl(localDataSource);
 }
-

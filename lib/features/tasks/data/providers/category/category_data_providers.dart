@@ -1,5 +1,4 @@
-
-import 'package:dataroutine6/features/tasks/data/datasources/local/interface/category_local_datasource.dart';
+import 'package:dataroutine6/features/tasks/data/datasources/local/interface/category_local_datasource_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -17,7 +16,7 @@ ICategoryLocalDataSource categoryLocalDataSource(Ref ref) {
 }
 
 @riverpod
-CategoryRepository categoryRepository(Ref ref) {
+ICategoryRepository categoryRepository(Ref ref) {
   final localDataSource = ref.read(categoryLocalDataSourceProvider);
   return CategoryRepositoryImpl(localDataSource);
 }

@@ -1,9 +1,8 @@
-
 import '../../entities/task/task.dart';
 import '../../repositories/task_repository.dart';
 
 class UpdateTaskUseCase {
-  final TaskRepository _repository;
+  final ITaskRepository _repository;
 
   UpdateTaskUseCase(this._repository);
 

@@ -2,7 +2,7 @@ import '../../entities/tag/tag.dart';
 import '../../repositories/task_tag_map_repository.dart';
 
 class GetTagsForTaskUseCase {
-  final TaskTagMapRepository repository;
+  final ITaskTagMapRepository repository;
 
   GetTagsForTaskUseCase(this.repository);
 

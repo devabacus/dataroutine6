@@ -4,7 +4,7 @@ import 'package:dataroutine6/features/tasks/data/models/extensions/category_tabl
 
 import '../../../models/category/category_model.dart';
 import '../../local/dao/category_dao.dart';
-import '../interface/category_local_datasource.dart';
+import '../interface/category_local_datasource_service.dart';
 
 class CategoryLocalDataSource implements ICategoryLocalDataSource {
   final CategoryDao _categoryDao;

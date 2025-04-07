@@ -1,8 +1,7 @@
-
 import '../../repositories/category_repository.dart';
 
 class DeleteCategoryUseCase {
-  final CategoryRepository _repository;
+  final ICategoryRepository _repository;
 
   DeleteCategoryUseCase(this._repository);
 

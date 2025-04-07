@@ -1,7 +1,7 @@
 import '../../repositories/task_tag_map_repository.dart';
 
 class RemoveTagFromTaskUseCase {
-  final TaskTagMapRepository repository;
+  final ITaskTagMapRepository repository;
 
   RemoveTagFromTaskUseCase(this.repository);
 

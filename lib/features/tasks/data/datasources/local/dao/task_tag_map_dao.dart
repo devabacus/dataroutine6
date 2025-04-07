@@ -1,3 +1,4 @@
+import 'package:dataroutine6/core/database/local/interface/database_service.dart';
 import 'package:drift/drift.dart';
 import '../../../../../../core/database/local/database.dart';
 import '../tables/tag_table.dart';
@@ -8,7 +9,7 @@ part 'task_tag_map_dao.g.dart';
 
 @DriftAccessor(tables: [TaskTagMapTable, TaskTable, TagTable])
 class TaskTagMapDao extends DatabaseAccessor<AppDatabase> with _$TaskTagMapDaoMixin {
-  TaskTagMapDao(super.db);
+  TaskTagMapDao(IDatabaseService databaseService) : super(databaseService.database);
 
   Future<List<TagTableData>> getTagsForTask(int taskId) {
     return (select(tagTable)

@@ -1,12 +1,12 @@
 import 'package:dataroutine6/features/tasks/data/models/extensions/tag_models_extension.dart';
 import 'package:dataroutine6/features/tasks/domain/entities/extensions/tag_entity_extension.dart';
 
-import '../../data/datasources/local/sources/tag_local_data_source.dart';
 import '../../domain/entities/tag/tag.dart';
 import '../../domain/repositories/tag_repository.dart';
+import '../datasources/local/interface/tag_local_datasource_service.dart';
 
-class TagRepositoryImpl implements TagRepository {
-  final TagLocalDataSource _localDataSource;
+class TagRepositoryImpl implements ITagRepository {
+  final ITagLocalDataSource _localDataSource;
 
   TagRepositoryImpl(this._localDataSource);
   // ---------auto generated------------------//

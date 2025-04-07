@@ -28,12 +28,12 @@ final categoryLocalDataSourceProvider =
 typedef CategoryLocalDataSourceRef =
     AutoDisposeProviderRef<ICategoryLocalDataSource>;
 String _$categoryRepositoryHash() =>
-    r'6c2e7b06daf654c4300336d2f4d556a0b79d176f';
+    r'e1ad4009e4d627fe6a0e2f532a7b5002e2c308a7';
 
 /// See also [categoryRepository].
 @ProviderFor(categoryRepository)
 final categoryRepositoryProvider =
-    AutoDisposeProvider<CategoryRepository>.internal(
+    AutoDisposeProvider<ICategoryRepository>.internal(
       categoryRepository,
       name: r'categoryRepositoryProvider',
       debugGetCreateSourceHash:
@@ -46,6 +46,6 @@ final categoryRepositoryProvider =
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-typedef CategoryRepositoryRef = AutoDisposeProviderRef<CategoryRepository>;
+typedef CategoryRepositoryRef = AutoDisposeProviderRef<ICategoryRepository>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

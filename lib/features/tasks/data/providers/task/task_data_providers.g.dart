@@ -7,12 +7,12 @@ part of 'task_data_providers.dart';
 // **************************************************************************
 
 String _$taskLocalDataSourceHash() =>
-    r'08457d4e3c1e96c8600ad2d931e4df301a377acd';
+    r'1b523112bd5715aae8360f6f843714843e3660b7';
 
 /// See also [taskLocalDataSource].
 @ProviderFor(taskLocalDataSource)
 final taskLocalDataSourceProvider =
-    AutoDisposeProvider<TaskLocalDataSource>.internal(
+    AutoDisposeProvider<ITaskLocalDataSource>.internal(
       taskLocalDataSource,
       name: r'taskLocalDataSourceProvider',
       debugGetCreateSourceHash:
@@ -25,12 +25,12 @@ final taskLocalDataSourceProvider =
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-typedef TaskLocalDataSourceRef = AutoDisposeProviderRef<TaskLocalDataSource>;
-String _$taskRepositoryHash() => r'c8cba600fd4d58621f5ba7c543eb52a6e94e9721';
+typedef TaskLocalDataSourceRef = AutoDisposeProviderRef<ITaskLocalDataSource>;
+String _$taskRepositoryHash() => r'66c70d008ae4fbf8c98fd18665d0a8a623cc9c66';
 
 /// See also [taskRepository].
 @ProviderFor(taskRepository)
-final taskRepositoryProvider = AutoDisposeProvider<TaskRepository>.internal(
+final taskRepositoryProvider = AutoDisposeProvider<ITaskRepository>.internal(
   taskRepository,
   name: r'taskRepositoryProvider',
   debugGetCreateSourceHash:
@@ -43,6 +43,6 @@ final taskRepositoryProvider = AutoDisposeProvider<TaskRepository>.internal(
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-typedef TaskRepositoryRef = AutoDisposeProviderRef<TaskRepository>;
+typedef TaskRepositoryRef = AutoDisposeProviderRef<ITaskRepository>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

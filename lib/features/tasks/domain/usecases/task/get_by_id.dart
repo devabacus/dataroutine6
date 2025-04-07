@@ -1,9 +1,8 @@
-
 import '../../repositories/task_repository.dart';
 import '../../entities/task/task.dart';
 
 class GetTaskByIdUseCase {
-  final TaskRepository _repository;
+  final ITaskRepository _repository;
 
   GetTaskByIdUseCase(this._repository);
 

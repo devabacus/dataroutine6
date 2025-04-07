@@ -1,9 +1,8 @@
-
 import '../../entities/tag/tag.dart';
 import '../../repositories/tag_repository.dart';
 
 class UpdateTagUseCase {
-  final TagRepository _repository;
+  final ITagRepository _repository;
 
   UpdateTagUseCase(this._repository);
 
