@@ -8,7 +8,6 @@ class TasksNavigationService {
       context.goNamed(TasksRoutes.dbViewer);
     }
   
-
   void navigateToEditCategory(BuildContext context) {
     context.goNamed(TasksRoutes.editCategory);
   }
