@@ -7,12 +7,12 @@ part of 'category_data_providers.dart';
 // **************************************************************************
 
 String _$categoryLocalDataSourceHash() =>
-    r'403a5bdc3dc984ec663c6af794243e0a2c4856e2';
+    r'846c6671beec31bcff3039279b63624fc0faee1f';
 
 /// See also [categoryLocalDataSource].
 @ProviderFor(categoryLocalDataSource)
 final categoryLocalDataSourceProvider =
-    AutoDisposeProvider<CategoryLocalDataSource>.internal(
+    AutoDisposeProvider<ICategoryLocalDataSource>.internal(
       categoryLocalDataSource,
       name: r'categoryLocalDataSourceProvider',
       debugGetCreateSourceHash:
@@ -26,7 +26,7 @@ final categoryLocalDataSourceProvider =
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef CategoryLocalDataSourceRef =
-    AutoDisposeProviderRef<CategoryLocalDataSource>;
+    AutoDisposeProviderRef<ICategoryLocalDataSource>;
 String _$categoryRepositoryHash() =>
     r'6c2e7b06daf654c4300336d2f4d556a0b79d176f';
 

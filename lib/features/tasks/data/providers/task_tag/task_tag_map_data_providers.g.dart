@@ -28,12 +28,12 @@ final taskTagLocalDataSourceProvider =
 typedef TaskTagLocalDataSourceRef =
     AutoDisposeProviderRef<TaskTagMapLocalDataSource>;
 String _$taskTagMapRepositoryImplHash() =>
-    r'6393dc63233cd15e1d2415ce4509720163901089';
+    r'd730205aa2cafd3deaac304c2c84b1c40fb2b780';
 
 /// See also [taskTagMapRepositoryImpl].
 @ProviderFor(taskTagMapRepositoryImpl)
 final taskTagMapRepositoryImplProvider =
-    AutoDisposeProvider<TaskTagMapRepositoryImpl>.internal(
+    AutoDisposeProvider<TaskTagMapRepository>.internal(
       taskTagMapRepositoryImpl,
       name: r'taskTagMapRepositoryImplProvider',
       debugGetCreateSourceHash:
@@ -47,6 +47,6 @@ final taskTagMapRepositoryImplProvider =
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef TaskTagMapRepositoryImplRef =
-    AutoDisposeProviderRef<TaskTagMapRepositoryImpl>;
+    AutoDisposeProviderRef<TaskTagMapRepository>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

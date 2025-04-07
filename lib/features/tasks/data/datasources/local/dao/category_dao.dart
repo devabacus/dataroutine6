@@ -1,4 +1,5 @@
 
+import 'package:dataroutine6/core/database/local/interface/database_service.dart';
 import 'package:drift/drift.dart';
 import '../../../../../../../core/database/local/database.dart';
 import '../tables/category_table.dart';
@@ -7,7 +8,9 @@ part 'category_dao.g.dart';
 
 @DriftAccessor(tables: [CategoryTable])
 class CategoryDao extends DatabaseAccessor<AppDatabase> with _$CategoryDaoMixin {
-  CategoryDao(super.db);
+  final IDatabaseService _databaseService;
+  
+  CategoryDao(this._databaseService): super(_databaseService.database);
 
   Future<List<CategoryTableData>> getCategories() => select(categoryTable).get();
   
