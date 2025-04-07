@@ -3,7 +3,6 @@ import 'package:dataroutine6/features/tasks/presentation/pages/task/task_form_co
 import 'package:dataroutine6/features/tasks/presentation/providers/category/category_by_id_provider.dart';
 import 'package:dataroutine6/features/tasks/presentation/providers/task/task_selected_provider.dart';
 import 'package:dataroutine6/features/tasks/presentation/providers/task/task_state_providers.dart';
-import 'package:dataroutine6/features/tasks/presentation/providers/task_tag/task_tag_state_providers.dart';
 import 'package:dataroutine6/features/tasks/presentation/routing/tasks_routes_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

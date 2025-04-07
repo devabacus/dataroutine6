@@ -22,12 +22,12 @@ class TaskFormControllers {
        duration = duration ?? TextEditingController(),
        tag = tag ?? TextEditingController();
 
-  void dispose(){
-      title.dispose();
-      description.dispose();
-      categoryId.dispose();
-      createdAt.dispose();
-      duration.dispose();
-      tag.dispose();
-  }     
+  void dispose() {
+    title.dispose();
+    description.dispose();
+    categoryId.dispose();
+    createdAt.dispose();
+    duration.dispose();
+    tag.dispose();
+  }
 }
