@@ -7,7 +7,7 @@ part of 'task_tag_usecase_providers.dart';
 // **************************************************************************
 
 String _$addTagToTaskUseCaseHash() =>
-    r'561e769d103c5121d13afafba9fc1e6729247ba1';
+    r'eb1b947440b638110ebb893706939f019db1ab56';
 
 /// See also [addTagToTaskUseCase].
 @ProviderFor(addTagToTaskUseCase)
@@ -27,7 +27,7 @@ final addTagToTaskUseCaseProvider =
 // ignore: unused_element
 typedef AddTagToTaskUseCaseRef = AutoDisposeProviderRef<AddTagToTaskUseCase>;
 String _$getTagsForTaskUseCaseHash() =>
-    r'02bb677530c266c7b50c55fc6fd6b9f21b884a7c';
+    r'2309bfa712bbb8bf68bcb7786f72ddac925aaf39';
 
 /// See also [getTagsForTaskUseCase].
 @ProviderFor(getTagsForTaskUseCase)
@@ -48,7 +48,7 @@ final getTagsForTaskUseCaseProvider =
 typedef GetTagsForTaskUseCaseRef =
     AutoDisposeProviderRef<GetTagsForTaskUseCase>;
 String _$getTaskWithTagUseCaseHash() =>
-    r'1854a96c149cbd581d4868fbc12e3bcc47763022';
+    r'c04ba8b94a4dde2734eec63e053aa83e1a32410b';
 
 /// See also [getTaskWithTagUseCase].
 @ProviderFor(getTaskWithTagUseCase)
@@ -69,7 +69,7 @@ final getTaskWithTagUseCaseProvider =
 typedef GetTaskWithTagUseCaseRef =
     AutoDisposeProviderRef<GetTaskWithTagUseCase>;
 String _$removeTagFromTaskUseCaseHash() =>
-    r'b7042837f865bc291f27ef803139eed6dce9325a';
+    r'08895463339ed993aaf01bc8d36e022515b63149';
 
 /// See also [removeTagFromTaskUseCase].
 @ProviderFor(removeTagFromTaskUseCase)
@@ -90,7 +90,7 @@ final removeTagFromTaskUseCaseProvider =
 typedef RemoveTagFromTaskUseCaseRef =
     AutoDisposeProviderRef<RemoveTagFromTaskUseCase>;
 String _$removeAllTagsFromTaskUseCaseHash() =>
-    r'28b808f6d0a7872f6e6a73c7988599fc6dd8c1f8';
+    r'97d3de0b1d8ee8a90b22aad4998de672932112b1';
 
 /// See also [removeAllTagsFromTaskUseCase].
 @ProviderFor(removeAllTagsFromTaskUseCase)

@@ -6,8 +6,24 @@ part of 'category_data_providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+String _$categoryDaoHash() => r'12ec13ec2a0334db5a2e6ada2eeccb88d40f9762';
+
+/// See also [categoryDao].
+@ProviderFor(categoryDao)
+final categoryDaoProvider = AutoDisposeProvider<CategoryDao>.internal(
+  categoryDao,
+  name: r'categoryDaoProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$categoryDaoHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef CategoryDaoRef = AutoDisposeProviderRef<CategoryDao>;
 String _$categoryLocalDataSourceHash() =>
-    r'846c6671beec31bcff3039279b63624fc0faee1f';
+    r'03e5408e95291c441ab3640dd2617c45c2c0d4e2';
 
 /// See also [categoryLocalDataSource].
 @ProviderFor(categoryLocalDataSource)

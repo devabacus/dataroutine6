@@ -1,8 +1,6 @@
 import 'package:dataroutine6/core/database/local/database.dart';
-import 'package:dataroutine6/core/database/local/interface/database_service.dart';
 import 'package:dataroutine6/features/tasks/data/datasources/local/dao/category_dao.dart';
 import 'package:drift/drift.dart';
-import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../../../../core/database/local/test_database_service.dart';

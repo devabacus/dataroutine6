@@ -1,3 +1,4 @@
+import 'package:dataroutine6/features/tasks/data/datasources/local/dao/category_dao.dart';
 import 'package:dataroutine6/features/tasks/data/datasources/local/interface/category_local_datasource_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -10,9 +11,15 @@ import '../../repositories/category_repository_impl.dart';
 part 'category_data_providers.g.dart';
 
 @riverpod
-ICategoryLocalDataSource categoryLocalDataSource(Ref ref) {
+CategoryDao categoryDao(Ref ref) {
   final databaseService = ref.read(databaseServiceProvider);
-  return CategoryLocalDataSource(databaseService);
+  return CategoryDao(databaseService);
+}
+
+@riverpod
+ICategoryLocalDataSource categoryLocalDataSource(Ref ref) {
+  final categoryDao = ref.read(categoryDaoProvider);
+  return CategoryLocalDataSource(categoryDao);
 }
 
 @riverpod
