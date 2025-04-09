@@ -1,6 +1,7 @@
 import 'package:dataroutine6/features/tasks/data/datasources/local/interface/category_local_datasource_service.dart';
 import 'package:dataroutine6/features/tasks/data/models/category/category_model.dart';
 import 'package:dataroutine6/features/tasks/data/repositories/category_repository_impl.dart';
+import 'package:dataroutine6/features/tasks/domain/entities/category/category.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -23,6 +24,7 @@ void main() {
 
       final testCategoryModel = CategoryModel(id: 1, title: 'Test Category');
       final testCategoryModelList = [CategoryModel(id: 1, title: 'Test Category')];
+      final testCategoryEntity = CategoryEntity(id: -1, title: 'Test Category');
       
       test('getCategories', () async{
           when(mockCategoryLocalDataSource.getCategories()).thenAnswer((_)async=>testCategoryModelList);
@@ -47,7 +49,38 @@ void main() {
         expect(result.title, equals(testCategoryModel.title));
         
       });
-      
+            test('createCategory', () async {
+        final expectedId = 1;
+
+        when(mockCategoryLocalDataSource.createCategory(any))
+            .thenAnswer((_) async => expectedId);
+
+        final result = await categoryRepositoryImpl.createCategory(testCategoryEntity);
+
+        verify(mockCategoryLocalDataSource.createCategory(any)).called(1);
+        expect(result, equals(expectedId));
+      });
+
+      test('updateCategory', () async {
+        when(mockCategoryLocalDataSource.updateCategory(any))
+            .thenAnswer((_) async => {});
+
+        await categoryRepositoryImpl.updateCategory(testCategoryEntity);
+
+        verify(mockCategoryLocalDataSource.updateCategory(any)).called(1);
+      });
+
+      test('deleteCategory', () async {
+        
+        final categoryId = 1;
+
+        when(mockCategoryLocalDataSource.deleteCategory(categoryId))
+            .thenAnswer((_) async => {});
+
+        await categoryRepositoryImpl.deleteCategory(categoryId);
+
+        verify(mockCategoryLocalDataSource.deleteCategory(categoryId)).called(1);
+      });
 
 
     });
