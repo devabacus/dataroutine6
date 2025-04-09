@@ -82,9 +82,7 @@ void main() {
         verify(mockCategoryLocalDataSource.deleteCategory(categoryId)).called(1);
       });
 
-
     });
-
 
 }
 
