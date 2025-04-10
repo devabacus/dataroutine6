@@ -65,7 +65,7 @@ class _EntityListPageState<T> extends ConsumerState<EntityListPage<T>> {
                               ? IconButton(
                                   icon: Icon(Icons.delete),
                                   onPressed: () => config.onItemDelete!(item),
-                                )
+                                )    
                               : null,
                         ),
                       );
