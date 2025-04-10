@@ -60,19 +60,19 @@ void main() {
     await tester.pumpAndSettle();
     expect(onItemTapCalled, true);
 
-    //TODO нужно будет что-то сделать с удалением именно по одной кнопке
-    // // Включаем режим удаления (обычно через долгое нажатие)
-    // await tester.longPress(find.text('Категория 2'));
-    // await tester.pumpAndSettle();
+    // TODO нужно будет что-то сделать с удалением именно по одной кнопке
+    // Включаем режим удаления (обычно через долгое нажатие)
+    await tester.longPress(find.text('Категория 2'));
+    await tester.pumpAndSettle();
 
-    // // Теперь должна появиться иконка удаления
-    // final deleteIcon = find.byIcon(Icons.delete);
-    // expect(deleteIcon, findsWidgets);
+    // Теперь должна появиться иконка удаления
+    final deleteIcon = find.byIcon(Icons.delete);
+    expect(deleteIcon, findsOneWidget);
 
-    // // Проверяем нажатие на кнопку удаления
-    // await tester.tap(deleteIcon);
-    // await tester.pumpAndSettle();
-    // expect(onItemDeleteCalled, true);
+    // Проверяем нажатие на кнопку удаления
+    await tester.tap(deleteIcon);
+    await tester.pumpAndSettle();
+    expect(onItemDeleteCalled, true);
   });
 
   testWidgets('EntityListPage отображает пустой список корректно', (

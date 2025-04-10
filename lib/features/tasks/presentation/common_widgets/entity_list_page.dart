@@ -7,15 +7,10 @@ import 'package:ui_kit/ui_kit.dart';
 import '../common_widgets/drawer.dart';
 import 'entity_list_page_config.dart';
 
-
-
 class EntityListPage<T> extends ConsumerStatefulWidget {
   final EntityListConfig<T> config;
 
-  const EntityListPage({
-    required this.config,
-    super.key,
-  });
+  const EntityListPage({required this.config, super.key});
 
   @override
   ConsumerState<EntityListPage<T>> createState() => _EntityListPageState<T>();
@@ -23,9 +18,13 @@ class EntityListPage<T> extends ConsumerStatefulWidget {
 
 class _EntityListPageState<T> extends ConsumerState<EntityListPage<T>> {
   bool _isDeleteMode = false;
+  int itemForDelete = -1;
 
-  void _toggleDeleteMode() {
+
+  void _toggleDeleteMode(int index) {
     setState(() {
+      itemForDelete = index;
+
       _isDeleteMode = !_isDeleteMode;
     });
   }
@@ -35,10 +34,7 @@ class _EntityListPageState<T> extends ConsumerState<EntityListPage<T>> {
     final config = widget.config;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(config.title),
-        actions: config.actions,
-      ),
+      appBar: AppBar(title: Text(config.title), actions: config.actions),
       drawer: AppDrawer(),
       body: Center(
         child: Column(
@@ -49,24 +45,27 @@ class _EntityListPageState<T> extends ConsumerState<EntityListPage<T>> {
                   if (items.isEmpty) {
                     return Center(child: Text("Список пуст"));
                   }
-                  
+
                   return ListView.builder(
                     itemCount: items.length,
                     itemBuilder: (context, index) {
                       final item = items[index];
                       return GestureDetector(
-                        onLongPress: config.enableLongPressDelete 
-                            ? _toggleDeleteMode 
-                            : null,
+                        onLongPress:
+                            config.enableLongPressDelete
+                                ? () => _toggleDeleteMode(index)
+                                : null,
                         child: ListTile(
                           title: config.itemBuilder(context, item, index),
                           onTap: () => config.onItemTap(item),
-                          trailing: _isDeleteMode && config.onItemDelete != null
-                              ? IconButton(
-                                  icon: Icon(Icons.delete),
-                                  onPressed: () => config.onItemDelete!(item),
-                                )    
-                              : null,
+                          trailing:
+                              itemForDelete == index &&
+                                      config.onItemDelete != null
+                                  ? IconButton(
+                                    icon: Icon(Icons.delete),
+                                    onPressed: () => config.onItemDelete!(item),
+                                  )
+                                  : null,
                         ),
                       );
                     },
