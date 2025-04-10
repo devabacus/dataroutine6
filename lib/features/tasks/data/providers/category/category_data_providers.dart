@@ -27,3 +27,4 @@ ICategoryRepository categoryRepository(Ref ref) {
   final localDataSource = ref.read(categoryLocalDataSourceProvider);
   return CategoryRepositoryImpl(localDataSource);
 }
+     
