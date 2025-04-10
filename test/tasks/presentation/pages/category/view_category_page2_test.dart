@@ -1,16 +1,14 @@
 // test/features/tasks/presentation/pages/category/view_category_page_test.dart
 
-import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:mockito/mockito.dart';
-import 'package:mockito/annotations.dart';
-
 import 'package:dataroutine6/features/tasks/domain/entities/category/category.dart';
-import 'package:dataroutine6/features/tasks/domain/usecases/category/get_all.dart';
 import 'package:dataroutine6/features/tasks/domain/providers/category/category_usecase_providers.dart';
-import 'package:dataroutine6/features/tasks/presentation/providers/category/category_state_providers.dart';
+import 'package:dataroutine6/features/tasks/domain/usecases/category/get_all.dart';
 import 'package:dataroutine6/features/tasks/presentation/pages/category/view_category_page.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
 
 import '../../providers/category/category_state_providers_test.mocks.dart';
 
