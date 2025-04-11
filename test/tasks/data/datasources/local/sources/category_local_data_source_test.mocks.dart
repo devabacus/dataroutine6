@@ -2,7 +2,7 @@
 // in dataroutine6/test/tasks/data/datasources/local/sources/category_local_data_source_test.dart.
 // Do not manually edit this file.
 
-// ignore_for_file: no_leading_underscores_for_library_prefixes, invalid_use_of_internal_member
+// ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i5;
 
 import 'package:dataroutine6/core/database/local/database.dart' as _i2;
