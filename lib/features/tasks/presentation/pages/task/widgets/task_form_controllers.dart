@@ -5,6 +5,7 @@ class TaskFormControllers {
   final TextEditingController description;
   final TextEditingController categoryId;
   final TextEditingController createdAt;
+  final TextEditingController dueDateTime;
   final TextEditingController duration;
   final TextEditingController tag;
 
@@ -13,12 +14,14 @@ class TaskFormControllers {
     TextEditingController? description,
     TextEditingController? categoryId,
     TextEditingController? createdAt,
+    TextEditingController? dueDateTime,
     TextEditingController? duration,
     TextEditingController? tag,
   }) : title = title ?? TextEditingController(),
        description = description ?? TextEditingController(),
        categoryId = categoryId ?? TextEditingController(),
        createdAt = createdAt ?? TextEditingController(),
+       dueDateTime = dueDateTime ?? TextEditingController(),
        duration = duration ?? TextEditingController(),
        tag = tag ?? TextEditingController();
 
@@ -27,6 +30,7 @@ class TaskFormControllers {
     description.dispose();
     categoryId.dispose();
     createdAt.dispose();
+    dueDateTime.dispose();
     duration.dispose();
     tag.dispose();
   }

@@ -1,3 +1,4 @@
+import 'package:dataroutine6/core/utils/date_time_picker_utils.dart';
 import 'package:dataroutine6/features/tasks/presentation/pages/task/widgets/tag_section_widget.dart';
 import 'package:dataroutine6/features/tasks/presentation/pages/task/widgets/task_form_controllers.dart';
 import 'package:dataroutine6/features/tasks/presentation/providers/category/category_by_id_provider.dart';
@@ -21,6 +22,8 @@ class UpsertTaskPage extends ConsumerStatefulWidget {
 }
 
 class UpdateTaskPageState extends ConsumerState<UpsertTaskPage> {
+  DateTime _selectedDateTime = DateTime.now();
+
   late final TaskFormControllers ctrl;
   TaskEntity? currentEntity;
   bool isInitialized = false;
@@ -42,12 +45,21 @@ class UpdateTaskPageState extends ConsumerState<UpsertTaskPage> {
         catId = selectedTask.categoryId;
         ctrl.categoryId.text = catId.toString();
 
+        _selectedDateTime = selectedTask.dueDateTime;
+        ctrl.dueDateTime.text = DateTimePickerUtils.formatDateTime(
+          _selectedDateTime,
+        );
+
         ctrl.duration.text = selectedTask.duration.toString();
         taskId = selectedTask.id;
         getCurrentCategory();
         setState(() {
           isInitialized = true;
         });
+      } else {
+        ctrl.dueDateTime.text = DateTimePickerUtils.formatDateTime(
+          _selectedDateTime,
+        );
       }
     });
   }
@@ -72,7 +84,9 @@ class UpdateTaskPageState extends ConsumerState<UpsertTaskPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Редактирование задачи"),
+        title: Text(
+          widget.isEditing ? "Редактирование задачи" : "Добавить задачу",
+        ),
         leading: IconButton(
           onPressed: () {
             context.goNamed(TasksRoutes.viewTask);
@@ -85,6 +99,40 @@ class UpdateTaskPageState extends ConsumerState<UpsertTaskPage> {
           TextFieldFactory.listTile(ctrl.title, hint: "Название"),
           TextFieldFactory.listTile(ctrl.description, hint: "Описание"),
           TextFieldFactory.listTile(ctrl.duration, hint: "Длительность"),
+          TextFieldFactory.listTile(
+            ctrl.dueDateTime,
+            onChanged: (textVal) {
+              final parsedValue = DateTimePickerUtils.parseDateTime(textVal);
+              if (parsedValue != null) {
+                setState(() {
+                  _selectedDateTime = parsedValue;
+                });
+              }
+            },
+            trailing: IconButton(
+              onPressed: () async {
+                _selectedDateTime =
+                    await DateTimePickerUtils.selectDate(
+                      context,
+                      _selectedDateTime,
+                    ) ??
+                    DateTime.now();
+                if (!mounted) return;
+                _selectedDateTime =
+                    await DateTimePickerUtils.selectTime(
+                      context,
+                      _selectedDateTime,
+                    ) ??
+                    DateTime.now();
+
+                ctrl.dueDateTime.text = DateTimePickerUtils.formatDateTime(
+                  _selectedDateTime,
+                );
+              },
+              icon: Icon(Icons.date_range),
+            ),
+          ),
+
           TextFieldFactory.listTile(
             ctrl.categoryId,
             hint: "Выбрать категорию",
@@ -124,7 +172,7 @@ class UpdateTaskPageState extends ConsumerState<UpsertTaskPage> {
     int duration = durationText.isEmpty ? 0 : int.parse(durationText);
 
     final createdAt = DateTime.now();
-    final dueDateTime = DateTime.now();
+    // _selectedDateTime = ctrl.dueDateTime.text;
 
     // сохраняем состояние задачи перед переходом на страницу категорий
     selectedTaskContr.setTask(
@@ -134,7 +182,7 @@ class UpdateTaskPageState extends ConsumerState<UpsertTaskPage> {
         description: ctrl.description.text,
         duration: duration,
         createdAt: createdAt,
-        dueDateTime: dueDateTime,
+        dueDateTime: _selectedDateTime,
         categoryId: catId ?? 0,
       ),
     );
@@ -143,7 +191,7 @@ class UpdateTaskPageState extends ConsumerState<UpsertTaskPage> {
   void _saveTask(Task taskContr) {
     final duration = int.parse(ctrl.duration.text);
     final createdAt = DateTime.now();
-    final dueDateTime = DateTime.now();
+    // final dueDateTime = DateTime.now();
 
     final taskEntity = TaskEntity(
       id: taskId ?? 0,
@@ -151,7 +199,7 @@ class UpdateTaskPageState extends ConsumerState<UpsertTaskPage> {
       description: ctrl.description.text,
       duration: duration,
       createdAt: createdAt,
-      dueDateTime: dueDateTime,
+      dueDateTime: _selectedDateTime,
       categoryId: catId!,
     );
 
