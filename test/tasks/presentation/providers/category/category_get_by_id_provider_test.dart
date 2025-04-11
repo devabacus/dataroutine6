@@ -3,6 +3,8 @@ import 'package:dataroutine6/features/tasks/domain/entities/category/category.da
 import 'package:dataroutine6/features/tasks/domain/providers/category/category_usecase_providers.dart';
 import 'package:dataroutine6/features/tasks/domain/usecases/category/get_by_id.dart';
 import 'package:dataroutine6/features/tasks/presentation/providers/category/category_by_id_provider.dart';
+import 'package:dataroutine6/features/tasks/presentation/providers/category/category_state_providers.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
@@ -10,9 +12,19 @@ import 'package:mockito/mockito.dart';
 
 import 'category_get_by_id_provider_test.mocks.dart';
 
+// Создаем тестовый класс, который наследуется от _$Categories (базовый класс для Categories)
+class TestCategories extends Categories {
+  @override
+  Future<List<CategoryEntity>> build() async {
+    // Возвращаем пустой список категорий для тестов
+    return [];
+  }
+}
+
 @GenerateMocks([GetCategoryByIdUseCase])
 void main() {
-  TestWidgetsFlutterBinding.ensureInitialized();
+  // Инициализируем Flutter тесты
+  WidgetsFlutterBinding.ensureInitialized();
   
   late ProviderContainer container;
   late MockGetCategoryByIdUseCase mockGetCategoryByIdUseCase;
@@ -21,7 +33,10 @@ void main() {
     mockGetCategoryByIdUseCase = MockGetCategoryByIdUseCase();
     container = ProviderContainer(
       overrides: [
+        // Переопределяем провайдер usecase
         getCategoryByIdUseCaseProvider.overrideWithValue(mockGetCategoryByIdUseCase),
+        // Переопределяем провайдер категорий, используя тестовую реализацию
+        categoriesProvider.overrideWith(() => TestCategories()),
       ],
     );
   });
