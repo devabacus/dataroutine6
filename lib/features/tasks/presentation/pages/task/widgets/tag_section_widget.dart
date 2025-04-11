@@ -3,9 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ui_kit/ui_kit.dart';
 
-import '../../providers/task/task_selected_provider.dart';
-import '../../providers/task_tag/task_tag_state_providers.dart';
-import '../../routing/tasks_routes_constants.dart';
+import '../../../providers/task/task_selected_provider.dart';
+import '../../../providers/task_tag/task_tag_state_providers.dart';
+import '../../../routing/tasks_routes_constants.dart';
 
 class TagSectionWidget extends ConsumerWidget {
 

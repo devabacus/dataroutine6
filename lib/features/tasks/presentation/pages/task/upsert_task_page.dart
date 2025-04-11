@@ -1,5 +1,5 @@
-import 'package:dataroutine6/features/tasks/presentation/pages/task/tag_section_widget.dart';
-import 'package:dataroutine6/features/tasks/presentation/pages/task/task_form_controllers.dart';
+import 'package:dataroutine6/features/tasks/presentation/pages/task/widgets/tag_section_widget.dart';
+import 'package:dataroutine6/features/tasks/presentation/pages/task/widgets/task_form_controllers.dart';
 import 'package:dataroutine6/features/tasks/presentation/providers/category/category_by_id_provider.dart';
 import 'package:dataroutine6/features/tasks/presentation/providers/task/task_selected_provider.dart';
 import 'package:dataroutine6/features/tasks/presentation/providers/task/task_state_providers.dart';

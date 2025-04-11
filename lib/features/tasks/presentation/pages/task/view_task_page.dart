@@ -1,5 +1,6 @@
 // lib/features/tasks/presentation/pages/view_task_page.dart
 import 'package:dataroutine6/features/tasks/presentation/common_widgets/entity_list_page.dart';
+import 'package:dataroutine6/features/tasks/presentation/pages/task/widgets/task_item_builder.dart';
 import 'package:dataroutine6/features/tasks/presentation/providers/task/task_selected_provider.dart';
 import 'package:dataroutine6/features/tasks/presentation/providers/task/task_state_providers.dart';
 import 'package:dataroutine6/features/tasks/presentation/providers/task_tag/task_tag_state_providers.dart';
@@ -35,14 +36,9 @@ class ViewTaskPage extends ConsumerWidget {
         onItemTap: (task) {
           selectedTask.setTask(task);
           context.goNamed(TasksRoutes.editTask);
-        },  
-        itemBuilder: (context, task, _) => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(task.title),
-            Text(task.description),
-          ],
-        ),
+        },
+        itemBuilder:
+            (context, task, _) => TaskItemBuilder(task: task),
         onItemDelete: (task) {
           taskCtrl.deleteTask(task.id);
           ref
