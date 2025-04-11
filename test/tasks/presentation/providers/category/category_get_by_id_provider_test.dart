@@ -16,28 +16,56 @@ void main() {
 
   setUp(() {
     mockGetCategoryByIdUseCase = MockGetCategoryByIdUseCase();
-    container = ProviderContainer(
-      overrides: [
-        getCategoryByIdUseCaseProvider.overrideWithValue(
-          mockGetCategoryByIdUseCase,
-        ),
-      ],
-    );
   });
 
   tearDown(() {
     container.dispose();
   });
 
-  group('categoryByIdProvider', () {
-    test('если категории уже загружены, тогда получаем из них', () async {
-      final testCategory = CategoryEntity(id: 1, title: 'Test Cateogory');
+  group('getCategoryByIdProvider', () {
+    final testCategory = CategoryEntity(id: 1, title: 'Test Category');
+    
+    test('должен получить категорию через usecase, если нет в кэше', () async {
+      // Настраиваем mock для usecase
+      when(mockGetCategoryByIdUseCase(1)).thenAnswer((_) async => testCategory);
+      
+      // Создаем контейнер с переопределенным провайдером
+      container = ProviderContainer(
+        overrides: [
+          getCategoryByIdUseCaseProvider.overrideWithValue(mockGetCategoryByIdUseCase),
+        ],
+      );
 
-      when(
-        mockGetCategoryByIdUseCase(1),
-      ).thenAnswer((_) async => testCategory);
+      // Вызываем провайдер
+      final result = await container.read(getCategoryByIdProvider(1).future);
+      
+      // Проверяем результат
+      expect(result.id, 1);
+      expect(result.title, 'Test Category');
+      
+      // Проверяем, что usecase был вызван
+      verify(mockGetCategoryByIdUseCase(1)).called(1);
     });
 
+    test('должен выбросить исключение, если категория не найдена', () async {
+      // Настраиваем usecase, чтобы он возвращал null (категория не найдена)
+      when(mockGetCategoryByIdUseCase(999)).thenAnswer((_) async => null);
 
+      // Создаем контейнер с переопределенным провайдером
+      container = ProviderContainer(
+        overrides: [
+          getCategoryByIdUseCaseProvider.overrideWithValue(mockGetCategoryByIdUseCase),
+        ],
+      );
+
+      // Проверяем, что провайдер выбрасывает исключение
+      expect(
+        () => container.read(getCategoryByIdProvider(999).future),
+        throwsA(isA<Exception>()),
+      );
+      
+      // Проверяем, что usecase был вызван
+      verify(mockGetCategoryByIdUseCase(999)).called(1);
+    });
   });
 }
