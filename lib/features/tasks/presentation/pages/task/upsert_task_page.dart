@@ -1,6 +1,7 @@
 import 'package:dataroutine6/features/tasks/domain/entities/task/task.dart';
 import 'package:dataroutine6/features/tasks/presentation/common_widgets/form_controller_mixin.dart';
 import 'package:dataroutine6/features/tasks/presentation/common_widgets/upsert_page_base.dart';
+import 'package:dataroutine6/features/tasks/presentation/providers/date_time/date_time_picker_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -29,13 +30,12 @@ class _UpsertTaskPageState
     with FormControllersMixin<TaskEntity> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  DateTime _selectedDateTime = DateTime.now();
+  // DateTime _selectedDateTime = DateTime.now();
 
   late final TaskFormControllers ctrl;
   TaskEntity? currentEntity;
   bool isInitialized = false;
   Task? taskContr;
-
 
   int? taskId;
   int? catId;
@@ -46,10 +46,12 @@ class _UpsertTaskPageState
     super.initState();
   }
 
-
   @override
   void initializeData() {
-    
+    final dateTimeController = ref.read(
+      dateTimePickerNotifierProvider.notifier,
+    );
+
     if (widget.isEditing) {
       final selectedTask = ref.read(selectedTaskProvider)!;
       ctrl.title.text = selectedTask.title;
@@ -58,9 +60,9 @@ class _UpsertTaskPageState
       catId = selectedTask.categoryId;
       ctrl.categoryId.text = catId.toString();
 
-      _selectedDateTime = selectedTask.dueDateTime;
+      dateTimeController.setDateTime(selectedTask.dueDateTime);
       ctrl.dueDateTime.text = DateTimePickerUtils.formatDateTime(
-        _selectedDateTime,
+        selectedTask.dueDateTime,
       );
 
       ctrl.duration.text = selectedTask.duration.toString();
@@ -71,7 +73,7 @@ class _UpsertTaskPageState
       });
     } else {
       ctrl.dueDateTime.text = DateTimePickerUtils.formatDateTime(
-        _selectedDateTime,
+        ref.read(dateTimePickerNotifierProvider),
       );
     }
   }
@@ -107,47 +109,45 @@ class _UpsertTaskPageState
   Widget buildForm() {
     taskContr = ref.read(taskProvider.notifier);
     final selectedTaskContr = ref.read(selectedTaskProvider.notifier);
+
+    final dateTimeController = ref.read(
+      dateTimePickerNotifierProvider.notifier,
+    );
+    // final dueDate = ref.watch(dateTimePickerNotifierProvider);
+
     return Form(
       key: _formKey,
       child: Column(
         children: [
-          TextFieldFactory.listTile(ctrl.title, hint: "Названиеasdf"),
+          TextFieldFactory.listTile(ctrl.title, hint: "Название"),
           TextFieldFactory.listTile(ctrl.description, hint: "Описание"),
           TextFieldFactory.listTile(ctrl.duration, hint: "Длительность"),
+
           TextFieldFactory.listTile(
             ctrl.dueDateTime,
             onChanged: (textVal) {
               final parsedValue = DateTimePickerUtils.parseDateTime(textVal);
               if (parsedValue != null) {
-                setState(() {
-                  _selectedDateTime = parsedValue;
-                });
+                dateTimeController.setDateTime(parsedValue);
               }
             },
             trailing: IconButton(
               onPressed: () async {
-                _selectedDateTime =
-                    await DateTimePickerUtils.selectDate(
-                      context,
-                      _selectedDateTime,
-                    ) ??
-                    DateTime.now();
+                await dateTimeController.updateDate(context);
                 if (!mounted) return;
-                _selectedDateTime =
-                    await DateTimePickerUtils.selectTime(
-                      context,
-                      _selectedDateTime,
-                    ) ??
-                    DateTime.now();
-      
+                await dateTimeController.updateTime(context);
+
+                final updatedDateTime = ref.read(
+                  dateTimePickerNotifierProvider,
+                );
                 ctrl.dueDateTime.text = DateTimePickerUtils.formatDateTime(
-                  _selectedDateTime,
+                  updatedDateTime,
                 );
               },
               icon: Icon(Icons.date_range),
             ),
           ),
-      
+
           TextFieldFactory.listTile(
             ctrl.categoryId,
             hint: "Выбрать категорию",
@@ -172,14 +172,14 @@ class _UpsertTaskPageState
   void saveEntity() {
     if (!_formKey.currentState!.validate()) return;
     _saveTask(taskContr!);
-    
   }
 
   Widget _pickCategory(SelectedTask selectedTaskContr) {
     return IconButton(
       icon: Icon(Icons.phonelink_lock),
       onPressed: () {
-        _saveCurrentTaskState(selectedTaskContr);
+        // _saveCurrentTaskState(selectedTaskContr);
+        selectedTaskContr.setTask(_createTaskEntityFromForm());
         context.goNamed(
           TasksRoutes.viewCategory,
           pathParameters: {TasksRoutes.isFromTask: "1"},
@@ -188,42 +188,29 @@ class _UpsertTaskPageState
     );
   }
 
-  void _saveCurrentTaskState(SelectedTask selectedTaskContr) {
+  TaskEntity _createTaskEntityFromForm() {
     String durationText = ctrl.duration.text;
-
     int duration = durationText.isEmpty ? 0 : int.parse(durationText);
-
     final createdAt = DateTime.now();
-    // _selectedDateTime = ctrl.dueDateTime.text;
 
     // сохраняем состояние задачи перед переходом на страницу категорий
-    selectedTaskContr.setTask(
-      TaskEntity(
-        id: taskId ?? 0,
-        title: ctrl.title.text,
-        description: ctrl.description.text,
-        duration: duration,
-        createdAt: createdAt,
-        dueDateTime: _selectedDateTime,
-        categoryId: catId ?? 0,
-      ),
-    );
-  }
-
-  void _saveTask(Task taskContr) {
-    final duration = int.parse(ctrl.duration.text);
-    final createdAt = DateTime.now();
-    // final dueDateTime = DateTime.now();
-
-    final taskEntity = TaskEntity(
+    return TaskEntity(
       id: taskId ?? 0,
       title: ctrl.title.text,
       description: ctrl.description.text,
       duration: duration,
       createdAt: createdAt,
-      dueDateTime: _selectedDateTime,
-      categoryId: catId!,
+      dueDateTime: ref.watch(dateTimePickerNotifierProvider),
+      categoryId: catId ?? 0,
     );
+  }
+
+  void _saveCurrentTaskState(SelectedTask selectedTaskContr) {
+    selectedTaskContr.setTask(_createTaskEntityFromForm());
+  }
+
+  void _saveTask(Task taskContr) {
+    final taskEntity = _createTaskEntityFromForm();
 
     final selectedTask = ref.read(selectedTaskProvider);
     if (selectedTask == null) {
