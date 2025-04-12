@@ -36,7 +36,6 @@ class _UpsertTaskPageState
   TaskEntity? currentEntity;
   bool isInitialized = false;
   Task? taskContr;
-
   int? taskId;
   int? catId;
 
@@ -196,6 +195,10 @@ class _UpsertTaskPageState
     final createdAt = DateTime.now();
 
     final dueDate = DateTimePickerUtils.parseDateTime(ctrl.dueDateTime.text);
+    if (dueDate != null) {
+      ref.read(dateTimePickerNotifierProvider.notifier).setDateTime(dueDate);
+    }
+
 
     // сохраняем состояние задачи перед переходом на страницу категорий
     return TaskEntity(
