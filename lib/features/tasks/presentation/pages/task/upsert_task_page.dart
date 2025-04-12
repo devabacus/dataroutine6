@@ -115,6 +115,20 @@ class _UpsertTaskPageState
     );
     // final dueDate = ref.watch(dateTimePickerNotifierProvider);
 
+    ref.listen<DateTime>(dateTimePickerNotifierProvider, (
+      previousState,
+      newState,
+    ) {
+      // Проверяем, изменилось ли значение, чтобы избежать лишних обновлений (опционально)
+      // Также можно проверить previousState != null, если начальное состояние null
+      if (previousState != newState) {
+        // Убедитесь, что контроллер все еще существует (хотя в StatefulWidget он должен быть жив)
+        if (mounted) {
+          ctrl.dueDateTime.text = DateTimePickerUtils.formatDateTime(newState);
+        }
+      }
+    });
+
     return Form(
       key: _formKey,
       child: Column(
@@ -125,24 +139,12 @@ class _UpsertTaskPageState
 
           TextFieldFactory.listTile(
             ctrl.dueDateTime,
-            onChanged: (textVal) {
-              final parsedValue = DateTimePickerUtils.parseDateTime(textVal);
-              if (parsedValue != null) {
-                dateTimeController.setDateTime(parsedValue);
-              }
-            },
+            // readOnly: true,
             trailing: IconButton(
               onPressed: () async {
                 await dateTimeController.updateDate(context);
                 if (!mounted) return;
                 await dateTimeController.updateTime(context);
-
-                final updatedDateTime = ref.read(
-                  dateTimePickerNotifierProvider,
-                );
-                ctrl.dueDateTime.text = DateTimePickerUtils.formatDateTime(
-                  updatedDateTime,
-                );
               },
               icon: Icon(Icons.date_range),
             ),
@@ -193,6 +195,8 @@ class _UpsertTaskPageState
     int duration = durationText.isEmpty ? 0 : int.parse(durationText);
     final createdAt = DateTime.now();
 
+    final dueDate = DateTimePickerUtils.parseDateTime(ctrl.dueDateTime.text);
+
     // сохраняем состояние задачи перед переходом на страницу категорий
     return TaskEntity(
       id: taskId ?? 0,
@@ -200,7 +204,7 @@ class _UpsertTaskPageState
       description: ctrl.description.text,
       duration: duration,
       createdAt: createdAt,
-      dueDateTime: ref.watch(dateTimePickerNotifierProvider),
+      dueDateTime: dueDate ?? DateTime.now(),
       categoryId: catId ?? 0,
     );
   }
