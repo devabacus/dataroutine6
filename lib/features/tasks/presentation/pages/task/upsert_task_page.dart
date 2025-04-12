@@ -1,18 +1,17 @@
 import 'package:dataroutine6/features/tasks/domain/entities/task/task.dart';
 import 'package:dataroutine6/features/tasks/presentation/common_widgets/form_controller_mixin.dart';
 import 'package:dataroutine6/features/tasks/presentation/common_widgets/upsert_page_base.dart';
+import 'package:dataroutine6/features/tasks/presentation/pages/task/widgets/task_form_widget.dart';
 import 'package:dataroutine6/features/tasks/presentation/providers/date_time/date_time_picker_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ui_kit/ui_kit.dart';
 
 import '../../../../../core/utils/date_time_picker_utils.dart';
 import '../../providers/category/category_by_id_provider.dart';
 import '../../providers/task/task_selected_provider.dart';
 import '../../providers/task/task_state_providers.dart';
 import '../../routing/tasks_routes_constants.dart';
-import 'widgets/tag_section_widget.dart';
 import 'widgets/task_form_controllers.dart';
 
 class UpsertTaskPage extends BaseUpsertPage<TaskEntity> {
@@ -103,7 +102,7 @@ class _UpsertTaskPageState
       ),
     );
   }
-
+          
   @override
   Widget buildForm() {
     taskContr = ref.read(taskProvider.notifier);
@@ -112,61 +111,45 @@ class _UpsertTaskPageState
     final dateTimeController = ref.read(
       dateTimePickerNotifierProvider.notifier,
     );
-    // final dueDate = ref.watch(dateTimePickerNotifierProvider);
 
     ref.listen<DateTime>(dateTimePickerNotifierProvider, (
       previousState,
       newState,
     ) {
-      // Проверяем, изменилось ли значение, чтобы избежать лишних обновлений (опционально)
-      // Также можно проверить previousState != null, если начальное состояние null
       if (previousState != newState) {
-        // Убедитесь, что контроллер все еще существует (хотя в StatefulWidget он должен быть жив)
         if (mounted) {
           ctrl.dueDateTime.text = DateTimePickerUtils.formatDateTime(newState);
         }
       }
     });
 
-    return Form(
-      key: _formKey,
-      child: Column(
-        children: [
-          TextFieldFactory.listTile(ctrl.title, hint: "Название"),
-          TextFieldFactory.listTile(ctrl.description, hint: "Описание"),
-          TextFieldFactory.listTile(ctrl.duration, hint: "Длительность"),
+    return TaskFormWidget(
+      onPickCategory: () => _pickCategory(selectedTaskContr),
+      onPickDateTime: onPickDateTime,
+      onSaveCurrent: onSaveCurrent,
+      onSave: ()=>_saveTask(taskContr!),
+      ctrl: ctrl,
+      formKey: _formKey,
+      isInitialized: isInitialized,
+      taskId: taskId,
+    );   
+  }
 
-          TextFieldFactory.listTile(
-            ctrl.dueDateTime,
-            // readOnly: true,
-            trailing: IconButton(
-              onPressed: () async {
-                await dateTimeController.updateDate(context);
-                if (!mounted) return;
-                await dateTimeController.updateTime(context);
-              },
-              icon: Icon(Icons.date_range),
-            ),
-          ),
-
-          TextFieldFactory.listTile(
-            ctrl.categoryId,
-            hint: "Выбрать категорию",
-            trailing: _pickCategory(selectedTaskContr),
-          ),
-          // tag section
-          if (taskId != null && isInitialized)
-            TagSectionWidget(_saveCurrentTaskState, taskId: taskId),
-          ElevatedButton(
-            style: AppButtonStyle.basicStyle,
-            onPressed: () {
-              _saveTask(taskContr!);
-            },
-            child: Text("Сохранить"),
-          ),
-        ],
-      ),
+  void onSaveCurrent() {
+    _saveCurrentTaskState(ref.read(selectedTaskProvider.notifier));
+    context.goNamed(
+      TasksRoutes.viewTag,
+      extra: {'isForTaskSelection': true, 'taskId': taskId},
     );
+  }
+
+  Future<void> onPickDateTime() async {
+    final dateTimeController = ref.read(
+      dateTimePickerNotifierProvider.notifier,
+    );
+    await dateTimeController.updateDate(context);
+    if (!mounted) return;
+    await dateTimeController.updateTime(context);
   }
 
   @override
@@ -175,17 +158,12 @@ class _UpsertTaskPageState
     _saveTask(taskContr!);
   }
 
-  Widget _pickCategory(SelectedTask selectedTaskContr) {
-    return IconButton(
-      icon: Icon(Icons.phonelink_lock),
-      onPressed: () {
-        // _saveCurrentTaskState(selectedTaskContr);
-        selectedTaskContr.setTask(_createTaskEntityFromForm());
-        context.goNamed(
-          TasksRoutes.viewCategory,
-          pathParameters: {TasksRoutes.isFromTask: "1"},
-        );
-      },
+  void _pickCategory(SelectedTask selectedTaskContr) {
+    // _saveCurrentTaskState(selectedTaskContr);
+    selectedTaskContr.setTask(_createTaskEntityFromForm());
+    context.goNamed(
+      TasksRoutes.viewCategory,
+      pathParameters: {TasksRoutes.isFromTask: "1"},
     );
   }
 
@@ -198,7 +176,6 @@ class _UpsertTaskPageState
     if (dueDate != null) {
       ref.read(dateTimePickerNotifierProvider.notifier).setDateTime(dueDate);
     }
-
 
     // сохраняем состояние задачи перед переходом на страницу категорий
     return TaskEntity(
@@ -236,4 +213,5 @@ class _UpsertTaskPageState
 
     context.goNamed(TasksRoutes.viewTask);
   }
+
 }

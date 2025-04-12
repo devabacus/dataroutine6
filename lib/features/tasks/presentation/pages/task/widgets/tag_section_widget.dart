@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:ui_kit/ui_kit.dart';
 
-import '../../../providers/task/task_selected_provider.dart';
 import '../../../providers/task_tag/task_tag_state_providers.dart';
-import '../../../routing/tasks_routes_constants.dart';
 
 class TagSectionWidget extends ConsumerWidget {
 
   final int? taskId;
-  final void Function(SelectedTask val) onTaskSelected;
+  
+  final VoidCallback onAddTagPressed;
 
-  const TagSectionWidget(this.onTaskSelected, {this.taskId,  super.key});
+  const TagSectionWidget(this.onAddTagPressed, {this.taskId,  super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -47,16 +45,7 @@ class TagSectionWidget extends ConsumerWidget {
                             .toList(),
                   ),
                 AppGap.s(),
-                ButtonFactory.basic(() {
-                  onTaskSelected(
-                    ref.read(selectedTaskProvider.notifier),
-                  );
-
-                  context.goNamed(
-                    TasksRoutes.viewTag,
-                    extra: {'isForTaskSelection': true, 'taskId': taskId},
-                  );
-                }, "Добавить тэги"),
+                ButtonFactory.basic(onAddTagPressed, "Добавить тэги"),
               ],
             );
           },
