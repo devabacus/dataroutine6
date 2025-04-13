@@ -57,8 +57,7 @@ class TaskFormActions {
     }
   }
 
-
-    Future<void> loadCategoryInfo(int categoryId) async {
+  Future<void> loadCategoryInfo(int categoryId) async {
     try {
       final category = await ref.read(getCategoryByIdProvider(categoryId).future);
       controllers.categoryId.text = category.title;

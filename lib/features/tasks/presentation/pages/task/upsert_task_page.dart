@@ -64,26 +64,9 @@ class _UpsertTaskPageState
   }
 
   @override
-  AppBar buildAppBar() {
-    return AppBar(
-      title: Text(
-        widget.isEditing ? "Редактирование задачи" : "Добавить задачу",
-      ),
-      leading: IconButton(
-        onPressed: () {
-          context.goNamed(TasksRoutes.viewTask);
-        },
-        icon: Icon(Icons.arrow_back),
-      ),
-    );
-  }
-
-  @override
   Widget buildForm() {
 
     final formState = ref.watch(taskFormStateNotifierProvider);
-
-
     taskContr = ref.read(taskProvider.notifier);
     ref.listen<DateTime>(dateTimePickerNotifierProvider, (
       previousState,
