@@ -15,7 +15,6 @@ import '../../routing/tasks_routes_constants.dart';
 import 'widgets/task_form_controllers.dart';
 
 class UpsertTaskPage extends BaseUpsertPage<TaskEntity> {
-
   const UpsertTaskPage({super.isEditing = false, super.key});
 
   @override
@@ -41,21 +40,23 @@ class _UpsertTaskPageState
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _actions = TaskFormActions(
-      ref: ref,
-      context: context,
-      controllers: ctrl,
-    );
+    _actions = TaskFormActions(ref: ref, context: context, controllers: ctrl);
+  }
+
+  @override
+  void dispose() {
+    ctrl.dispose();
+    super.dispose();
   }
 
   @override
   void initializeData() {
     _actions.initializeForm();
-      ref.listen<DateTime>(dateTimePickerNotifierProvider, (prev, next) {
-      if (prev != next && mounted) {
-        ctrl.dueDateTime.text = DateTimePickerUtils.formatDateTime(next);
-      }
-    });
+    // ref.listen<DateTime>(dateTimePickerNotifierProvider, (prev, next) {
+    //   if (prev != next && mounted) {
+    //     ctrl.dueDateTime.text = DateTimePickerUtils.formatDateTime(next);
+    //   }
+    // });
   }
 
   @override
@@ -65,21 +66,20 @@ class _UpsertTaskPageState
 
   @override
   Widget buildForm() {
-
     final formState = ref.watch(taskFormStateNotifierProvider);
     taskContr = ref.read(taskProvider.notifier);
-    ref.listen<DateTime>(dateTimePickerNotifierProvider, (
-      previousState,
-      newState,
-    ) {
-      if (previousState != newState) {
-        if (mounted) {
-          ctrl.dueDateTime.text = DateTimePickerUtils.formatDateTime(newState);
-        }
-      }
-    });
+    // ref.listen<DateTime>(dateTimePickerNotifierProvider, (
+    //   previousState,
+    //   newState,
+    // ) {
+    //   if (previousState != newState) {
+    //     if (mounted) {
+    //       ctrl.dueDateTime.text = DateTimePickerUtils.formatDateTime(newState);
+    //     }
+    //   }
+    // });
 
-        return TaskFormWidget(
+    return TaskFormWidget(
       onPickCategory: _actions.navigateToCategories,
       onPickDateTime: _actions.pickDateTime,
       onSaveCurrent: _actions.navigateToTagSelection,
@@ -90,11 +90,10 @@ class _UpsertTaskPageState
       taskId: formState.taskId,
     );
   }
-  
+
   @override
   void saveEntity() {
     if (!_formKey.currentState!.validate()) return;
     _actions.saveTask();
   }
-
 }

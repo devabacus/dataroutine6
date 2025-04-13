@@ -92,8 +92,13 @@ class TaskFormActions {
 
   Future<void> pickDateTime() async {
     final dateTimeController = ref.read(dateTimePickerNotifierProvider.notifier);
+    
     await dateTimeController.updateDate(context);
     await dateTimeController.updateTime(context);
+    await Future.delayed(Duration(seconds: 1));
+    final finalSelectedDateTime = ref.read(dateTimePickerNotifierProvider);
+    final String formattedDateTime = DateTimePickerUtils.formatDateTime(finalSelectedDateTime);
+    controllers.dueDateTime.text = formattedDateTime;
   }
 
   void saveTask() {
@@ -106,7 +111,6 @@ class TaskFormActions {
     } else {
       taskContr.updateTask(taskEntity);
     }
-
     context.goNamed(TasksRoutes.viewTask);
   }
 
@@ -118,8 +122,8 @@ class TaskFormActions {
   TaskEntity _createTaskEntityFromForm() {
     final formState = ref.read(taskFormStateNotifierProvider);
 
-    String durationText = controllers.duration.text;
-    int duration = durationText.isEmpty ? 0 : int.parse(durationText);
+    int duration = int.tryParse(controllers.duration.text)??0;
+
     final createdAt = DateTime.now();
 
     final dueDate = DateTimePickerUtils.parseDateTime(controllers.dueDateTime.text);
