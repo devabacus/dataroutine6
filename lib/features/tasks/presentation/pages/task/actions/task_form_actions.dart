@@ -27,12 +27,12 @@ class TaskFormActions {
     final dateTimeController = ref.read(
       dateTimePickerNotifierProvider.notifier,
     );
-    final formState = ref.read(taskFormStateNotifierProvider);
+    // final formState = ref.read(taskFormStateNotifierProvider);
 
-    if (formState.isInitialized) {
-      // Уже инициализировано
-      return;
-    }
+    // if (formState.isInitialized) {
+    //   // Уже инициализировано
+    //   return;
+    // }
 
     final selectedTask = ref.read(selectedTaskProvider);
     if (selectedTask != null) {
@@ -139,6 +139,9 @@ class TaskFormActions {
       taskContr.updateTask(taskEntity);
       selectTaskContr.reset();
     }
+    ref.read(taskFormStateNotifierProvider.notifier).reset();
+    controllers.clearAll();
+
     context.goNamed(TasksRoutes.viewTask);
   }
 

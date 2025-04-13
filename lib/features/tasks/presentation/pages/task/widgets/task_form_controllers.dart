@@ -34,4 +34,14 @@ class TaskFormControllers {
     duration.dispose();
     tag.dispose();
   }
+
+  void clearAll() {
+  title.clear();
+  description.clear();
+  categoryId.clear();
+  createdAt.clear();
+  dueDateTime.clear();
+  duration.clear();
+  tag.clear();
+}
 }
