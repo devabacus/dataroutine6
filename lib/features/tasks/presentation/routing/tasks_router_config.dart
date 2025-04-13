@@ -78,7 +78,7 @@ List<RouteBase> getTasksRoutes() {
       name: TasksRoutes.editTask,
       path: TasksRoutes.editTaskPath,
       builder: (BuildContext context, state) {
-        return UpsertTaskPage(isEditing1: true,);
+        return UpsertTaskPage(isEditing: true,);
       },
     ),
 

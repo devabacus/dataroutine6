@@ -15,9 +15,9 @@ import '../../routing/tasks_routes_constants.dart';
 import 'widgets/task_form_controllers.dart';
 
 class UpsertTaskPage extends BaseUpsertPage<TaskEntity> {
-  final bool isEditing1;
+  final bool isEditing;
 
-  const UpsertTaskPage({this.isEditing1 = false, super.key});
+  const UpsertTaskPage({this.isEditing = false, super.key});
 
   @override
   ConsumerState<BaseUpsertPage<TaskEntity>> createState() =>
@@ -70,7 +70,7 @@ class _UpsertTaskPageState
   AppBar buildAppBar() {
     return AppBar(
       title: Text(
-        widget.isEditing1 ? "Редактирование задачи" : "Добавить задачу",
+        widget.isEditing ? "Редактирование задачи" : "Добавить задачу",
       ),
       leading: IconButton(
         onPressed: () {
