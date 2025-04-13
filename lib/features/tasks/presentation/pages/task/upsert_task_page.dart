@@ -1,6 +1,7 @@
 import 'package:dataroutine6/features/tasks/domain/entities/task/task.dart';
 import 'package:dataroutine6/features/tasks/presentation/common_widgets/form_controller_mixin.dart';
 import 'package:dataroutine6/features/tasks/presentation/common_widgets/upsert_page_base.dart';
+import 'package:dataroutine6/features/tasks/presentation/pages/task/actions/task_form_actions.dart';
 import 'package:dataroutine6/features/tasks/presentation/pages/task/widgets/task_form_widget.dart';
 import 'package:dataroutine6/features/tasks/presentation/providers/date_time/date_time_picker_notifier.dart';
 import 'package:flutter/material.dart';
@@ -15,9 +16,9 @@ import '../../routing/tasks_routes_constants.dart';
 import 'widgets/task_form_controllers.dart';
 
 class UpsertTaskPage extends BaseUpsertPage<TaskEntity> {
-  final bool isEditing;
+  final bool isEditing1;
 
-  const UpsertTaskPage({this.isEditing = false, super.key});
+  const UpsertTaskPage({this.isEditing1 = false, super.key});
 
   @override
   ConsumerState<BaseUpsertPage<TaskEntity>> createState() =>
@@ -37,6 +38,7 @@ class _UpsertTaskPageState
   Task? taskContr;
   int? taskId;
   int? catId;
+  late TaskFormActions _actions;
 
   @override
   void initState() {
@@ -45,12 +47,24 @@ class _UpsertTaskPageState
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _actions = TaskFormActions(
+      ref: ref,
+      context: context,
+      controllers: ctrl,
+      taskId: taskId,
+      categoryId: catId,
+    );
+  }
+
+  @override
   void initializeData() {
     final dateTimeController = ref.read(
       dateTimePickerNotifierProvider.notifier,
     );
 
-    if (widget.isEditing) {
+    if (widget.isEditing1) {
       final selectedTask = ref.read(selectedTaskProvider)!;
       ctrl.title.text = selectedTask.title;
       ctrl.description.text = selectedTask.description;
@@ -74,6 +88,14 @@ class _UpsertTaskPageState
         ref.read(dateTimePickerNotifierProvider),
       );
     }
+
+     _actions = TaskFormActions(
+      ref: ref,
+      context: context,
+      controllers: ctrl, 
+      taskId: taskId,
+      categoryId: catId,
+    );
   }
 
   Future<void> getCurrentCategory() async {
@@ -92,7 +114,7 @@ class _UpsertTaskPageState
   AppBar buildAppBar() {
     return AppBar(
       title: Text(
-        widget.isEditing ? "Редактирование задачи" : "Добавить задачу",
+        widget.isEditing1 ? "Редактирование задачи" : "Добавить задачу",
       ),
       leading: IconButton(
         onPressed: () {
@@ -102,16 +124,10 @@ class _UpsertTaskPageState
       ),
     );
   }
-          
+
   @override
   Widget buildForm() {
     taskContr = ref.read(taskProvider.notifier);
-    final selectedTaskContr = ref.read(selectedTaskProvider.notifier);
-
-    final dateTimeController = ref.read(
-      dateTimePickerNotifierProvider.notifier,
-    );
-
     ref.listen<DateTime>(dateTimePickerNotifierProvider, (
       previousState,
       newState,
@@ -123,95 +139,22 @@ class _UpsertTaskPageState
       }
     });
 
-    return TaskFormWidget(
-      onPickCategory: () => _pickCategory(selectedTaskContr),
-      onPickDateTime: onPickDateTime,
-      onSaveCurrent: onSaveCurrent,
-      onSave: ()=>_saveTask(taskContr!),
+        return TaskFormWidget(
+      onPickCategory: _actions.navigateToCategories,
+      onPickDateTime: _actions.pickDateTime,
+      onSaveCurrent: _actions.navigateToTagSelection,
+      onSave: saveEntity,
       ctrl: ctrl,
       formKey: _formKey,
       isInitialized: isInitialized,
       taskId: taskId,
-    );   
-  }
-
-  void onSaveCurrent() {
-    _saveCurrentTaskState(ref.read(selectedTaskProvider.notifier));
-    context.goNamed(
-      TasksRoutes.viewTag,
-      extra: {'isForTaskSelection': true, 'taskId': taskId},
     );
   }
-
-  Future<void> onPickDateTime() async {
-    final dateTimeController = ref.read(
-      dateTimePickerNotifierProvider.notifier,
-    );
-    await dateTimeController.updateDate(context);
-    if (!mounted) return;
-    await dateTimeController.updateTime(context);
-  }
-
+  
   @override
   void saveEntity() {
     if (!_formKey.currentState!.validate()) return;
-    _saveTask(taskContr!);
-  }
-
-  void _pickCategory(SelectedTask selectedTaskContr) {
-    // _saveCurrentTaskState(selectedTaskContr);
-    selectedTaskContr.setTask(_createTaskEntityFromForm());
-    context.goNamed(
-      TasksRoutes.viewCategory,
-      pathParameters: {TasksRoutes.isFromTask: "1"},
-    );
-  }
-
-  TaskEntity _createTaskEntityFromForm() {
-    String durationText = ctrl.duration.text;
-    int duration = durationText.isEmpty ? 0 : int.parse(durationText);
-    final createdAt = DateTime.now();
-
-    final dueDate = DateTimePickerUtils.parseDateTime(ctrl.dueDateTime.text);
-    if (dueDate != null) {
-      ref.read(dateTimePickerNotifierProvider.notifier).setDateTime(dueDate);
-    }
-
-    // сохраняем состояние задачи перед переходом на страницу категорий
-    return TaskEntity(
-      id: taskId ?? 0,
-      title: ctrl.title.text,
-      description: ctrl.description.text,
-      duration: duration,
-      createdAt: createdAt,
-      dueDateTime: dueDate ?? DateTime.now(),
-      categoryId: catId ?? 0,
-    );
-  }
-
-  void _saveCurrentTaskState(SelectedTask selectedTaskContr) {
-    selectedTaskContr.setTask(_createTaskEntityFromForm());
-  }
-
-  void _saveTask(Task taskContr) {
-    final taskEntity = _createTaskEntityFromForm();
-
-    final selectedTask = ref.read(selectedTaskProvider);
-    if (selectedTask == null) {
-      // новая задача
-      taskContr.addTask(
-        taskEntity,
-      ); // перешли изначально на для добавления selectedTask не сохраняли
-    } else if (selectedTask.id ==
-        0) // перешли после выбора категории поэтому selectedTask уже есть, но id не присвоен (присваивается автоматически при добавлении категории)
-    {
-      taskContr.addTask(taskEntity);
-    } else //Зашли для редактирования task id не ноль
-    {
-      taskContr.updateTask(taskEntity);
-    }
-
-    context.goNamed(TasksRoutes.viewTask);
+    _actions.saveTask();
   }
 
 }
