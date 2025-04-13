@@ -13,7 +13,10 @@ class SelectedTask extends _$SelectedTask {
 
   void setTask(TaskEntity taskEntity) {
     state = taskEntity;
-    
+  }
+
+  void reset() {
+    state = null;
   }
 
 }

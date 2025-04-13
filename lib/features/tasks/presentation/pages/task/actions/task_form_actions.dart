@@ -24,9 +24,11 @@ class TaskFormActions {
   });
 
   void initializeForm() {
-    final dateTimeController = ref.read(dateTimePickerNotifierProvider.notifier);
+    final dateTimeController = ref.read(
+      dateTimePickerNotifierProvider.notifier,
+    );
     final formState = ref.read(taskFormStateNotifierProvider);
-    
+
     if (formState.isInitialized) {
       // Уже инициализировано
       return;
@@ -46,7 +48,7 @@ class TaskFormActions {
 
       // Обновляем состояние формы
       ref.read(taskFormStateNotifierProvider.notifier).initialize(selectedTask);
-      
+
       // Загружаем информацию о категории
       loadCategoryInfo(selectedTask.categoryId);
     } else {
@@ -59,13 +61,14 @@ class TaskFormActions {
 
   Future<void> loadCategoryInfo(int categoryId) async {
     try {
-      final category = await ref.read(getCategoryByIdProvider(categoryId).future);
-      controllers.categoryId.text = category.title;
-      
-      ref.read(taskFormStateNotifierProvider.notifier).setCategoryId(
-        categoryId, 
-        category.title
+      final category = await ref.read(
+        getCategoryByIdProvider(categoryId).future,
       );
+      controllers.categoryId.text = category.title;
+
+      ref
+          .read(taskFormStateNotifierProvider.notifier)
+          .setCategoryId(categoryId, category.title);
     } catch (e) {
       controllers.categoryId.text = "Категория не найдена";
     }
@@ -91,25 +94,50 @@ class TaskFormActions {
   }
 
   Future<void> pickDateTime() async {
-    final dateTimeController = ref.read(dateTimePickerNotifierProvider.notifier);
-    
-    await dateTimeController.updateDate(context);
-    await dateTimeController.updateTime(context);
-    await Future.delayed(Duration(seconds: 1));
-    final finalSelectedDateTime = ref.read(dateTimePickerNotifierProvider);
-    final String formattedDateTime = DateTimePickerUtils.formatDateTime(finalSelectedDateTime);
-    controllers.dueDateTime.text = formattedDateTime;
+    final initialDateTime = ref.read(dateTimePickerNotifierProvider);
+
+    final DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: initialDateTime,
+      firstDate: DateTime.now(),
+      lastDate: DateTime(2100),
+    );
+
+    if (pickedDate != null) {
+      final TimeOfDay? pickedTime = await showTimePicker(
+        context: context,
+        initialTime: TimeOfDay.fromDateTime(initialDateTime),
+      );
+      if (pickedTime != null) {
+        final finalDateTime = DateTime(
+          pickedDate.year,
+          pickedDate.month,
+          pickedDate.day,
+          pickedTime.hour,
+          pickedTime.minute,
+        );
+
+        ref
+            .read(dateTimePickerNotifierProvider.notifier)
+            .setDateTime(finalDateTime);
+        controllers.dueDateTime.text = DateTimePickerUtils.formatDateTime(
+          finalDateTime,
+        );
+      }
+    }
   }
 
   void saveTask() {
     final taskContr = ref.read(taskProvider.notifier);
     final taskEntity = _createTaskEntityFromForm();
     final selectedTask = ref.read(selectedTaskProvider);
+    final selectTaskContr = ref.read(selectedTaskProvider.notifier);
 
     if (selectedTask == null || selectedTask.id == 0) {
       taskContr.addTask(taskEntity);
     } else {
       taskContr.updateTask(taskEntity);
+      selectTaskContr.reset();
     }
     context.goNamed(TasksRoutes.viewTask);
   }
@@ -122,14 +150,13 @@ class TaskFormActions {
   TaskEntity _createTaskEntityFromForm() {
     final formState = ref.read(taskFormStateNotifierProvider);
 
-    int duration = int.tryParse(controllers.duration.text)??0;
+    int duration = int.tryParse(controllers.duration.text) ?? 0;
 
     final createdAt = DateTime.now();
 
-    final dueDate = DateTimePickerUtils.parseDateTime(controllers.dueDateTime.text);
-    if (dueDate != null) {
-      ref.read(dateTimePickerNotifierProvider.notifier).setDateTime(dueDate);
-    }
+    final dueDate = DateTimePickerUtils.parseDateTime(
+      controllers.dueDateTime.text,
+    );
 
     return TaskEntity(
       id: formState.taskId ?? 0,
