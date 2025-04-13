@@ -4,6 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../../../core/utils/date_time_picker_utils.dart';
 import '../../../../domain/entities/task/task.dart';
+import '../../../providers/category/category_by_id_provider.dart';
+import '../../../providers/task/task_form_state/task_form_state.dart';
 import '../../../providers/task/task_selected_provider.dart';
 import '../../../providers/task/task_state_providers.dart';
 import '../../../providers/date_time/date_time_picker_notifier.dart';
@@ -14,22 +16,71 @@ class TaskFormActions {
   final WidgetRef ref;
   final BuildContext context;
   final TaskFormControllers controllers;
-  final int? taskId;
-  final int? categoryId;
 
   TaskFormActions({
     required this.ref,
     required this.context,
     required this.controllers,
-    this.taskId,
-    this.categoryId,
   });
 
+
+  void initializeForm() {
+    final dateTimeController = ref.read(dateTimePickerNotifierProvider.notifier);
+    final formState = ref.read(taskFormStateNotifierProvider);
+    
+    if (formState.isInitialized) {
+      // Уже инициализировано
+      return;
+    }
+
+    final selectedTask = ref.read(selectedTaskProvider);
+    if (selectedTask != null) {
+      // Режим редактирования
+      controllers.title.text = selectedTask.title;
+      controllers.description.text = selectedTask.description;
+      controllers.duration.text = selectedTask.duration.toString();
+
+      dateTimeController.setDateTime(selectedTask.dueDateTime);
+      controllers.dueDateTime.text = DateTimePickerUtils.formatDateTime(
+        selectedTask.dueDateTime,
+      );
+
+      // Обновляем состояние формы
+      ref.read(taskFormStateNotifierProvider.notifier).initialize(selectedTask);
+      
+      // Загружаем информацию о категории
+      loadCategoryInfo(selectedTask.categoryId);
+    } else {
+      // Режим создания
+      controllers.dueDateTime.text = DateTimePickerUtils.formatDateTime(
+        ref.read(dateTimePickerNotifierProvider),
+      );
+    }
+  }
+
+
+    Future<void> loadCategoryInfo(int categoryId) async {
+    try {
+      final category = await ref.read(getCategoryByIdProvider(categoryId).future);
+      controllers.categoryId.text = category.title;
+      
+      ref.read(taskFormStateNotifierProvider.notifier).setCategoryId(
+        categoryId, 
+        category.title
+      );
+    } catch (e) {
+      controllers.categoryId.text = "Категория не найдена";
+    }
+  }
+
+
   void navigateToTagSelection() {
+    final formState = ref.read(taskFormStateNotifierProvider);
+
     _saveCurrentTaskState();
     context.goNamed(
       TasksRoutes.viewTag,
-      extra: {'isForTaskSelection': true, 'taskId': taskId},
+      extra: {'isForTaskSelection': true, 'taskId': formState.taskId},
     );
   }
 
@@ -68,6 +119,8 @@ class TaskFormActions {
   }
 
   TaskEntity _createTaskEntityFromForm() {
+    final formState = ref.read(taskFormStateNotifierProvider);
+
     String durationText = controllers.duration.text;
     int duration = durationText.isEmpty ? 0 : int.parse(durationText);
     final createdAt = DateTime.now();
@@ -78,13 +131,13 @@ class TaskFormActions {
     }
 
     return TaskEntity(
-      id: taskId ?? 0,
+      id: formState.taskId ?? 0,
       title: controllers.title.text,
       description: controllers.description.text,
       duration: duration,
       createdAt: createdAt,
       dueDateTime: dueDate ?? DateTime.now(),
-      categoryId: categoryId ?? 0,
+      categoryId: formState.categoryId ?? 0,
     );
   }
 }

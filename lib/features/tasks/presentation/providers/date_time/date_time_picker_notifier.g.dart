@@ -7,7 +7,7 @@ part of 'date_time_picker_notifier.dart';
 // **************************************************************************
 
 String _$dateTimePickerNotifierHash() =>
-    r'089785758f01ed7716fe9b7a4e83aca85e986729';
+    r'2ead0d5e88c9f3c6aac136a5c071d83b5d126bdb';
 
 /// See also [DateTimePickerNotifier].
 @ProviderFor(DateTimePickerNotifier)
