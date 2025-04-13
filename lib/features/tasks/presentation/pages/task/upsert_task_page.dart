@@ -15,9 +15,8 @@ import '../../routing/tasks_routes_constants.dart';
 import 'widgets/task_form_controllers.dart';
 
 class UpsertTaskPage extends BaseUpsertPage<TaskEntity> {
-  final bool isEditing;
 
-  const UpsertTaskPage({this.isEditing = false, super.key});
+  const UpsertTaskPage({super.isEditing = false, super.key});
 
   @override
   ConsumerState<BaseUpsertPage<TaskEntity>> createState() =>
@@ -28,8 +27,6 @@ class _UpsertTaskPageState
     extends BaseUpsertPageState<TaskEntity, UpsertTaskPage>
     with FormControllersMixin<TaskEntity> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
-  // DateTime _selectedDateTime = DateTime.now();
 
   late final TaskFormControllers ctrl;
   Task? taskContr;
@@ -104,7 +101,7 @@ class _UpsertTaskPageState
       onPickDateTime: _actions.pickDateTime,
       onSaveCurrent: _actions.navigateToTagSelection,
       onSave: saveEntity,
-      ctrl: ctrl,
+      controllers: ctrl,
       formKey: _formKey,
       isInitialized: formState.isInitialized,
       taskId: formState.taskId,

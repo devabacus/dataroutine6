@@ -6,7 +6,7 @@ import 'package:ui_kit/ui_kit.dart';
 
 class TaskFormWidget extends ConsumerWidget {
   final GlobalKey<FormState> formKey;
-  final TaskFormControllers ctrl;
+  final TaskFormControllers controllers;
   final VoidCallback onPickDateTime;
   final VoidCallback onPickCategory;
   final VoidCallback onSaveCurrent;
@@ -20,7 +20,7 @@ class TaskFormWidget extends ConsumerWidget {
     required this.onPickDateTime,
     required this.onSaveCurrent,
     required this.onSave,
-    required this.ctrl,
+    required this.controllers,
     required this.formKey,
     required this.isInitialized,
     required this.taskId,
@@ -33,12 +33,12 @@ class TaskFormWidget extends ConsumerWidget {
       key: formKey,
       child: Column(
         children: [
-          TextFieldFactory.listTile(ctrl.title, hint: "Название"),
-          TextFieldFactory.listTile(ctrl.description, hint: "Описание"),
-          TextFieldFactory.listTile(ctrl.duration, hint: "Длительность"),
+          TextFieldFactory.listTile(controllers.title, hint: "Название"),
+          TextFieldFactory.listTile(controllers.description, hint: "Описание"),
+          TextFieldFactory.listTile(controllers.duration, hint: "Длительность"),
 
           TextFieldFactory.listTile(
-            ctrl.dueDateTime,
+            controllers.dueDateTime,
             trailing: IconButton(
               onPressed: onPickDateTime,
               icon: Icon(Icons.date_range),
@@ -46,7 +46,7 @@ class TaskFormWidget extends ConsumerWidget {
           ),
 
           TextFieldFactory.listTile(
-            ctrl.categoryId,
+            controllers.categoryId,
             hint: "Выбрать категорию",
             trailing: IconButton(
               onPressed: onPickCategory,

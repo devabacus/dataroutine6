@@ -23,7 +23,6 @@ class TaskFormActions {
     required this.controllers,
   });
 
-
   void initializeForm() {
     final dateTimeController = ref.read(dateTimePickerNotifierProvider.notifier);
     final formState = ref.read(taskFormStateNotifierProvider);
@@ -72,7 +71,6 @@ class TaskFormActions {
       controllers.categoryId.text = "Категория не найдена";
     }
   }
-
 
   void navigateToTagSelection() {
     final formState = ref.read(taskFormStateNotifierProvider);
