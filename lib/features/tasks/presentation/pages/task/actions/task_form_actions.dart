@@ -27,12 +27,6 @@ class TaskFormActions {
     final dateTimeController = ref.read(
       dateTimePickerNotifierProvider.notifier,
     );
-    // final formState = ref.read(taskFormStateNotifierProvider);
-
-    // if (formState.isInitialized) {
-    //   // Уже инициализировано
-    //   return;
-    // }
 
     final selectedTask = ref.read(selectedTaskProvider);
     if (selectedTask != null) {
