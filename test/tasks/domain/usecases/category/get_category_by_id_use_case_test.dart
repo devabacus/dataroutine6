@@ -1,5 +1,3 @@
-// test/tasks/domain/usecases/category/get_category_by_id_use_case_test.dart
-
 import 'package:dataroutine6/features/tasks/domain/entities/category/category.dart';
 import 'package:dataroutine6/features/tasks/domain/repositories/category_repository.dart';
 import 'package:dataroutine6/features/tasks/domain/usecases/category/get_by_id.dart';
@@ -19,34 +17,29 @@ void main() {
     getCategoryByIdUseCase = GetCategoryByIdUseCase(mockICategoryRepository);
   });
 
-  test('должен вернуть категорию по id из репозитория', () async {
-    // Arrange
+  test('should return correct item by id', () async {
     const categoryId = 1;
-    final category = CategoryEntity(id: categoryId, title: 'Test Category');
+    final category = CategoryEntity(id: categoryId, title: 'title 1');
     
     when(
       mockICategoryRepository.getCategoryById(categoryId),
     ).thenAnswer((_) async => category);
 
-    // Act
     final result = await getCategoryByIdUseCase(categoryId);
 
-    // Assert
     verify(mockICategoryRepository.getCategoryById(categoryId)).called(1);
     expect(result, category);
     expect(result?.id, categoryId);
-    expect(result?.title, 'Test Category');
+    expect(result?.title, 'title 1');
   });
 
-  test('должен выбросить исключение если категория не найдена', () async {
-    // Arrange
+  test('shoul throw exception', () async {
     const categoryId = 999;
     
     when(
       mockICategoryRepository.getCategoryById(categoryId),
     ).thenThrow(StateError('Category not found'));
 
-    // Act & Assert
     expect(
       () => getCategoryByIdUseCase(categoryId),
       throwsA(isA<StateError>()),

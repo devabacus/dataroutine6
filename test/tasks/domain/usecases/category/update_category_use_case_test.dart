@@ -1,5 +1,3 @@
-// test/tasks/domain/usecases/category/update_category_use_case_test.dart
-
 import 'package:dataroutine6/features/tasks/domain/entities/category/category.dart';
 import 'package:dataroutine6/features/tasks/domain/repositories/category_repository.dart';
 import 'package:dataroutine6/features/tasks/domain/usecases/category/update.dart';
@@ -19,18 +17,15 @@ void main() {
     updateCategoryUseCase = UpdateCategoryUseCase(mockICategoryRepository);
   });
 
-  test('должен вызвать метод обновления в репозитории с правильной категорией', () async {
-    // Arrange
-    final category = CategoryEntity(id: 1, title: 'Updated Category');
+  test('should call correct update method', () async {
+    final category = CategoryEntity(id: 1, title: 'title 1');
     
     when(
       mockICategoryRepository.updateCategory(category),
     ).thenAnswer((_) async => {});
 
-    // Act
     await updateCategoryUseCase(category);
 
-    // Assert
     verify(mockICategoryRepository.updateCategory(category)).called(1);
   });
 }

@@ -1,4 +1,4 @@
-import 'package:dataroutine6/features/tasks/data/models/category/category_model.dart';
+import '../../../models/category/category_model.dart';
 
 abstract class ICategoryLocalDataSource {
   Future<List<CategoryModel>> getCategories();
@@ -7,6 +7,3 @@ abstract class ICategoryLocalDataSource {
   Future<void> updateCategory(CategoryModel category);
   Future<void> deleteCategory(int id);
 }
-
-
-

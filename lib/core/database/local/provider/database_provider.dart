@@ -1,10 +1,9 @@
-
-import 'package:dataroutine6/core/database/local/interface/database_service.dart';
-import 'package:dataroutine6/core/database/local/service/drift_database_service.dart';
-
-import '../database.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../database.dart';
+import '../interface/database_service.dart';
+import '../service/drift_database_service.dart';
 
 part 'database_provider.g.dart';
 

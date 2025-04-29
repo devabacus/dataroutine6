@@ -1,5 +1,5 @@
-import 'package:dataroutine6/core/database/local/database.dart';
-import 'package:dataroutine6/core/database/local/interface/database_service.dart';
+import '../database.dart';
+import '../interface/database_service.dart';
 
 class DriftDatabaseService implements IDatabaseService {
   final AppDatabase _database;

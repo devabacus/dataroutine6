@@ -1,5 +1,4 @@
-
-import 'package:dataroutine6/core/database/local/interface/database_service.dart';
+import '../../../../../../core/database/local/interface/database_service.dart';
 import 'package:drift/drift.dart';
 import '../../../../../../../core/database/local/database.dart';
 import '../tables/category_table.dart';

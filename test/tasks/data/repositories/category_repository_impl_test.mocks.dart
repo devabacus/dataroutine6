@@ -5,7 +5,7 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i4;
 
-import 'package:dataroutine6/features/tasks/data/datasources/local/interface/category_local_datasource_service.dart'
+import 'package:dataroutine6/features/tasks/data/datasources/local/interfaces/category_local_datasource_service.dart'
     as _i3;
 import 'package:dataroutine6/features/tasks/data/models/category/category_model.dart'
     as _i2;

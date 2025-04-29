@@ -1,9 +1,10 @@
-import 'package:dataroutine6/features/tasks/domain/entities/category/category.dart';
-import 'package:dataroutine6/features/tasks/domain/providers/category/category_usecase_providers.dart';
-import 'package:dataroutine6/features/tasks/presentation/providers/category/category_state_providers.dart';
 import 'package:mlogger/mlogger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../../domain/entities/category/category.dart';
+import '../../../domain/providers/category/category_usecase_providers.dart';
+import 'category_state_providers.dart';
 
 part 'category_by_id_provider.g.dart';
 

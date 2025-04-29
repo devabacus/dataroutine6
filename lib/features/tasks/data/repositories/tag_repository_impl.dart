@@ -3,7 +3,7 @@ import 'package:dataroutine6/features/tasks/domain/entities/extensions/tag_entit
 
 import '../../domain/entities/tag/tag.dart';
 import '../../domain/repositories/tag_repository.dart';
-import '../datasources/local/interface/tag_local_datasource_service.dart';
+import '../datasources/local/interfaces/tag_local_datasource_service.dart';
 
 class TagRepositoryImpl implements ITagRepository {
   final ITagLocalDataSource _localDataSource;

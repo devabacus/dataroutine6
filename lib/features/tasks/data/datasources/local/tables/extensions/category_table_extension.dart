@@ -1,11 +1,8 @@
-
-
-import 'package:dataroutine6/core/database/local/database.dart';
-import 'package:dataroutine6/features/tasks/data/models/category/category_model.dart';
+import '../../../../../../../core/database/local/database.dart';
+import '../../../../models/category/category_model.dart';
 
 extension CategoryTableDataExtensions on CategoryTableData {
   CategoryModel toModel() => CategoryModel(id: id, title: title);
-
 }
 
 extension CategoryTableDataListExtensions on List<CategoryTableData> {

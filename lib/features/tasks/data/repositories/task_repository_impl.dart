@@ -3,7 +3,7 @@ import 'package:dataroutine6/features/tasks/domain/entities/extensions/task_enti
 
 import '../../domain/entities/task/task.dart';
 import '../../domain/repositories/task_repository.dart';
-import '../datasources/local/interface/task_local_datasource_service.dart';
+import '../datasources/local/interfaces/task_local_datasource_service.dart';
 
 class TaskRepositoryImpl implements ITaskRepository {
   final ITaskLocalDataSource _localDataSource;

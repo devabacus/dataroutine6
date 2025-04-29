@@ -26,7 +26,7 @@ void main() {
 
       final categoryId = await categoryDao.createCategory(categoryCompanion);
 
-      expect(categoryId, 1); // Первая запись должна иметь id = 1
+      expect(categoryId, 1); 
     });
 
     test('should get all categories', () async {
@@ -83,7 +83,7 @@ void main() {
         () => categoryDao.getCategoryById(1),
         throwsA(
           isA<StateError>(),
-        ), // getSingle() выбрасывает StateError, если запись не найдена
+        ), 
       );
     });
   });

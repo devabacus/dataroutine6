@@ -1,5 +1,3 @@
-// test/tasks/domain/usecases/category/get_categories_use_case_test.dart
-
 import 'package:dataroutine6/features/tasks/domain/entities/category/category.dart';
 import 'package:dataroutine6/features/tasks/domain/repositories/category_repository.dart';
 import 'package:dataroutine6/features/tasks/domain/usecases/category/get_all.dart';
@@ -19,21 +17,18 @@ void main() {
     getCategoriesUseCase = GetCategoriesUseCase(mockICategoryRepository);
   });
 
-  test('должен вернуть список категорий из репозитория', () async {
-    // Arrange
+  test('should return list of items from repository', () async {
     final categories = [
-      CategoryEntity(id: 1, title: 'Category 1'),
-      CategoryEntity(id: 2, title: 'Category 2'),
+      CategoryEntity(id: 1, title: 'title 1'),
+      CategoryEntity(id: 2, title: 'title 2'),
     ];
     
     when(
       mockICategoryRepository.getCategories(),
     ).thenAnswer((_) async => categories);
 
-    // Act
     final result = await getCategoriesUseCase();
 
-    // Assert
     verify(mockICategoryRepository.getCategories()).called(1);
     expect(result, categories);
     expect(result.length, 2);

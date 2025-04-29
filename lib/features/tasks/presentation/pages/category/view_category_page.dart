@@ -1,5 +1,3 @@
-// lib/features/tasks/presentation/pages/view_category_page.dart
-
 import 'package:dataroutine6/features/tasks/presentation/common_widgets/entity_list_page.dart';
 import 'package:dataroutine6/features/tasks/presentation/providers/category/category_selected_provider.dart';
 import 'package:dataroutine6/features/tasks/presentation/providers/category/category_state_providers.dart';

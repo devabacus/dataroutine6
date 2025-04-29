@@ -17,9 +17,9 @@ void main() {
     createCategoryUseCase = CreateCategoryUseCase(mockICategoryRepository);
   });
 
-  test('должна быть создана новая категория с id 1', () async {
+  test('should create new with id 1', () async {
     final expectedId = 1;
-    final categoryEntity = CategoryEntity(id: -1, title: 'Test Category');
+    final categoryEntity = CategoryEntity(id: -1, title: 'title 1');
 
     when(
       mockICategoryRepository.createCategory(categoryEntity),

@@ -1,9 +1,8 @@
-import 'package:dataroutine6/features/tasks/data/models/extensions/category_models_extension.dart';
-import 'package:dataroutine6/features/tasks/data/models/extensions/category_table_extensions.dart';
-
+import '../../../models/extensions/category_models_extension.dart';
+import '../../../datasources/local/tables/extensions/category_table_extension.dart';
 import '../../../models/category/category_model.dart';
 import '../../local/dao/category_dao.dart';
-import '../interface/category_local_datasource_service.dart';
+import '../interfaces/category_local_datasource_service.dart';
 
 class CategoryLocalDataSource implements ICategoryLocalDataSource {
   final CategoryDao categoryDao;

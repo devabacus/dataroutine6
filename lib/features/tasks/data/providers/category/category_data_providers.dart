@@ -1,10 +1,10 @@
-import 'package:dataroutine6/features/tasks/data/datasources/local/dao/category_dao.dart';
-import 'package:dataroutine6/features/tasks/data/datasources/local/interface/category_local_datasource_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../../core/database/local/provider/database_provider.dart';
 import '../../../domain/repositories/category_repository.dart';
+import '../../datasources/local/dao/category_dao.dart';
+import '../../datasources/local/interfaces/category_local_datasource_service.dart';
 import '../../datasources/local/sources/category_local_data_source.dart';
 import '../../repositories/category_repository_impl.dart';
 

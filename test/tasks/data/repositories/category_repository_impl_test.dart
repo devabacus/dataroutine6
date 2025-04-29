@@ -1,4 +1,4 @@
-import 'package:dataroutine6/features/tasks/data/datasources/local/interface/category_local_datasource_service.dart';
+import 'package:dataroutine6/features/tasks/data/datasources/local/interfaces/category_local_datasource_service.dart';
 import 'package:dataroutine6/features/tasks/data/models/category/category_model.dart';
 import 'package:dataroutine6/features/tasks/data/repositories/category_repository_impl.dart';
 import 'package:dataroutine6/features/tasks/domain/entities/category/category.dart';

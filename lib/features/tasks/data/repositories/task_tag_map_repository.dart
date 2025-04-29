@@ -1,7 +1,7 @@
 import '../../domain/entities/tag/tag.dart';
 import '../../domain/entities/task/task.dart';
 import '../../domain/repositories/task_tag_map_repository.dart';
-import '../datasources/local/interface/task_tag_local_datasource_service.dart';
+import '../datasources/local/interfaces/task_tag_local_datasource_service.dart';
 import '../models/extensions/tag_models_extension.dart';
 import '../models/extensions/task_model_extension.dart';
 

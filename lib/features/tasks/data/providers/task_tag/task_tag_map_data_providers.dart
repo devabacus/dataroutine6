@@ -5,7 +5,7 @@ import 'package:dataroutine6/features/tasks/domain/repositories/task_tag_map_rep
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../datasources/local/interface/task_tag_local_datasource_service.dart';
+import '../../datasources/local/interfaces/task_tag_local_datasource_service.dart';
 
 part 'task_tag_map_data_providers.g.dart';
 

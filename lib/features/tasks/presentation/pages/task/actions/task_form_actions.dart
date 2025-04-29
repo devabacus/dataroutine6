@@ -59,7 +59,6 @@ class TaskFormActions {
         getCategoryByIdProvider(categoryId).future,
       );
       controllers.categoryId.text = category.title;
-
       ref
           .read(taskFormStateNotifierProvider.notifier)
           .setCategoryId(categoryId, category.title);
@@ -70,7 +69,6 @@ class TaskFormActions {
 
   void navigateToTagSelection() {
     final formState = ref.read(taskFormStateNotifierProvider);
-
     _saveCurrentTaskState();
     context.goNamed(
       TasksRoutes.viewTag,

@@ -1,5 +1,3 @@
-// test/tasks/domain/usecases/category/delete_category_use_case_test.dart
-
 import 'package:dataroutine6/features/tasks/domain/repositories/category_repository.dart';
 import 'package:dataroutine6/features/tasks/domain/usecases/category/delete.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -18,18 +16,15 @@ void main() {
     deleteCategoryUseCase = DeleteCategoryUseCase(mockICategoryRepository);
   });
 
-  test('должен вызвать метод удаления в репозитории с правильным id', () async {
-    // Arrange
+  test('should call delete with correct id', () async {
     const categoryId = 1;
     
     when(
       mockICategoryRepository.deleteCategory(categoryId),
     ).thenAnswer((_) async => {});
 
-    // Act
     await deleteCategoryUseCase(categoryId);
 
-    // Assert
     verify(mockICategoryRepository.deleteCategory(categoryId)).called(1);
   });
 }

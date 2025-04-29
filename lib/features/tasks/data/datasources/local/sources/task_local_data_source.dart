@@ -1,7 +1,7 @@
 import 'package:dataroutine6/core/database/local/interface/database_service.dart';
-import 'package:dataroutine6/features/tasks/data/datasources/local/interface/task_local_datasource_service.dart';
+import 'package:dataroutine6/features/tasks/data/datasources/local/interfaces/task_local_datasource_service.dart';
 import 'package:dataroutine6/features/tasks/data/models/extensions/task_model_extension.dart';
-import 'package:dataroutine6/features/tasks/data/models/extensions/task_table_extension.dart';
+import 'package:dataroutine6/features/tasks/data/datasources/local/tables/extensions/task_table_extension.dart';
 
 import '../../../models/task/task_model.dart';
 import '../../local/dao/task_dao.dart';

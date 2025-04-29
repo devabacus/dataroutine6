@@ -50,7 +50,6 @@ class _UpsertTaskPageState
   @override
   void initializeData() {
     _actions.initializeForm();
-
   }
 
   @override

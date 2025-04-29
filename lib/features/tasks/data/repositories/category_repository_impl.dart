@@ -1,16 +1,15 @@
-import 'package:dataroutine6/features/tasks/data/models/extensions/category_models_extension.dart';
-import 'package:dataroutine6/features/tasks/domain/entities/extensions/category_entity_extension.dart';
-
 import '../../domain/entities/category/category.dart';
+import '../../domain/entities/extensions/category_entity_extension.dart';
 import '../../domain/repositories/category_repository.dart';
-import '../datasources/local/interface/category_local_datasource_service.dart';
-import '../models/category/category_model.dart';
+import '../datasources/local/interfaces/category_local_datasource_service.dart';
+import '../models/extensions/category_models_extension.dart';
 
 class CategoryRepositoryImpl implements ICategoryRepository {
   final ICategoryLocalDataSource _localDataSource;
+  
 
   CategoryRepositoryImpl(this._localDataSource);
-  // ---------auto generated------------------//
+
   @override
   Future<List<CategoryEntity>> getCategories() async {
     final categoryModels = await _localDataSource.getCategories();
@@ -35,8 +34,6 @@ class CategoryRepositoryImpl implements ICategoryRepository {
 
   @override
   Future<void> updateCategory(CategoryEntity category) async {
-    _localDataSource.updateCategory(
-      CategoryModel(id: category.id, title: category.title),
-    );
+    _localDataSource.updateCategory(category.toModel());
   }
 }

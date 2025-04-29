@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import '../../datasources/local/interface/task_local_datasource_service.dart';
+import '../../datasources/local/interfaces/task_local_datasource_service.dart';
 import '../../datasources/local/sources/task_local_data_source.dart';
 import '../../repositories/task_repository_impl.dart';
 import '../../../../../core/database/local/provider/database_provider.dart';
