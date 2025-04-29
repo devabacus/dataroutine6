@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "607101626293",
+    "project_id": "dataroutine6",
+    "storage_bucket": "dataroutine6.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:607101626293:android:3ae784cc0df42780291bfc",
+        "android_client_info": {
+          "package_name": "com.example.dataroutine6"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCuXFVVSqlt221wpoSZe2P8UXJGoC29FTc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
