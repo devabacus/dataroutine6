@@ -1080,6 +1080,653 @@ class TaskTagMapTableCompanion extends UpdateCompanion<TaskTagMapTableData> {
   }
 }
 
+class $SyncMetadataTableTable extends SyncMetadataTable
+    with TableInfo<$SyncMetadataTableTable, SyncMetadataTableData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $SyncMetadataTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _entityIdMeta = const VerificationMeta(
+    'entityId',
+  );
+  @override
+  late final GeneratedColumn<String> entityId = GeneratedColumn<String>(
+    'entity_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  @override
+  late final GeneratedColumnWithTypeConverter<EntityType, String> entityType =
+      GeneratedColumn<String>(
+        'entity_type',
+        aliasedName,
+        false,
+        type: DriftSqlType.string,
+        requiredDuringInsert: true,
+      ).withConverter<EntityType>($SyncMetadataTableTable.$converterentityType);
+  @override
+  late final GeneratedColumnWithTypeConverter<SyncAction, String> action =
+      GeneratedColumn<String>(
+        'action',
+        aliasedName,
+        false,
+        type: DriftSqlType.string,
+        requiredDuringInsert: true,
+      ).withConverter<SyncAction>($SyncMetadataTableTable.$converteraction);
+  static const VerificationMeta _lastLocalUpdateMeta = const VerificationMeta(
+    'lastLocalUpdate',
+  );
+  @override
+  late final GeneratedColumn<DateTime> lastLocalUpdate =
+      GeneratedColumn<DateTime>(
+        'last_local_update',
+        aliasedName,
+        false,
+        type: DriftSqlType.dateTime,
+        requiredDuringInsert: true,
+      );
+  static const VerificationMeta _lastSyncTimeMeta = const VerificationMeta(
+    'lastSyncTime',
+  );
+  @override
+  late final GeneratedColumn<DateTime> lastSyncTime = GeneratedColumn<DateTime>(
+    'last_sync_time',
+    aliasedName,
+    true,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+  );
+  @override
+  late final GeneratedColumnWithTypeConverter<SyncStatus, String> status =
+      GeneratedColumn<String>(
+        'status',
+        aliasedName,
+        false,
+        type: DriftSqlType.string,
+        requiredDuringInsert: true,
+      ).withConverter<SyncStatus>($SyncMetadataTableTable.$converterstatus);
+  static const VerificationMeta _errorMessageMeta = const VerificationMeta(
+    'errorMessage',
+  );
+  @override
+  late final GeneratedColumn<String> errorMessage = GeneratedColumn<String>(
+    'error_message',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _retryCountMeta = const VerificationMeta(
+    'retryCount',
+  );
+  @override
+  late final GeneratedColumn<int> retryCount = GeneratedColumn<int>(
+    'retry_count',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  @override
+  late final GeneratedColumnWithTypeConverter<Map<String, dynamic>, String>
+  additionalData = GeneratedColumn<String>(
+    'additional_data',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant('{}'),
+  ).withConverter<Map<String, dynamic>>(
+    $SyncMetadataTableTable.$converteradditionalData,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    entityId,
+    entityType,
+    action,
+    lastLocalUpdate,
+    lastSyncTime,
+    status,
+    errorMessage,
+    retryCount,
+    additionalData,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'sync_metadata_table';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<SyncMetadataTableData> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('entity_id')) {
+      context.handle(
+        _entityIdMeta,
+        entityId.isAcceptableOrUnknown(data['entity_id']!, _entityIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_entityIdMeta);
+    }
+    if (data.containsKey('last_local_update')) {
+      context.handle(
+        _lastLocalUpdateMeta,
+        lastLocalUpdate.isAcceptableOrUnknown(
+          data['last_local_update']!,
+          _lastLocalUpdateMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_lastLocalUpdateMeta);
+    }
+    if (data.containsKey('last_sync_time')) {
+      context.handle(
+        _lastSyncTimeMeta,
+        lastSyncTime.isAcceptableOrUnknown(
+          data['last_sync_time']!,
+          _lastSyncTimeMeta,
+        ),
+      );
+    }
+    if (data.containsKey('error_message')) {
+      context.handle(
+        _errorMessageMeta,
+        errorMessage.isAcceptableOrUnknown(
+          data['error_message']!,
+          _errorMessageMeta,
+        ),
+      );
+    }
+    if (data.containsKey('retry_count')) {
+      context.handle(
+        _retryCountMeta,
+        retryCount.isAcceptableOrUnknown(data['retry_count']!, _retryCountMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  SyncMetadataTableData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return SyncMetadataTableData(
+      id:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.string,
+            data['${effectivePrefix}id'],
+          )!,
+      entityId:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.string,
+            data['${effectivePrefix}entity_id'],
+          )!,
+      entityType: $SyncMetadataTableTable.$converterentityType.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}entity_type'],
+        )!,
+      ),
+      action: $SyncMetadataTableTable.$converteraction.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}action'],
+        )!,
+      ),
+      lastLocalUpdate:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.dateTime,
+            data['${effectivePrefix}last_local_update'],
+          )!,
+      lastSyncTime: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}last_sync_time'],
+      ),
+      status: $SyncMetadataTableTable.$converterstatus.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}status'],
+        )!,
+      ),
+      errorMessage: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}error_message'],
+      ),
+      retryCount:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.int,
+            data['${effectivePrefix}retry_count'],
+          )!,
+      additionalData: $SyncMetadataTableTable.$converteradditionalData.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}additional_data'],
+        )!,
+      ),
+    );
+  }
+
+  @override
+  $SyncMetadataTableTable createAlias(String alias) {
+    return $SyncMetadataTableTable(attachedDatabase, alias);
+  }
+
+  static TypeConverter<EntityType, String> $converterentityType =
+      const EntityTypeConverter();
+  static TypeConverter<SyncAction, String> $converteraction =
+      const SyncActionConverter();
+  static TypeConverter<SyncStatus, String> $converterstatus =
+      const SyncStatusConverter();
+  static TypeConverter<Map<String, dynamic>, String> $converteradditionalData =
+      const JsonMapConverter();
+}
+
+class SyncMetadataTableData extends DataClass
+    implements Insertable<SyncMetadataTableData> {
+  final String id;
+  final String entityId;
+  final EntityType entityType;
+  final SyncAction action;
+  final DateTime lastLocalUpdate;
+  final DateTime? lastSyncTime;
+  final SyncStatus status;
+  final String? errorMessage;
+  final int retryCount;
+  final Map<String, dynamic> additionalData;
+  const SyncMetadataTableData({
+    required this.id,
+    required this.entityId,
+    required this.entityType,
+    required this.action,
+    required this.lastLocalUpdate,
+    this.lastSyncTime,
+    required this.status,
+    this.errorMessage,
+    required this.retryCount,
+    required this.additionalData,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['entity_id'] = Variable<String>(entityId);
+    {
+      map['entity_type'] = Variable<String>(
+        $SyncMetadataTableTable.$converterentityType.toSql(entityType),
+      );
+    }
+    {
+      map['action'] = Variable<String>(
+        $SyncMetadataTableTable.$converteraction.toSql(action),
+      );
+    }
+    map['last_local_update'] = Variable<DateTime>(lastLocalUpdate);
+    if (!nullToAbsent || lastSyncTime != null) {
+      map['last_sync_time'] = Variable<DateTime>(lastSyncTime);
+    }
+    {
+      map['status'] = Variable<String>(
+        $SyncMetadataTableTable.$converterstatus.toSql(status),
+      );
+    }
+    if (!nullToAbsent || errorMessage != null) {
+      map['error_message'] = Variable<String>(errorMessage);
+    }
+    map['retry_count'] = Variable<int>(retryCount);
+    {
+      map['additional_data'] = Variable<String>(
+        $SyncMetadataTableTable.$converteradditionalData.toSql(additionalData),
+      );
+    }
+    return map;
+  }
+
+  SyncMetadataTableCompanion toCompanion(bool nullToAbsent) {
+    return SyncMetadataTableCompanion(
+      id: Value(id),
+      entityId: Value(entityId),
+      entityType: Value(entityType),
+      action: Value(action),
+      lastLocalUpdate: Value(lastLocalUpdate),
+      lastSyncTime:
+          lastSyncTime == null && nullToAbsent
+              ? const Value.absent()
+              : Value(lastSyncTime),
+      status: Value(status),
+      errorMessage:
+          errorMessage == null && nullToAbsent
+              ? const Value.absent()
+              : Value(errorMessage),
+      retryCount: Value(retryCount),
+      additionalData: Value(additionalData),
+    );
+  }
+
+  factory SyncMetadataTableData.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return SyncMetadataTableData(
+      id: serializer.fromJson<String>(json['id']),
+      entityId: serializer.fromJson<String>(json['entityId']),
+      entityType: serializer.fromJson<EntityType>(json['entityType']),
+      action: serializer.fromJson<SyncAction>(json['action']),
+      lastLocalUpdate: serializer.fromJson<DateTime>(json['lastLocalUpdate']),
+      lastSyncTime: serializer.fromJson<DateTime?>(json['lastSyncTime']),
+      status: serializer.fromJson<SyncStatus>(json['status']),
+      errorMessage: serializer.fromJson<String?>(json['errorMessage']),
+      retryCount: serializer.fromJson<int>(json['retryCount']),
+      additionalData: serializer.fromJson<Map<String, dynamic>>(
+        json['additionalData'],
+      ),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'entityId': serializer.toJson<String>(entityId),
+      'entityType': serializer.toJson<EntityType>(entityType),
+      'action': serializer.toJson<SyncAction>(action),
+      'lastLocalUpdate': serializer.toJson<DateTime>(lastLocalUpdate),
+      'lastSyncTime': serializer.toJson<DateTime?>(lastSyncTime),
+      'status': serializer.toJson<SyncStatus>(status),
+      'errorMessage': serializer.toJson<String?>(errorMessage),
+      'retryCount': serializer.toJson<int>(retryCount),
+      'additionalData': serializer.toJson<Map<String, dynamic>>(additionalData),
+    };
+  }
+
+  SyncMetadataTableData copyWith({
+    String? id,
+    String? entityId,
+    EntityType? entityType,
+    SyncAction? action,
+    DateTime? lastLocalUpdate,
+    Value<DateTime?> lastSyncTime = const Value.absent(),
+    SyncStatus? status,
+    Value<String?> errorMessage = const Value.absent(),
+    int? retryCount,
+    Map<String, dynamic>? additionalData,
+  }) => SyncMetadataTableData(
+    id: id ?? this.id,
+    entityId: entityId ?? this.entityId,
+    entityType: entityType ?? this.entityType,
+    action: action ?? this.action,
+    lastLocalUpdate: lastLocalUpdate ?? this.lastLocalUpdate,
+    lastSyncTime: lastSyncTime.present ? lastSyncTime.value : this.lastSyncTime,
+    status: status ?? this.status,
+    errorMessage: errorMessage.present ? errorMessage.value : this.errorMessage,
+    retryCount: retryCount ?? this.retryCount,
+    additionalData: additionalData ?? this.additionalData,
+  );
+  SyncMetadataTableData copyWithCompanion(SyncMetadataTableCompanion data) {
+    return SyncMetadataTableData(
+      id: data.id.present ? data.id.value : this.id,
+      entityId: data.entityId.present ? data.entityId.value : this.entityId,
+      entityType:
+          data.entityType.present ? data.entityType.value : this.entityType,
+      action: data.action.present ? data.action.value : this.action,
+      lastLocalUpdate:
+          data.lastLocalUpdate.present
+              ? data.lastLocalUpdate.value
+              : this.lastLocalUpdate,
+      lastSyncTime:
+          data.lastSyncTime.present
+              ? data.lastSyncTime.value
+              : this.lastSyncTime,
+      status: data.status.present ? data.status.value : this.status,
+      errorMessage:
+          data.errorMessage.present
+              ? data.errorMessage.value
+              : this.errorMessage,
+      retryCount:
+          data.retryCount.present ? data.retryCount.value : this.retryCount,
+      additionalData:
+          data.additionalData.present
+              ? data.additionalData.value
+              : this.additionalData,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('SyncMetadataTableData(')
+          ..write('id: $id, ')
+          ..write('entityId: $entityId, ')
+          ..write('entityType: $entityType, ')
+          ..write('action: $action, ')
+          ..write('lastLocalUpdate: $lastLocalUpdate, ')
+          ..write('lastSyncTime: $lastSyncTime, ')
+          ..write('status: $status, ')
+          ..write('errorMessage: $errorMessage, ')
+          ..write('retryCount: $retryCount, ')
+          ..write('additionalData: $additionalData')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    entityId,
+    entityType,
+    action,
+    lastLocalUpdate,
+    lastSyncTime,
+    status,
+    errorMessage,
+    retryCount,
+    additionalData,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is SyncMetadataTableData &&
+          other.id == this.id &&
+          other.entityId == this.entityId &&
+          other.entityType == this.entityType &&
+          other.action == this.action &&
+          other.lastLocalUpdate == this.lastLocalUpdate &&
+          other.lastSyncTime == this.lastSyncTime &&
+          other.status == this.status &&
+          other.errorMessage == this.errorMessage &&
+          other.retryCount == this.retryCount &&
+          other.additionalData == this.additionalData);
+}
+
+class SyncMetadataTableCompanion
+    extends UpdateCompanion<SyncMetadataTableData> {
+  final Value<String> id;
+  final Value<String> entityId;
+  final Value<EntityType> entityType;
+  final Value<SyncAction> action;
+  final Value<DateTime> lastLocalUpdate;
+  final Value<DateTime?> lastSyncTime;
+  final Value<SyncStatus> status;
+  final Value<String?> errorMessage;
+  final Value<int> retryCount;
+  final Value<Map<String, dynamic>> additionalData;
+  final Value<int> rowid;
+  const SyncMetadataTableCompanion({
+    this.id = const Value.absent(),
+    this.entityId = const Value.absent(),
+    this.entityType = const Value.absent(),
+    this.action = const Value.absent(),
+    this.lastLocalUpdate = const Value.absent(),
+    this.lastSyncTime = const Value.absent(),
+    this.status = const Value.absent(),
+    this.errorMessage = const Value.absent(),
+    this.retryCount = const Value.absent(),
+    this.additionalData = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  SyncMetadataTableCompanion.insert({
+    required String id,
+    required String entityId,
+    required EntityType entityType,
+    required SyncAction action,
+    required DateTime lastLocalUpdate,
+    this.lastSyncTime = const Value.absent(),
+    required SyncStatus status,
+    this.errorMessage = const Value.absent(),
+    this.retryCount = const Value.absent(),
+    this.additionalData = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       entityId = Value(entityId),
+       entityType = Value(entityType),
+       action = Value(action),
+       lastLocalUpdate = Value(lastLocalUpdate),
+       status = Value(status);
+  static Insertable<SyncMetadataTableData> custom({
+    Expression<String>? id,
+    Expression<String>? entityId,
+    Expression<String>? entityType,
+    Expression<String>? action,
+    Expression<DateTime>? lastLocalUpdate,
+    Expression<DateTime>? lastSyncTime,
+    Expression<String>? status,
+    Expression<String>? errorMessage,
+    Expression<int>? retryCount,
+    Expression<String>? additionalData,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (entityId != null) 'entity_id': entityId,
+      if (entityType != null) 'entity_type': entityType,
+      if (action != null) 'action': action,
+      if (lastLocalUpdate != null) 'last_local_update': lastLocalUpdate,
+      if (lastSyncTime != null) 'last_sync_time': lastSyncTime,
+      if (status != null) 'status': status,
+      if (errorMessage != null) 'error_message': errorMessage,
+      if (retryCount != null) 'retry_count': retryCount,
+      if (additionalData != null) 'additional_data': additionalData,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  SyncMetadataTableCompanion copyWith({
+    Value<String>? id,
+    Value<String>? entityId,
+    Value<EntityType>? entityType,
+    Value<SyncAction>? action,
+    Value<DateTime>? lastLocalUpdate,
+    Value<DateTime?>? lastSyncTime,
+    Value<SyncStatus>? status,
+    Value<String?>? errorMessage,
+    Value<int>? retryCount,
+    Value<Map<String, dynamic>>? additionalData,
+    Value<int>? rowid,
+  }) {
+    return SyncMetadataTableCompanion(
+      id: id ?? this.id,
+      entityId: entityId ?? this.entityId,
+      entityType: entityType ?? this.entityType,
+      action: action ?? this.action,
+      lastLocalUpdate: lastLocalUpdate ?? this.lastLocalUpdate,
+      lastSyncTime: lastSyncTime ?? this.lastSyncTime,
+      status: status ?? this.status,
+      errorMessage: errorMessage ?? this.errorMessage,
+      retryCount: retryCount ?? this.retryCount,
+      additionalData: additionalData ?? this.additionalData,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (entityId.present) {
+      map['entity_id'] = Variable<String>(entityId.value);
+    }
+    if (entityType.present) {
+      map['entity_type'] = Variable<String>(
+        $SyncMetadataTableTable.$converterentityType.toSql(entityType.value),
+      );
+    }
+    if (action.present) {
+      map['action'] = Variable<String>(
+        $SyncMetadataTableTable.$converteraction.toSql(action.value),
+      );
+    }
+    if (lastLocalUpdate.present) {
+      map['last_local_update'] = Variable<DateTime>(lastLocalUpdate.value);
+    }
+    if (lastSyncTime.present) {
+      map['last_sync_time'] = Variable<DateTime>(lastSyncTime.value);
+    }
+    if (status.present) {
+      map['status'] = Variable<String>(
+        $SyncMetadataTableTable.$converterstatus.toSql(status.value),
+      );
+    }
+    if (errorMessage.present) {
+      map['error_message'] = Variable<String>(errorMessage.value);
+    }
+    if (retryCount.present) {
+      map['retry_count'] = Variable<int>(retryCount.value);
+    }
+    if (additionalData.present) {
+      map['additional_data'] = Variable<String>(
+        $SyncMetadataTableTable.$converteradditionalData.toSql(
+          additionalData.value,
+        ),
+      );
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('SyncMetadataTableCompanion(')
+          ..write('id: $id, ')
+          ..write('entityId: $entityId, ')
+          ..write('entityType: $entityType, ')
+          ..write('action: $action, ')
+          ..write('lastLocalUpdate: $lastLocalUpdate, ')
+          ..write('lastSyncTime: $lastSyncTime, ')
+          ..write('status: $status, ')
+          ..write('errorMessage: $errorMessage, ')
+          ..write('retryCount: $retryCount, ')
+          ..write('additionalData: $additionalData, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
@@ -1089,6 +1736,8 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final $TaskTagMapTableTable taskTagMapTable = $TaskTagMapTableTable(
     this,
   );
+  late final $SyncMetadataTableTable syncMetadataTable =
+      $SyncMetadataTableTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -1098,6 +1747,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     tagTable,
     taskTable,
     taskTagMapTable,
+    syncMetadataTable,
   ];
 }
 
@@ -2399,6 +3049,351 @@ typedef $$TaskTagMapTableTableProcessedTableManager =
       TaskTagMapTableData,
       PrefetchHooks Function({bool taskId, bool tagId})
     >;
+typedef $$SyncMetadataTableTableCreateCompanionBuilder =
+    SyncMetadataTableCompanion Function({
+      required String id,
+      required String entityId,
+      required EntityType entityType,
+      required SyncAction action,
+      required DateTime lastLocalUpdate,
+      Value<DateTime?> lastSyncTime,
+      required SyncStatus status,
+      Value<String?> errorMessage,
+      Value<int> retryCount,
+      Value<Map<String, dynamic>> additionalData,
+      Value<int> rowid,
+    });
+typedef $$SyncMetadataTableTableUpdateCompanionBuilder =
+    SyncMetadataTableCompanion Function({
+      Value<String> id,
+      Value<String> entityId,
+      Value<EntityType> entityType,
+      Value<SyncAction> action,
+      Value<DateTime> lastLocalUpdate,
+      Value<DateTime?> lastSyncTime,
+      Value<SyncStatus> status,
+      Value<String?> errorMessage,
+      Value<int> retryCount,
+      Value<Map<String, dynamic>> additionalData,
+      Value<int> rowid,
+    });
+
+class $$SyncMetadataTableTableFilterComposer
+    extends Composer<_$AppDatabase, $SyncMetadataTableTable> {
+  $$SyncMetadataTableTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get entityId => $composableBuilder(
+    column: $table.entityId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnWithTypeConverterFilters<EntityType, EntityType, String>
+  get entityType => $composableBuilder(
+    column: $table.entityType,
+    builder: (column) => ColumnWithTypeConverterFilters(column),
+  );
+
+  ColumnWithTypeConverterFilters<SyncAction, SyncAction, String> get action =>
+      $composableBuilder(
+        column: $table.action,
+        builder: (column) => ColumnWithTypeConverterFilters(column),
+      );
+
+  ColumnFilters<DateTime> get lastLocalUpdate => $composableBuilder(
+    column: $table.lastLocalUpdate,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get lastSyncTime => $composableBuilder(
+    column: $table.lastSyncTime,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnWithTypeConverterFilters<SyncStatus, SyncStatus, String> get status =>
+      $composableBuilder(
+        column: $table.status,
+        builder: (column) => ColumnWithTypeConverterFilters(column),
+      );
+
+  ColumnFilters<String> get errorMessage => $composableBuilder(
+    column: $table.errorMessage,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get retryCount => $composableBuilder(
+    column: $table.retryCount,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnWithTypeConverterFilters<
+    Map<String, dynamic>,
+    Map<String, dynamic>,
+    String
+  >
+  get additionalData => $composableBuilder(
+    column: $table.additionalData,
+    builder: (column) => ColumnWithTypeConverterFilters(column),
+  );
+}
+
+class $$SyncMetadataTableTableOrderingComposer
+    extends Composer<_$AppDatabase, $SyncMetadataTableTable> {
+  $$SyncMetadataTableTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get entityId => $composableBuilder(
+    column: $table.entityId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get entityType => $composableBuilder(
+    column: $table.entityType,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get action => $composableBuilder(
+    column: $table.action,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get lastLocalUpdate => $composableBuilder(
+    column: $table.lastLocalUpdate,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get lastSyncTime => $composableBuilder(
+    column: $table.lastSyncTime,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get status => $composableBuilder(
+    column: $table.status,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get errorMessage => $composableBuilder(
+    column: $table.errorMessage,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get retryCount => $composableBuilder(
+    column: $table.retryCount,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get additionalData => $composableBuilder(
+    column: $table.additionalData,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$SyncMetadataTableTableAnnotationComposer
+    extends Composer<_$AppDatabase, $SyncMetadataTableTable> {
+  $$SyncMetadataTableTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get entityId =>
+      $composableBuilder(column: $table.entityId, builder: (column) => column);
+
+  GeneratedColumnWithTypeConverter<EntityType, String> get entityType =>
+      $composableBuilder(
+        column: $table.entityType,
+        builder: (column) => column,
+      );
+
+  GeneratedColumnWithTypeConverter<SyncAction, String> get action =>
+      $composableBuilder(column: $table.action, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get lastLocalUpdate => $composableBuilder(
+    column: $table.lastLocalUpdate,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<DateTime> get lastSyncTime => $composableBuilder(
+    column: $table.lastSyncTime,
+    builder: (column) => column,
+  );
+
+  GeneratedColumnWithTypeConverter<SyncStatus, String> get status =>
+      $composableBuilder(column: $table.status, builder: (column) => column);
+
+  GeneratedColumn<String> get errorMessage => $composableBuilder(
+    column: $table.errorMessage,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get retryCount => $composableBuilder(
+    column: $table.retryCount,
+    builder: (column) => column,
+  );
+
+  GeneratedColumnWithTypeConverter<Map<String, dynamic>, String>
+  get additionalData => $composableBuilder(
+    column: $table.additionalData,
+    builder: (column) => column,
+  );
+}
+
+class $$SyncMetadataTableTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $SyncMetadataTableTable,
+          SyncMetadataTableData,
+          $$SyncMetadataTableTableFilterComposer,
+          $$SyncMetadataTableTableOrderingComposer,
+          $$SyncMetadataTableTableAnnotationComposer,
+          $$SyncMetadataTableTableCreateCompanionBuilder,
+          $$SyncMetadataTableTableUpdateCompanionBuilder,
+          (
+            SyncMetadataTableData,
+            BaseReferences<
+              _$AppDatabase,
+              $SyncMetadataTableTable,
+              SyncMetadataTableData
+            >,
+          ),
+          SyncMetadataTableData,
+          PrefetchHooks Function()
+        > {
+  $$SyncMetadataTableTableTableManager(
+    _$AppDatabase db,
+    $SyncMetadataTableTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer:
+              () => $$SyncMetadataTableTableFilterComposer(
+                $db: db,
+                $table: table,
+              ),
+          createOrderingComposer:
+              () => $$SyncMetadataTableTableOrderingComposer(
+                $db: db,
+                $table: table,
+              ),
+          createComputedFieldComposer:
+              () => $$SyncMetadataTableTableAnnotationComposer(
+                $db: db,
+                $table: table,
+              ),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<String> entityId = const Value.absent(),
+                Value<EntityType> entityType = const Value.absent(),
+                Value<SyncAction> action = const Value.absent(),
+                Value<DateTime> lastLocalUpdate = const Value.absent(),
+                Value<DateTime?> lastSyncTime = const Value.absent(),
+                Value<SyncStatus> status = const Value.absent(),
+                Value<String?> errorMessage = const Value.absent(),
+                Value<int> retryCount = const Value.absent(),
+                Value<Map<String, dynamic>> additionalData =
+                    const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => SyncMetadataTableCompanion(
+                id: id,
+                entityId: entityId,
+                entityType: entityType,
+                action: action,
+                lastLocalUpdate: lastLocalUpdate,
+                lastSyncTime: lastSyncTime,
+                status: status,
+                errorMessage: errorMessage,
+                retryCount: retryCount,
+                additionalData: additionalData,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String id,
+                required String entityId,
+                required EntityType entityType,
+                required SyncAction action,
+                required DateTime lastLocalUpdate,
+                Value<DateTime?> lastSyncTime = const Value.absent(),
+                required SyncStatus status,
+                Value<String?> errorMessage = const Value.absent(),
+                Value<int> retryCount = const Value.absent(),
+                Value<Map<String, dynamic>> additionalData =
+                    const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => SyncMetadataTableCompanion.insert(
+                id: id,
+                entityId: entityId,
+                entityType: entityType,
+                action: action,
+                lastLocalUpdate: lastLocalUpdate,
+                lastSyncTime: lastSyncTime,
+                status: status,
+                errorMessage: errorMessage,
+                retryCount: retryCount,
+                additionalData: additionalData,
+                rowid: rowid,
+              ),
+          withReferenceMapper:
+              (p0) =>
+                  p0
+                      .map(
+                        (e) => (
+                          e.readTable(table),
+                          BaseReferences(db, table, e),
+                        ),
+                      )
+                      .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$SyncMetadataTableTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $SyncMetadataTableTable,
+      SyncMetadataTableData,
+      $$SyncMetadataTableTableFilterComposer,
+      $$SyncMetadataTableTableOrderingComposer,
+      $$SyncMetadataTableTableAnnotationComposer,
+      $$SyncMetadataTableTableCreateCompanionBuilder,
+      $$SyncMetadataTableTableUpdateCompanionBuilder,
+      (
+        SyncMetadataTableData,
+        BaseReferences<
+          _$AppDatabase,
+          $SyncMetadataTableTable,
+          SyncMetadataTableData
+        >,
+      ),
+      SyncMetadataTableData,
+      PrefetchHooks Function()
+    >;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -2411,4 +3406,6 @@ class $AppDatabaseManager {
       $$TaskTableTableTableManager(_db, _db.taskTable);
   $$TaskTagMapTableTableTableManager get taskTagMapTable =>
       $$TaskTagMapTableTableTableManager(_db, _db.taskTagMapTable);
+  $$SyncMetadataTableTableTableManager get syncMetadataTable =>
+      $$SyncMetadataTableTableTableManager(_db, _db.syncMetadataTable);
 }
