@@ -1,40 +1,44 @@
-// lib/features/tasks/domain/entities/sync/sync_status_info.dart
-
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'sync_metadata.dart';
+import 'sync_metadata.dart'; // Импортируем для использования EntityType
 
 part 'sync_status_info.freezed.dart';
 part 'sync_status_info.g.dart';
 
-/// Информация о состоянии синхронизации
+/// Представляет собой моментальный снимок состояния процесса синхронизации.
 @freezed
 abstract class SyncStatusInfo with _$SyncStatusInfo {
   const factory SyncStatusInfo({
-    /// Последнее время успешной синхронизации
+    /// Время последней *успешной* синхронизации всех данных.
+    /// Может быть null, если синхронизация еще не проводилась успешно.
     DateTime? lastSuccessfulSync,
-    
-    /// Выполняется ли синхронизация в данный момент
+
+    /// Указывает, выполняется ли операция синхронизации в данный момент.
     @Default(false) bool isSyncing,
-    
-    /// Подключение к сети в данный момент
+
+    /// Указывает, доступно ли сетевое подключение в данный момент.
     @Default(false) bool isOnline,
-    
-    /// Включена ли автоматическая синхронизация
+
+    /// Указывает, включена ли автоматическая фоновая синхронизация.
     @Default(true) bool autoSyncEnabled,
-    
-    /// Количество несинхронизированных элементов (по типам)
+
+    /// Карта, показывающая количество ожидающих (несинхронизированных)
+    /// изменений для каждого типа сущности ([EntityType]).
     @Default({}) Map<EntityType, int> pendingChangesCount,
-    
-    /// Количество элементов с ошибками синхронизации
+
+    /// Общее количество элементов, синхронизация которых завершилась с ошибкой
+    /// и требует внимания или повторной попытки.
     @Default(0) int errorCount,
-    
-    /// Последняя ошибка синхронизации
+
+    /// Текстовое сообщение последней возникшей ошибки синхронизации.
+    /// Null, если ошибок не было или последняя операция была успешной.
     String? lastErrorMessage,
-    
-    /// Дополнительная информация о синхронизации
+
+    /// Карта для хранения любой дополнительной, специфичной для приложения,
+    /// информации о состоянии синхронизации.
     @Default({}) Map<String, dynamic> additionalInfo,
   }) = _SyncStatusInfo;
 
+  /// Фабричный конструктор для создания экземпляра [SyncStatusInfo] из JSON.
   factory SyncStatusInfo.fromJson(Map<String, dynamic> json) =>
       _$SyncStatusInfoFromJson(json);
 }

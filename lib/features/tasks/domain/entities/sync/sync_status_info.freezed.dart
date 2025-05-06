@@ -16,14 +16,19 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$SyncStatusInfo {
 
-/// Последнее время успешной синхронизации
- DateTime? get lastSuccessfulSync;/// Выполняется ли синхронизация в данный момент
- bool get isSyncing;/// Подключение к сети в данный момент
- bool get isOnline;/// Включена ли автоматическая синхронизация
- bool get autoSyncEnabled;/// Количество несинхронизированных элементов (по типам)
- Map<EntityType, int> get pendingChangesCount;/// Количество элементов с ошибками синхронизации
- int get errorCount;/// Последняя ошибка синхронизации
- String? get lastErrorMessage;/// Дополнительная информация о синхронизации
+/// Время последней *успешной* синхронизации всех данных.
+/// Может быть null, если синхронизация еще не проводилась успешно.
+ DateTime? get lastSuccessfulSync;/// Указывает, выполняется ли операция синхронизации в данный момент.
+ bool get isSyncing;/// Указывает, доступно ли сетевое подключение в данный момент.
+ bool get isOnline;/// Указывает, включена ли автоматическая фоновая синхронизация.
+ bool get autoSyncEnabled;/// Карта, показывающая количество ожидающих (несинхронизированных)
+/// изменений для каждого типа сущности ([EntityType]).
+ Map<EntityType, int> get pendingChangesCount;/// Общее количество элементов, синхронизация которых завершилась с ошибкой
+/// и требует внимания или повторной попытки.
+ int get errorCount;/// Текстовое сообщение последней возникшей ошибки синхронизации.
+/// Null, если ошибок не было или последняя операция была успешной.
+ String? get lastErrorMessage;/// Карта для хранения любой дополнительной, специфичной для приложения,
+/// информации о состоянии синхронизации.
  Map<String, dynamic> get additionalInfo;
 /// Create a copy of SyncStatusInfo
 /// with the given fields replaced by the non-null parameter values.
@@ -98,30 +103,37 @@ class _SyncStatusInfo implements SyncStatusInfo {
   const _SyncStatusInfo({this.lastSuccessfulSync, this.isSyncing = false, this.isOnline = false, this.autoSyncEnabled = true, final  Map<EntityType, int> pendingChangesCount = const {}, this.errorCount = 0, this.lastErrorMessage, final  Map<String, dynamic> additionalInfo = const {}}): _pendingChangesCount = pendingChangesCount,_additionalInfo = additionalInfo;
   factory _SyncStatusInfo.fromJson(Map<String, dynamic> json) => _$SyncStatusInfoFromJson(json);
 
-/// Последнее время успешной синхронизации
+/// Время последней *успешной* синхронизации всех данных.
+/// Может быть null, если синхронизация еще не проводилась успешно.
 @override final  DateTime? lastSuccessfulSync;
-/// Выполняется ли синхронизация в данный момент
+/// Указывает, выполняется ли операция синхронизации в данный момент.
 @override@JsonKey() final  bool isSyncing;
-/// Подключение к сети в данный момент
+/// Указывает, доступно ли сетевое подключение в данный момент.
 @override@JsonKey() final  bool isOnline;
-/// Включена ли автоматическая синхронизация
+/// Указывает, включена ли автоматическая фоновая синхронизация.
 @override@JsonKey() final  bool autoSyncEnabled;
-/// Количество несинхронизированных элементов (по типам)
+/// Карта, показывающая количество ожидающих (несинхронизированных)
+/// изменений для каждого типа сущности ([EntityType]).
  final  Map<EntityType, int> _pendingChangesCount;
-/// Количество несинхронизированных элементов (по типам)
+/// Карта, показывающая количество ожидающих (несинхронизированных)
+/// изменений для каждого типа сущности ([EntityType]).
 @override@JsonKey() Map<EntityType, int> get pendingChangesCount {
   if (_pendingChangesCount is EqualUnmodifiableMapView) return _pendingChangesCount;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableMapView(_pendingChangesCount);
 }
 
-/// Количество элементов с ошибками синхронизации
+/// Общее количество элементов, синхронизация которых завершилась с ошибкой
+/// и требует внимания или повторной попытки.
 @override@JsonKey() final  int errorCount;
-/// Последняя ошибка синхронизации
+/// Текстовое сообщение последней возникшей ошибки синхронизации.
+/// Null, если ошибок не было или последняя операция была успешной.
 @override final  String? lastErrorMessage;
-/// Дополнительная информация о синхронизации
+/// Карта для хранения любой дополнительной, специфичной для приложения,
+/// информации о состоянии синхронизации.
  final  Map<String, dynamic> _additionalInfo;
-/// Дополнительная информация о синхронизации
+/// Карта для хранения любой дополнительной, специфичной для приложения,
+/// информации о состоянии синхронизации.
 @override@JsonKey() Map<String, dynamic> get additionalInfo {
   if (_additionalInfo is EqualUnmodifiableMapView) return _additionalInfo;
   // ignore: implicit_dynamic_type
