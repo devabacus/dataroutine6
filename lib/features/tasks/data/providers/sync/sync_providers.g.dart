@@ -6,7 +6,7 @@ part of 'sync_providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$syncMetadataDaoHash() => r'af6049de8928515eb7c8c7857dca8b7ae711ffd9';
+String _$syncMetadataDaoHash() => r'5803a6b4a8a5d2322e5f6c7793c0018cfaf9cd0c';
 
 /// See also [syncMetadataDao].
 @ProviderFor(syncMetadataDao)
@@ -25,7 +25,7 @@ final syncMetadataDaoProvider = AutoDisposeProvider<SyncMetadataDao>.internal(
 // ignore: unused_element
 typedef SyncMetadataDaoRef = AutoDisposeProviderRef<SyncMetadataDao>;
 String _$syncMetadataServiceHash() =>
-    r'40df055de4bec652d9dc693bf9fa43a03a2f8239';
+    r'68d1649b60a1b40ffbee3515366531b4c8591ecf';
 
 /// See also [syncMetadataService].
 @ProviderFor(syncMetadataService)
@@ -43,8 +43,27 @@ final syncMetadataServiceProvider = Provider<SyncMetadataService>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef SyncMetadataServiceRef = ProviderRef<SyncMetadataService>;
+String _$lastSyncTimeServiceHash() =>
+    r'da00ebcb27d6fb48a3fe1edaed264ca32e4c3f12';
+
+/// See also [lastSyncTimeService].
+@ProviderFor(lastSyncTimeService)
+final lastSyncTimeServiceProvider = Provider<LastSyncTimeService>.internal(
+  lastSyncTimeService,
+  name: r'lastSyncTimeServiceProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$lastSyncTimeServiceHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef LastSyncTimeServiceRef = ProviderRef<LastSyncTimeService>;
 String _$categorySyncHandlerHash() =>
-    r'739ad73c45de3a698f6c47c1999e044711cdac0f';
+    r'6acb092d4820130eb5fe54f07ef5d5713901bdad';
 
 /// See also [categorySyncHandler].
 @ProviderFor(categorySyncHandler)
@@ -63,7 +82,7 @@ final categorySyncHandlerProvider =
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef CategorySyncHandlerRef = AutoDisposeProviderRef<CategorySyncHandler>;
-String _$syncServiceHash() => r'3a48ce9386ba6fc4cc679c686d8b3f8ff8c8ed4d';
+String _$syncServiceHash() => r'43fc10f94acefd5e5b6ceed6e837a8bc6b216ec6';
 
 /// See also [syncService].
 @ProviderFor(syncService)
@@ -79,7 +98,7 @@ final syncServiceProvider = Provider<ISyncService>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef SyncServiceRef = ProviderRef<ISyncService>;
-String _$syncStatusStreamHash() => r'29be9b84a7e08beee092e2e9d5787220211d4ad8';
+String _$syncStatusStreamHash() => r'e1103e74ac5bcdd250fcb06b6b2b9c7801cc2603';
 
 /// See also [syncStatusStream].
 @ProviderFor(syncStatusStream)
