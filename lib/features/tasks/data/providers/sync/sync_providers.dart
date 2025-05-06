@@ -5,18 +5,17 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 // Базовые зависимости
 import '../../../../../core/database/local/provider/database_provider.dart';
+import '../../../../../core/services/network_status_service.dart'; // <-- Импорт сервиса сети
 import '../../../domain/entities/sync/sync_status_info.dart';
 import '../../../domain/services/sync_service.dart'; // Интерфейс ISyncService
-import '../remote/remote_data_providers.dart'; // Для firestoreProvider
-
 // DAO и Сервисы синхронизации
 import '../../datasources/local/dao/sync_metadata_dao.dart';
 import '../../services/sync/entity_handlers/category_sync_handler.dart';
+import '../../services/sync/last_sync_time_service.dart'; // <-- Импорт нового сервиса
 // TODO: Импортировать другие обработчики, когда они будут созданы
 import '../../services/sync/sync_metadata_service.dart';
-import '../../services/sync/last_sync_time_service.dart'; // <-- Импорт нового сервиса
 import '../../services/sync_service_impl.dart';
-
+import '../remote/remote_data_providers.dart'; // Для firestoreProvider
 
 part 'sync_providers.g.dart'; // Убедитесь, что эта строка есть
 
@@ -57,26 +56,27 @@ CategorySyncHandler categorySyncHandler(Ref ref) {
 // TODO: Добавить провайдеры для TagSyncHandler и TaskSyncHandler по аналогии, если они нужны вне SyncServiceImpl
 
 @Riverpod(keepAlive: true)
-ISyncService syncService(Ref ref) { // Имя аргумента ref изменено для соответствия генерации
+ISyncService syncService(Ref ref) {
   final firestore = ref.watch(firestoreProvider);
   final database = ref.watch(appDatabaseProvider);
   final metadataService = ref.watch(syncMetadataServiceProvider);
-  // Получаем новый сервис времени последней синхронизации
-  final lastSyncTimeSvc = ref.watch(lastSyncTimeServiceProvider); // <-- Получаем новый сервис
+  final lastSyncTimeSvc = ref.watch(lastSyncTimeServiceProvider);
+  // Получаем сервис статуса сети
+  final networkStatusSvc = ref.watch(networkStatusServiceProvider); // <-- Получаем сервис сети
 
-  // Создаем экземпляр SyncServiceImpl, передавая все зависимости
+  // Создаем экземпляр SyncServiceImpl с новыми зависимостями
   final service = SyncServiceImpl(
     firestore: firestore,
     localDatabase: database,
     syncMetadataService: metadataService,
-    lastSyncTimeService: lastSyncTimeSvc, // <-- Передаем новый сервис
-    // TODO: Передать остальные зависимости (NetworkStatusService и т.д.), когда они будут готовы
-    // networkStatusService: ref.watch(networkStatusServiceProvider), // Пример
+    lastSyncTimeService: lastSyncTimeSvc,
+    networkStatusService: networkStatusSvc, // <-- Внедряем сервис сети
+    // TODO: Передать остальные зависимости
   );
 
-  // Очищаем ресурсы сервиса (например, закрываем StreamController) при уничтожении провайдера
+  // Очищаем ресурсы сервиса при уничтожении провайдера
   ref.onDispose(() {
-    service.dispose(); // Вызываем метод dispose у сервиса
+    service.dispose();
     print("[INFO] SyncServiceProvider disposed, SyncServiceImpl resources released.");
   });
 

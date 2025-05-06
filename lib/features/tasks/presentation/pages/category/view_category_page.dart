@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../data/providers/sync/sync_providers.dart';
 import '../../common_widgets/entity_list_page_config.dart';
 
 final tStyle = TextStyle(fontSize: 15);
@@ -29,6 +30,32 @@ class ViewCategoryPage extends ConsumerWidget {
         addRouteName: TasksRoutes.addCategory,
         editRouteName: TasksRoutes.editCategory,
         dataProvider: categories,
+        actions: [
+           IconButton(
+    icon: Icon(Icons.sync),
+    tooltip: 'Синхронизировать всё',
+    onPressed: () async {
+      print("--- ЗАПУСК syncAll() ВРУЧНУЮ ---");
+      final messenger = ScaffoldMessenger.of(context); // Сохраняем перед async вызовом
+      messenger.showSnackBar(
+        const SnackBar(content: Text('Запуск синхронизации...'), duration: Duration(seconds: 1))
+      );
+      try {
+        // Вызываем syncAll из провайдера
+        await ref.read(syncServiceProvider).syncAll();
+        print("--- ЗАВЕРШЕНИЕ syncAll() (Успешно или с ошибками) ---");
+         messenger.showSnackBar(
+          const SnackBar(content: Text('Синхронизация завершена.'), duration: Duration(seconds: 2))
+        );
+      } catch (e) {
+         print("--- ОШИБКА ВО ВРЕМЯ syncAll(): $e ---");
+          messenger.showSnackBar(
+          SnackBar(content: Text('Критическая ошибка синхронизации: $e'), duration: Duration(seconds: 3))
+        );
+      }
+    },
+  ),
+        ],
         onItemTap: (category) {
           if (isFromTask == "1") {
             final task = ref.read(selectedTaskProvider);

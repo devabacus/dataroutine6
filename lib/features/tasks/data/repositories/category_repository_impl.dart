@@ -42,7 +42,7 @@ class CategoryRepositoryImpl implements ICategoryRepository {
     );
     
     // Если передан syncService, запускаем автоматическую синхронизацию
-    _syncService?.syncEntityType(EntityType.category);
+    // TODO _syncService?.syncEntityType(EntityType.category);
     
     return localId;
   }
@@ -59,7 +59,7 @@ class CategoryRepositoryImpl implements ICategoryRepository {
     );
     
     // Если передан syncService, запускаем автоматическую синхронизацию
-    _syncService?.syncEntityType(EntityType.category);
+    // TODO_syncService?.syncEntityType(EntityType.category);
   }
 
   @override
@@ -74,7 +74,7 @@ class CategoryRepositoryImpl implements ICategoryRepository {
     );
     
     // Если передан syncService, запускаем автоматическую синхронизацию
-    _syncService?.syncEntityType(EntityType.category);
+    // TODO _syncService?.syncEntityType(EntityType.category);
   }
 }
 // import '../../domain/entities/category/category.dart';
