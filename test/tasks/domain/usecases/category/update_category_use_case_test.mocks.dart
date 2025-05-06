@@ -51,6 +51,14 @@ class MockICategoryRepository extends _i1.Mock
           as _i4.Future<List<_i2.CategoryEntity>>);
 
   @override
+  _i4.Stream<List<_i2.CategoryEntity>> watchCategories() =>
+      (super.noSuchMethod(
+            Invocation.method(#watchCategories, []),
+            returnValue: _i4.Stream<List<_i2.CategoryEntity>>.empty(),
+          )
+          as _i4.Stream<List<_i2.CategoryEntity>>);
+
+  @override
   _i4.Future<_i2.CategoryEntity> getCategoryById(int? id) =>
       (super.noSuchMethod(
             Invocation.method(#getCategoryById, [id]),

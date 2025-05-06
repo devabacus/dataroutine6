@@ -25,6 +25,12 @@ class CategoryRepositoryImpl implements ICategoryRepository {
   }
 
   @override
+  Stream<List<CategoryEntity>> watchCategories() {
+    // Слушаем поток от локального источника данных и преобразуем модели в сущности
+    return _localDataSource.watchCategories().map((models) => models.toEntities());
+  }
+
+  @override
   Future<CategoryEntity> getCategoryById(int id) async {
     final model = await _localDataSource.getCategoryById(id);
     return model.toEntity();

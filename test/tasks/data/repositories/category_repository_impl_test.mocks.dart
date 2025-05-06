@@ -50,6 +50,14 @@ class MockICategoryLocalDataSource extends _i1.Mock
           as _i4.Future<List<_i2.CategoryModel>>);
 
   @override
+  _i4.Stream<List<_i2.CategoryModel>> watchCategories() =>
+      (super.noSuchMethod(
+            Invocation.method(#watchCategories, []),
+            returnValue: _i4.Stream<List<_i2.CategoryModel>>.empty(),
+          )
+          as _i4.Stream<List<_i2.CategoryModel>>);
+
+  @override
   _i4.Future<_i2.CategoryModel> getCategoryById(int? id) =>
       (super.noSuchMethod(
             Invocation.method(#getCategoryById, [id]),

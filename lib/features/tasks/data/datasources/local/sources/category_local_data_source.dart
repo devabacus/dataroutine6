@@ -16,6 +16,12 @@ class CategoryLocalDataSource implements ICategoryLocalDataSource {
   }
 
   @override
+  Stream<List<CategoryModel>> watchCategories() {
+    // Слушаем поток от DAO и преобразуем данные
+    return categoryDao.watchCategories().map((list) => list.toModels());
+  }
+
+  @override
   Future<CategoryModel> getCategoryById(int id) async {
     final category = await categoryDao.getCategoryById(id);
     return category.toModel();

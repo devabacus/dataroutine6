@@ -6,6 +6,27 @@ part of 'category_usecase_providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+String _$watchCategoriesUseCaseHash() =>
+    r'9d57c36f1f469c42321be8a7f7aee167f645a5b7';
+
+/// See also [watchCategoriesUseCase].
+@ProviderFor(watchCategoriesUseCase)
+final watchCategoriesUseCaseProvider =
+    AutoDisposeProvider<WatchCategoriesUseCase>.internal(
+      watchCategoriesUseCase,
+      name: r'watchCategoriesUseCaseProvider',
+      debugGetCreateSourceHash:
+          const bool.fromEnvironment('dart.vm.product')
+              ? null
+              : _$watchCategoriesUseCaseHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef WatchCategoriesUseCaseRef =
+    AutoDisposeProviderRef<WatchCategoriesUseCase>;
 String _$getCategoriesUseCaseHash() =>
     r'f2be8a8c1acd621e48149b6bbd4e940dedc63b75';
 

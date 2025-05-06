@@ -234,6 +234,14 @@ class MockCategoryDao extends _i1.Mock implements _i6.CategoryDao {
           as _i5.Future<List<_i2.CategoryTableData>>);
 
   @override
+  _i5.Stream<List<_i2.CategoryTableData>> watchCategories() =>
+      (super.noSuchMethod(
+            Invocation.method(#watchCategories, []),
+            returnValue: _i5.Stream<List<_i2.CategoryTableData>>.empty(),
+          )
+          as _i5.Stream<List<_i2.CategoryTableData>>);
+
+  @override
   _i5.Future<_i2.CategoryTableData> getCategoryById(int? id) =>
       (super.noSuchMethod(
             Invocation.method(#getCategoryById, [id]),

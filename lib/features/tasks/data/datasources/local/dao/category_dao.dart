@@ -12,6 +12,8 @@ class CategoryDao extends DatabaseAccessor<AppDatabase> with _$CategoryDaoMixin 
 
   Future<List<CategoryTableData>> getCategories() => select(categoryTable).get();
   
+  Stream<List<CategoryTableData>> watchCategories() => select(categoryTable).watch();
+
   Future<CategoryTableData> getCategoryById(int id) => 
       (select(categoryTable)..where((t) => t.id.equals(id)))
       .getSingle();

@@ -6,8 +6,16 @@ import '../../usecases/category/get_by_id.dart';
 import '../../usecases/category/update.dart';
 import '../../usecases/category/get_all.dart';
 import '../../../data/providers/category/category_data_providers.dart';
+import '../../usecases/category/watch_all.dart';
 
 part 'category_usecase_providers.g.dart';
+
+@riverpod
+WatchCategoriesUseCase watchCategoriesUseCase(Ref ref) {
+  final repository = ref.read(categoryRepositoryProvider);
+  return WatchCategoriesUseCase(repository);
+}
+
 
 @riverpod
 GetCategoriesUseCase getCategoriesUseCase(Ref ref) {
