@@ -29,7 +29,7 @@
 // }
      
 
-     import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../../core/database/local/provider/database_provider.dart';
@@ -39,6 +39,7 @@ import '../../datasources/local/interfaces/category_local_datasource_service.dar
 import '../../datasources/local/sources/category_local_data_source.dart';
 import '../../repositories/category_repository_impl.dart';
 import '../remote/remote_data_providers.dart';
+import '../sync/sync_providers.dart'; // Добавляем импорт sync_providers
 
 part 'category_data_providers.g.dart';
 
@@ -57,12 +58,12 @@ ICategoryLocalDataSource categoryLocalDataSource(Ref ref) {
 @riverpod
 ICategoryRepository categoryRepository(Ref ref) {
   final localDataSource = ref.read(categoryLocalDataSourceProvider);
-  final remoteDataSource = ref.read(categoryRemoteDataSourceProvider);
+  final syncMetadataService = ref.read(syncMetadataServiceProvider); // Получаем сервис метаданных
+  final syncService = ref.read(syncServiceProvider); // Опционально: для автоматической синхронизации
   
-  // Параметр shouldSyncWithRemote можно контролировать через настройки приложения
   return CategoryRepositoryImpl(
     localDataSource,
-    remoteDataSource,
-    shouldSyncWithRemote: true, // Можно использовать настройки приложения здесь
+    syncMetadataService,
+    syncService, // Опционально: если хотите автоматическую синхронизацию
   );
 }
