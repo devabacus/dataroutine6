@@ -15,6 +15,7 @@ _SyncStatusInfo _$SyncStatusInfoFromJson(
           : DateTime.parse(json['lastSuccessfulSync'] as String),
   isSyncing: json['isSyncing'] as bool? ?? false,
   isOnline: json['isOnline'] as bool? ?? false,
+  isListening: json['isListening'] as bool? ?? false,
   autoSyncEnabled: json['autoSyncEnabled'] as bool? ?? true,
   pendingChangesCount:
       (json['pendingChangesCount'] as Map<String, dynamic>?)?.map(
@@ -32,6 +33,7 @@ Map<String, dynamic> _$SyncStatusInfoToJson(_SyncStatusInfo instance) =>
       'lastSuccessfulSync': instance.lastSuccessfulSync?.toIso8601String(),
       'isSyncing': instance.isSyncing,
       'isOnline': instance.isOnline,
+      'isListening': instance.isListening,
       'autoSyncEnabled': instance.autoSyncEnabled,
       'pendingChangesCount': instance.pendingChangesCount.map(
         (k, e) => MapEntry(_$EntityTypeEnumMap[k]!, e),

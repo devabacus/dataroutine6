@@ -82,7 +82,7 @@ final categorySyncHandlerProvider =
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef CategorySyncHandlerRef = AutoDisposeProviderRef<CategorySyncHandler>;
-String _$syncServiceHash() => r'43fc10f94acefd5e5b6ceed6e837a8bc6b216ec6';
+String _$syncServiceHash() => r'5bfcc0bb1de05621de964f9da39fc11b52768b70';
 
 /// See also [syncService].
 @ProviderFor(syncService)

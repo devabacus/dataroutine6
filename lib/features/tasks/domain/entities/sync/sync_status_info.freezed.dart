@@ -20,7 +20,7 @@ mixin _$SyncStatusInfo {
 /// Может быть null, если синхронизация еще не проводилась успешно.
  DateTime? get lastSuccessfulSync;/// Указывает, выполняется ли операция синхронизации в данный момент.
  bool get isSyncing;/// Указывает, доступно ли сетевое подключение в данный момент.
- bool get isOnline;/// Указывает, включена ли автоматическая фоновая синхронизация.
+ bool get isOnline; bool get isListening;/// Указывает, включена ли автоматическая фоновая синхронизация.
  bool get autoSyncEnabled;/// Карта, показывающая количество ожидающих (несинхронизированных)
 /// изменений для каждого типа сущности ([EntityType]).
  Map<EntityType, int> get pendingChangesCount;/// Общее количество элементов, синхронизация которых завершилась с ошибкой
@@ -42,16 +42,16 @@ $SyncStatusInfoCopyWith<SyncStatusInfo> get copyWith => _$SyncStatusInfoCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SyncStatusInfo&&(identical(other.lastSuccessfulSync, lastSuccessfulSync) || other.lastSuccessfulSync == lastSuccessfulSync)&&(identical(other.isSyncing, isSyncing) || other.isSyncing == isSyncing)&&(identical(other.isOnline, isOnline) || other.isOnline == isOnline)&&(identical(other.autoSyncEnabled, autoSyncEnabled) || other.autoSyncEnabled == autoSyncEnabled)&&const DeepCollectionEquality().equals(other.pendingChangesCount, pendingChangesCount)&&(identical(other.errorCount, errorCount) || other.errorCount == errorCount)&&(identical(other.lastErrorMessage, lastErrorMessage) || other.lastErrorMessage == lastErrorMessage)&&const DeepCollectionEquality().equals(other.additionalInfo, additionalInfo));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SyncStatusInfo&&(identical(other.lastSuccessfulSync, lastSuccessfulSync) || other.lastSuccessfulSync == lastSuccessfulSync)&&(identical(other.isSyncing, isSyncing) || other.isSyncing == isSyncing)&&(identical(other.isOnline, isOnline) || other.isOnline == isOnline)&&(identical(other.isListening, isListening) || other.isListening == isListening)&&(identical(other.autoSyncEnabled, autoSyncEnabled) || other.autoSyncEnabled == autoSyncEnabled)&&const DeepCollectionEquality().equals(other.pendingChangesCount, pendingChangesCount)&&(identical(other.errorCount, errorCount) || other.errorCount == errorCount)&&(identical(other.lastErrorMessage, lastErrorMessage) || other.lastErrorMessage == lastErrorMessage)&&const DeepCollectionEquality().equals(other.additionalInfo, additionalInfo));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,lastSuccessfulSync,isSyncing,isOnline,autoSyncEnabled,const DeepCollectionEquality().hash(pendingChangesCount),errorCount,lastErrorMessage,const DeepCollectionEquality().hash(additionalInfo));
+int get hashCode => Object.hash(runtimeType,lastSuccessfulSync,isSyncing,isOnline,isListening,autoSyncEnabled,const DeepCollectionEquality().hash(pendingChangesCount),errorCount,lastErrorMessage,const DeepCollectionEquality().hash(additionalInfo));
 
 @override
 String toString() {
-  return 'SyncStatusInfo(lastSuccessfulSync: $lastSuccessfulSync, isSyncing: $isSyncing, isOnline: $isOnline, autoSyncEnabled: $autoSyncEnabled, pendingChangesCount: $pendingChangesCount, errorCount: $errorCount, lastErrorMessage: $lastErrorMessage, additionalInfo: $additionalInfo)';
+  return 'SyncStatusInfo(lastSuccessfulSync: $lastSuccessfulSync, isSyncing: $isSyncing, isOnline: $isOnline, isListening: $isListening, autoSyncEnabled: $autoSyncEnabled, pendingChangesCount: $pendingChangesCount, errorCount: $errorCount, lastErrorMessage: $lastErrorMessage, additionalInfo: $additionalInfo)';
 }
 
 
@@ -62,7 +62,7 @@ abstract mixin class $SyncStatusInfoCopyWith<$Res>  {
   factory $SyncStatusInfoCopyWith(SyncStatusInfo value, $Res Function(SyncStatusInfo) _then) = _$SyncStatusInfoCopyWithImpl;
 @useResult
 $Res call({
- DateTime? lastSuccessfulSync, bool isSyncing, bool isOnline, bool autoSyncEnabled, Map<EntityType, int> pendingChangesCount, int errorCount, String? lastErrorMessage, Map<String, dynamic> additionalInfo
+ DateTime? lastSuccessfulSync, bool isSyncing, bool isOnline, bool isListening, bool autoSyncEnabled, Map<EntityType, int> pendingChangesCount, int errorCount, String? lastErrorMessage, Map<String, dynamic> additionalInfo
 });
 
 
@@ -79,11 +79,12 @@ class _$SyncStatusInfoCopyWithImpl<$Res>
 
 /// Create a copy of SyncStatusInfo
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? lastSuccessfulSync = freezed,Object? isSyncing = null,Object? isOnline = null,Object? autoSyncEnabled = null,Object? pendingChangesCount = null,Object? errorCount = null,Object? lastErrorMessage = freezed,Object? additionalInfo = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? lastSuccessfulSync = freezed,Object? isSyncing = null,Object? isOnline = null,Object? isListening = null,Object? autoSyncEnabled = null,Object? pendingChangesCount = null,Object? errorCount = null,Object? lastErrorMessage = freezed,Object? additionalInfo = null,}) {
   return _then(_self.copyWith(
 lastSuccessfulSync: freezed == lastSuccessfulSync ? _self.lastSuccessfulSync : lastSuccessfulSync // ignore: cast_nullable_to_non_nullable
 as DateTime?,isSyncing: null == isSyncing ? _self.isSyncing : isSyncing // ignore: cast_nullable_to_non_nullable
 as bool,isOnline: null == isOnline ? _self.isOnline : isOnline // ignore: cast_nullable_to_non_nullable
+as bool,isListening: null == isListening ? _self.isListening : isListening // ignore: cast_nullable_to_non_nullable
 as bool,autoSyncEnabled: null == autoSyncEnabled ? _self.autoSyncEnabled : autoSyncEnabled // ignore: cast_nullable_to_non_nullable
 as bool,pendingChangesCount: null == pendingChangesCount ? _self.pendingChangesCount : pendingChangesCount // ignore: cast_nullable_to_non_nullable
 as Map<EntityType, int>,errorCount: null == errorCount ? _self.errorCount : errorCount // ignore: cast_nullable_to_non_nullable
@@ -100,7 +101,7 @@ as Map<String, dynamic>,
 @JsonSerializable()
 
 class _SyncStatusInfo implements SyncStatusInfo {
-  const _SyncStatusInfo({this.lastSuccessfulSync, this.isSyncing = false, this.isOnline = false, this.autoSyncEnabled = true, final  Map<EntityType, int> pendingChangesCount = const {}, this.errorCount = 0, this.lastErrorMessage, final  Map<String, dynamic> additionalInfo = const {}}): _pendingChangesCount = pendingChangesCount,_additionalInfo = additionalInfo;
+  const _SyncStatusInfo({this.lastSuccessfulSync, this.isSyncing = false, this.isOnline = false, this.isListening = false, this.autoSyncEnabled = true, final  Map<EntityType, int> pendingChangesCount = const {}, this.errorCount = 0, this.lastErrorMessage, final  Map<String, dynamic> additionalInfo = const {}}): _pendingChangesCount = pendingChangesCount,_additionalInfo = additionalInfo;
   factory _SyncStatusInfo.fromJson(Map<String, dynamic> json) => _$SyncStatusInfoFromJson(json);
 
 /// Время последней *успешной* синхронизации всех данных.
@@ -110,6 +111,7 @@ class _SyncStatusInfo implements SyncStatusInfo {
 @override@JsonKey() final  bool isSyncing;
 /// Указывает, доступно ли сетевое подключение в данный момент.
 @override@JsonKey() final  bool isOnline;
+@override@JsonKey() final  bool isListening;
 /// Указывает, включена ли автоматическая фоновая синхронизация.
 @override@JsonKey() final  bool autoSyncEnabled;
 /// Карта, показывающая количество ожидающих (несинхронизированных)
@@ -154,16 +156,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SyncStatusInfo&&(identical(other.lastSuccessfulSync, lastSuccessfulSync) || other.lastSuccessfulSync == lastSuccessfulSync)&&(identical(other.isSyncing, isSyncing) || other.isSyncing == isSyncing)&&(identical(other.isOnline, isOnline) || other.isOnline == isOnline)&&(identical(other.autoSyncEnabled, autoSyncEnabled) || other.autoSyncEnabled == autoSyncEnabled)&&const DeepCollectionEquality().equals(other._pendingChangesCount, _pendingChangesCount)&&(identical(other.errorCount, errorCount) || other.errorCount == errorCount)&&(identical(other.lastErrorMessage, lastErrorMessage) || other.lastErrorMessage == lastErrorMessage)&&const DeepCollectionEquality().equals(other._additionalInfo, _additionalInfo));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SyncStatusInfo&&(identical(other.lastSuccessfulSync, lastSuccessfulSync) || other.lastSuccessfulSync == lastSuccessfulSync)&&(identical(other.isSyncing, isSyncing) || other.isSyncing == isSyncing)&&(identical(other.isOnline, isOnline) || other.isOnline == isOnline)&&(identical(other.isListening, isListening) || other.isListening == isListening)&&(identical(other.autoSyncEnabled, autoSyncEnabled) || other.autoSyncEnabled == autoSyncEnabled)&&const DeepCollectionEquality().equals(other._pendingChangesCount, _pendingChangesCount)&&(identical(other.errorCount, errorCount) || other.errorCount == errorCount)&&(identical(other.lastErrorMessage, lastErrorMessage) || other.lastErrorMessage == lastErrorMessage)&&const DeepCollectionEquality().equals(other._additionalInfo, _additionalInfo));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,lastSuccessfulSync,isSyncing,isOnline,autoSyncEnabled,const DeepCollectionEquality().hash(_pendingChangesCount),errorCount,lastErrorMessage,const DeepCollectionEquality().hash(_additionalInfo));
+int get hashCode => Object.hash(runtimeType,lastSuccessfulSync,isSyncing,isOnline,isListening,autoSyncEnabled,const DeepCollectionEquality().hash(_pendingChangesCount),errorCount,lastErrorMessage,const DeepCollectionEquality().hash(_additionalInfo));
 
 @override
 String toString() {
-  return 'SyncStatusInfo(lastSuccessfulSync: $lastSuccessfulSync, isSyncing: $isSyncing, isOnline: $isOnline, autoSyncEnabled: $autoSyncEnabled, pendingChangesCount: $pendingChangesCount, errorCount: $errorCount, lastErrorMessage: $lastErrorMessage, additionalInfo: $additionalInfo)';
+  return 'SyncStatusInfo(lastSuccessfulSync: $lastSuccessfulSync, isSyncing: $isSyncing, isOnline: $isOnline, isListening: $isListening, autoSyncEnabled: $autoSyncEnabled, pendingChangesCount: $pendingChangesCount, errorCount: $errorCount, lastErrorMessage: $lastErrorMessage, additionalInfo: $additionalInfo)';
 }
 
 
@@ -174,7 +176,7 @@ abstract mixin class _$SyncStatusInfoCopyWith<$Res> implements $SyncStatusInfoCo
   factory _$SyncStatusInfoCopyWith(_SyncStatusInfo value, $Res Function(_SyncStatusInfo) _then) = __$SyncStatusInfoCopyWithImpl;
 @override @useResult
 $Res call({
- DateTime? lastSuccessfulSync, bool isSyncing, bool isOnline, bool autoSyncEnabled, Map<EntityType, int> pendingChangesCount, int errorCount, String? lastErrorMessage, Map<String, dynamic> additionalInfo
+ DateTime? lastSuccessfulSync, bool isSyncing, bool isOnline, bool isListening, bool autoSyncEnabled, Map<EntityType, int> pendingChangesCount, int errorCount, String? lastErrorMessage, Map<String, dynamic> additionalInfo
 });
 
 
@@ -191,11 +193,12 @@ class __$SyncStatusInfoCopyWithImpl<$Res>
 
 /// Create a copy of SyncStatusInfo
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? lastSuccessfulSync = freezed,Object? isSyncing = null,Object? isOnline = null,Object? autoSyncEnabled = null,Object? pendingChangesCount = null,Object? errorCount = null,Object? lastErrorMessage = freezed,Object? additionalInfo = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? lastSuccessfulSync = freezed,Object? isSyncing = null,Object? isOnline = null,Object? isListening = null,Object? autoSyncEnabled = null,Object? pendingChangesCount = null,Object? errorCount = null,Object? lastErrorMessage = freezed,Object? additionalInfo = null,}) {
   return _then(_SyncStatusInfo(
 lastSuccessfulSync: freezed == lastSuccessfulSync ? _self.lastSuccessfulSync : lastSuccessfulSync // ignore: cast_nullable_to_non_nullable
 as DateTime?,isSyncing: null == isSyncing ? _self.isSyncing : isSyncing // ignore: cast_nullable_to_non_nullable
 as bool,isOnline: null == isOnline ? _self.isOnline : isOnline // ignore: cast_nullable_to_non_nullable
+as bool,isListening: null == isListening ? _self.isListening : isListening // ignore: cast_nullable_to_non_nullable
 as bool,autoSyncEnabled: null == autoSyncEnabled ? _self.autoSyncEnabled : autoSyncEnabled // ignore: cast_nullable_to_non_nullable
 as bool,pendingChangesCount: null == pendingChangesCount ? _self._pendingChangesCount : pendingChangesCount // ignore: cast_nullable_to_non_nullable
 as Map<EntityType, int>,errorCount: null == errorCount ? _self.errorCount : errorCount // ignore: cast_nullable_to_non_nullable

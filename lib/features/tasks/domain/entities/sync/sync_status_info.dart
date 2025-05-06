@@ -18,6 +18,8 @@ abstract class SyncStatusInfo with _$SyncStatusInfo {
     /// Указывает, доступно ли сетевое подключение в данный момент.
     @Default(false) bool isOnline,
 
+
+    @Default(false) bool isListening,
     /// Указывает, включена ли автоматическая фоновая синхронизация.
     @Default(true) bool autoSyncEnabled,
 
