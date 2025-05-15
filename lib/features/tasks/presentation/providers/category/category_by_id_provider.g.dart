@@ -6,7 +6,7 @@ part of 'category_by_id_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$getCategoryByIdHash() => r'7ddee122f8156e9604b2de4510e8e1c04545fa16';
+String _$getCategoryByIdHash() => r'442a9a9925355d65d19a989c1d527aa610691c62';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -39,7 +39,7 @@ class GetCategoryByIdFamily extends Family<AsyncValue<CategoryEntity>> {
   const GetCategoryByIdFamily();
 
   /// See also [getCategoryById].
-  GetCategoryByIdProvider call(int id) {
+  GetCategoryByIdProvider call(String id) {
     return GetCategoryByIdProvider(id);
   }
 
@@ -69,7 +69,7 @@ class GetCategoryByIdFamily extends Family<AsyncValue<CategoryEntity>> {
 class GetCategoryByIdProvider
     extends AutoDisposeFutureProvider<CategoryEntity> {
   /// See also [getCategoryById].
-  GetCategoryByIdProvider(int id)
+  GetCategoryByIdProvider(String id)
     : this._internal(
         (ref) => getCategoryById(ref as GetCategoryByIdRef, id),
         from: getCategoryByIdProvider,
@@ -94,7 +94,7 @@ class GetCategoryByIdProvider
     required this.id,
   }) : super.internal();
 
-  final int id;
+  final String id;
 
   @override
   Override overrideWith(
@@ -137,7 +137,7 @@ class GetCategoryByIdProvider
 // ignore: unused_element
 mixin GetCategoryByIdRef on AutoDisposeFutureProviderRef<CategoryEntity> {
   /// The parameter `id` of this provider.
-  int get id;
+  String get id;
 }
 
 class _GetCategoryByIdProviderElement
@@ -146,7 +146,7 @@ class _GetCategoryByIdProviderElement
   _GetCategoryByIdProviderElement(super.provider);
 
   @override
-  int get id => (origin as GetCategoryByIdProvider).id;
+  String get id => (origin as GetCategoryByIdProvider).id;
 }
 
 // ignore_for_file: type=lint

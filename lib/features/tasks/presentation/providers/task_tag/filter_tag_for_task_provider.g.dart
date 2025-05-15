@@ -7,7 +7,7 @@ part of 'filter_tag_for_task_provider.dart';
 // **************************************************************************
 
 String _$filteredTagsForTaskHash() =>
-    r'7f597ce05a0f6ba2e28cdabf62df0626e5a4dfb9';
+    r'024ee9c5d5fe0b8a7d9d228399e0387f13dae0d2';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -40,7 +40,7 @@ class FilteredTagsForTaskFamily extends Family<AsyncValue<List<TagEntity>>> {
   const FilteredTagsForTaskFamily();
 
   /// See also [filteredTagsForTask].
-  FilteredTagsForTaskProvider call(int? taskId) {
+  FilteredTagsForTaskProvider call(String? taskId) {
     return FilteredTagsForTaskProvider(taskId);
   }
 
@@ -70,7 +70,7 @@ class FilteredTagsForTaskFamily extends Family<AsyncValue<List<TagEntity>>> {
 class FilteredTagsForTaskProvider
     extends AutoDisposeFutureProvider<List<TagEntity>> {
   /// See also [filteredTagsForTask].
-  FilteredTagsForTaskProvider(int? taskId)
+  FilteredTagsForTaskProvider(String? taskId)
     : this._internal(
         (ref) => filteredTagsForTask(ref as FilteredTagsForTaskRef, taskId),
         from: filteredTagsForTaskProvider,
@@ -95,7 +95,7 @@ class FilteredTagsForTaskProvider
     required this.taskId,
   }) : super.internal();
 
-  final int? taskId;
+  final String? taskId;
 
   @override
   Override overrideWith(
@@ -138,7 +138,7 @@ class FilteredTagsForTaskProvider
 // ignore: unused_element
 mixin FilteredTagsForTaskRef on AutoDisposeFutureProviderRef<List<TagEntity>> {
   /// The parameter `taskId` of this provider.
-  int? get taskId;
+  String? get taskId;
 }
 
 class _FilteredTagsForTaskProviderElement
@@ -147,7 +147,7 @@ class _FilteredTagsForTaskProviderElement
   _FilteredTagsForTaskProviderElement(super.provider);
 
   @override
-  int? get taskId => (origin as FilteredTagsForTaskProvider).taskId;
+  String? get taskId => (origin as FilteredTagsForTaskProvider).taskId;
 }
 
 // ignore_for_file: type=lint

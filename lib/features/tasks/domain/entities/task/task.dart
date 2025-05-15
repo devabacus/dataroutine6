@@ -6,13 +6,13 @@ part 'task.g.dart';
 @freezed
 abstract class TaskEntity with _$TaskEntity {
   const factory TaskEntity({
-    required int id,
+    required String id,
 required String title,
 required String description,
 required int duration,
 required DateTime createdAt,
 required DateTime dueDateTime,
-required int categoryId,
+required String categoryId,
   }) = _TaskEntity;
 
   factory TaskEntity.fromJson(Map<String, dynamic> json) => _$TaskEntityFromJson(json);

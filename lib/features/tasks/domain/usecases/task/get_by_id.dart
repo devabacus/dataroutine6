@@ -6,7 +6,7 @@ class GetTaskByIdUseCase {
 
   GetTaskByIdUseCase(this._repository);
 
-  Future<TaskEntity?> call(int id) {
+  Future<TaskEntity?> call(String id) {
     return _repository.getTaskById(id);
   }
 }

@@ -6,7 +6,7 @@ class CreateTaskUseCase {
 
   CreateTaskUseCase(this._repository);
 
-  Future<int> call(TaskEntity task) {
+  Future<String> call(TaskEntity task) {
     return _repository.createTask(task);
   }
 }

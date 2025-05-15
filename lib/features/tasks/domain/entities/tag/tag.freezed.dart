@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$TagEntity {
 
- int get id; String get title;
+ String get id; String get title;
 /// Create a copy of TagEntity
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -49,7 +49,7 @@ abstract mixin class $TagEntityCopyWith<$Res>  {
   factory $TagEntityCopyWith(TagEntity value, $Res Function(TagEntity) _then) = _$TagEntityCopyWithImpl;
 @useResult
 $Res call({
- int id, String title
+ String id, String title
 });
 
 
@@ -69,7 +69,7 @@ class _$TagEntityCopyWithImpl<$Res>
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? title = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as int,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
+as String,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,
   ));
 }
@@ -84,7 +84,7 @@ class _TagEntity implements TagEntity {
   const _TagEntity({required this.id, required this.title});
   factory _TagEntity.fromJson(Map<String, dynamic> json) => _$TagEntityFromJson(json);
 
-@override final  int id;
+@override final  String id;
 @override final  String title;
 
 /// Create a copy of TagEntity
@@ -120,7 +120,7 @@ abstract mixin class _$TagEntityCopyWith<$Res> implements $TagEntityCopyWith<$Re
   factory _$TagEntityCopyWith(_TagEntity value, $Res Function(_TagEntity) _then) = __$TagEntityCopyWithImpl;
 @override @useResult
 $Res call({
- int id, String title
+ String id, String title
 });
 
 
@@ -140,7 +140,7 @@ class __$TagEntityCopyWithImpl<$Res>
 @override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? title = null,}) {
   return _then(_TagEntity(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as int,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
+as String,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,
   ));
 }

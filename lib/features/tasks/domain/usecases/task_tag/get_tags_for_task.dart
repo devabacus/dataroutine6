@@ -6,7 +6,7 @@ class GetTagsForTaskUseCase {
 
   GetTagsForTaskUseCase(this.repository);
 
-  Future<List<TagEntity>> call(int taskId) {
+  Future<List<TagEntity>> call(String taskId) {
     return repository.getTagsForTask(taskId);
   }
 }

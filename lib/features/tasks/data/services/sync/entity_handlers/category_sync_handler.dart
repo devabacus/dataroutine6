@@ -36,8 +36,7 @@ class CategorySyncHandler
   @override
   Future<CategoryTableData?> getLocalEntity(String id) async {
     try {
-      final intId = int.parse(id);
-      return await _categoryDao.getCategoryById(intId);
+      return await _categoryDao.getCategoryById(id);
     } on FormatException catch (e, s) {
       print('[ERROR] CategorySyncHandler: Invalid ID format for local category: $id\nError: $e\nStackTrace: $s');
       return null;
@@ -60,14 +59,8 @@ class CategorySyncHandler
     String docId,
     Map<String, dynamic> remoteData,
   ) async {
-    final localId = int.tryParse(docId);
-    if (localId == null) {
-      final errorMsg = "Invalid document ID format from Firestore: $docId";
-      print('[ERROR] CategorySyncHandler: $errorMsg');
-      throw FormatException(errorMsg);
-    }
     final title = remoteData['title'] as String? ?? 'Untitled Category';
-    return CategoryTableData(id: localId, title: title);
+    return CategoryTableData(id: docId, title: title);
   }
 
   @override
@@ -126,17 +119,10 @@ class CategorySyncHandler
     final entityId = metadata.entityId;
     print('[DEBUG] CategorySyncHandler: Applying remote change for category $entityId, action: ${metadata.action}');
 
-    final localId = int.tryParse(entityId);
-    if (localId == null) {
-       final errorMsg = 'Invalid entity ID format during applyRemoteChange: $entityId';
-       print('[ERROR] CategorySyncHandler: $errorMsg');
-       throw FormatException(errorMsg);
-    }
-
     try {
       if (metadata.action == SyncAction.delete) {
-        await _categoryDao.deleteCategory(localId);
-        print('[INFO] CategorySyncHandler: Deleted local category $localId based on remote change.');
+        await _categoryDao.deleteCategory(entityId);
+        print('[INFO] CategorySyncHandler: Deleted local category $entityId based on remote change.');
         await syncMetadataService.deleteMetadataByEntity(entityId, entityType);
       } else {
         final localEntity = await mapRemoteToLocal(entityId, remoteData);

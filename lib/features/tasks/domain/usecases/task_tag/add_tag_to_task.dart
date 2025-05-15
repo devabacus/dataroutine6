@@ -5,7 +5,7 @@ class AddTagToTaskUseCase {
 
   const AddTagToTaskUseCase(this.repository);
 
-  Future<void> call(int taskId, int tagId) {
+  Future<void> call(String taskId, String tagId) {
     return repository.addTagToTask(taskId, tagId);
   }
 }

@@ -56,7 +56,7 @@ class _UpsertCategoryPageState
       }
     } else {
       categoryController.addCategory(
-        CategoryEntity(id: -1, title: getControllerValue('title')),
+        CategoryEntity(id: '', title: getControllerValue('title')),
       );
     }
 

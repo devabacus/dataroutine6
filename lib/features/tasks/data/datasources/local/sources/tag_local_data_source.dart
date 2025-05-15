@@ -19,13 +19,13 @@ class TagLocalDataSource implements ITagLocalDataSource{
   }
 
   @override
-  Future<TagModel> getTagById(int id) async {
+  Future<TagModel> getTagById(String id) async {
     final tag = await _tagDao.getTagById(id);
     return tag.toModel();
   }
 
   @override
-  Future<int> createTag(TagModel tag) {
+  Future<String> createTag(TagModel tag) {
     return _tagDao.createTag(tag.toCompanion());
   }
 
@@ -35,7 +35,7 @@ class TagLocalDataSource implements ITagLocalDataSource{
   }
 
   @override
-  Future<void> deleteTag(int id) async {
+  Future<void> deleteTag(String id) async {
       _tagDao.deleteTag(id);
     }
 

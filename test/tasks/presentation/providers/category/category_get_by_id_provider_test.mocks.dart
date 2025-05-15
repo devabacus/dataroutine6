@@ -35,7 +35,7 @@ class MockGetCategoryByIdUseCase extends _i1.Mock
   }
 
   @override
-  _i3.Future<_i4.CategoryEntity?> call(int? id) =>
+  _i3.Future<_i4.CategoryEntity?> call(String? id) =>
       (super.noSuchMethod(
             Invocation.method(#call, [id]),
             returnValue: _i3.Future<_i4.CategoryEntity?>.value(),

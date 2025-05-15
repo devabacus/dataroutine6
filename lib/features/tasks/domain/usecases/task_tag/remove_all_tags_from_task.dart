@@ -5,7 +5,7 @@ class RemoveAllTagsFromTaskUseCase {
 
   RemoveAllTagsFromTaskUseCase(this.repository);
 
-  Future<void> call(int taskId) {
+  Future<void> call(String taskId) {
     return repository.removeAllTagsFromTask(taskId);
   }
 }

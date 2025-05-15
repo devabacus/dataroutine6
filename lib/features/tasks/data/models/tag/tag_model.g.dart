@@ -7,7 +7,7 @@ part of 'tag_model.dart';
 // **************************************************************************
 
 _TagModel _$TagModelFromJson(Map<String, dynamic> json) =>
-    _TagModel(id: (json['id'] as num).toInt(), title: json['title'] as String);
+    _TagModel(id: json['id'] as String, title: json['title'] as String);
 
 Map<String, dynamic> _$TagModelToJson(_TagModel instance) => <String, dynamic>{
   'id': instance.id,

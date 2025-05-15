@@ -9,7 +9,7 @@ part 'filter_tag_for_task_provider.g.dart';
 
 
 @riverpod
-Future<List<TagEntity>> filteredTagsForTask(ref, int? taskId) async {
+Future<List<TagEntity>> filteredTagsForTask(ref, String? taskId) async {
   final allTags = await ref.watch(tagProvider.future);
   
   if (taskId == null) {

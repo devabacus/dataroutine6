@@ -17,18 +17,18 @@ class TaskRepositoryImpl implements ITaskRepository {
   }
 
   @override
-  Future<TaskEntity> getTaskById(int id) async {
+  Future<TaskEntity> getTaskById(String id) async {
     final model = await _localDataSource.getTaskById(id);
     return model.toEntity();
   }
 
   @override
-  Future<int> createTask(TaskEntity task) {
+  Future<String> createTask(TaskEntity task) {
     return _localDataSource.createTask(task.toModel());
   }
 
   @override
-  Future<void> deleteTask(int id) async {
+  Future<void> deleteTask(String id) async {
     _localDataSource.deleteTask(id);
   }
 

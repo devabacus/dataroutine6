@@ -7,13 +7,13 @@ part of 'task.dart';
 // **************************************************************************
 
 _TaskEntity _$TaskEntityFromJson(Map<String, dynamic> json) => _TaskEntity(
-  id: (json['id'] as num).toInt(),
+  id: json['id'] as String,
   title: json['title'] as String,
   description: json['description'] as String,
   duration: (json['duration'] as num).toInt(),
   createdAt: DateTime.parse(json['createdAt'] as String),
   dueDateTime: DateTime.parse(json['dueDateTime'] as String),
-  categoryId: (json['categoryId'] as num).toInt(),
+  categoryId: json['categoryId'] as String,
 );
 
 Map<String, dynamic> _$TaskEntityToJson(_TaskEntity instance) =>

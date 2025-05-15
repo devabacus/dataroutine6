@@ -52,7 +52,7 @@ class _UpsertTagPageState extends BaseUpsertPageState<TagEntity, UpsertTagPage>
       }
     } else {
       tagController.addTag(
-        TagEntity(id: -1, title: getControllerValue('title')),
+        TagEntity(id: '', title: getControllerValue('title')),
       );
     }
 

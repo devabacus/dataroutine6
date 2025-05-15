@@ -18,13 +18,13 @@ class TaskLocalDataSource implements ITaskLocalDataSource{
   }
 
   @override
-  Future<TaskModel> getTaskById(int id) async {
+  Future<TaskModel> getTaskById(String id) async {
     final task = await _taskDao.getTaskById(id);
     return task.toModel();
   }
 
   @override
-  Future<int> createTask(TaskModel task) {
+  Future<String> createTask(TaskModel task) {
     return _taskDao.createTask(task.toCompanion());
   }
 
@@ -34,7 +34,7 @@ class TaskLocalDataSource implements ITaskLocalDataSource{
   }
 
   @override
-  Future<void> deleteTask(int id) async {
+  Future<void> deleteTask(String id) async {
     _taskDao.deleteTask(id);
   }
 }

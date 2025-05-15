@@ -6,7 +6,7 @@ part of 'task_tag_state_providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$taskTagsHash() => r'beb970567d2354d86fd9f0a8d9784f857ae645bc';
+String _$taskTagsHash() => r'bee84e71521f49e55409dec07c79e2c6d9938b79';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -31,9 +31,9 @@ class _SystemHash {
 
 abstract class _$TaskTags
     extends BuildlessAutoDisposeAsyncNotifier<List<TagEntity>> {
-  late final int taskId;
+  late final String taskId;
 
-  FutureOr<List<TagEntity>> build({required int taskId});
+  FutureOr<List<TagEntity>> build({required String taskId});
 }
 
 /// See also [TaskTags].
@@ -46,7 +46,7 @@ class TaskTagsFamily extends Family<AsyncValue<List<TagEntity>>> {
   const TaskTagsFamily();
 
   /// See also [TaskTags].
-  TaskTagsProvider call({required int taskId}) {
+  TaskTagsProvider call({required String taskId}) {
     return TaskTagsProvider(taskId: taskId);
   }
 
@@ -74,7 +74,7 @@ class TaskTagsFamily extends Family<AsyncValue<List<TagEntity>>> {
 class TaskTagsProvider
     extends AutoDisposeAsyncNotifierProviderImpl<TaskTags, List<TagEntity>> {
   /// See also [TaskTags].
-  TaskTagsProvider({required int taskId})
+  TaskTagsProvider({required String taskId})
     : this._internal(
         () => TaskTags()..taskId = taskId,
         from: taskTagsProvider,
@@ -98,7 +98,7 @@ class TaskTagsProvider
     required this.taskId,
   }) : super.internal();
 
-  final int taskId;
+  final String taskId;
 
   @override
   FutureOr<List<TagEntity>> runNotifierBuild(covariant TaskTags notifier) {
@@ -145,7 +145,7 @@ class TaskTagsProvider
 // ignore: unused_element
 mixin TaskTagsRef on AutoDisposeAsyncNotifierProviderRef<List<TagEntity>> {
   /// The parameter `taskId` of this provider.
-  int get taskId;
+  String get taskId;
 }
 
 class _TaskTagsProviderElement
@@ -154,16 +154,16 @@ class _TaskTagsProviderElement
   _TaskTagsProviderElement(super.provider);
 
   @override
-  int get taskId => (origin as TaskTagsProvider).taskId;
+  String get taskId => (origin as TaskTagsProvider).taskId;
 }
 
-String _$tasksWithTagHash() => r'16e6f2c9afa012a57802f3d317f478f95cceb5bf';
+String _$tasksWithTagHash() => r'56b615e4f2969f10866c19d503b42b2b17bd35ac';
 
 abstract class _$TasksWithTag
     extends BuildlessAutoDisposeAsyncNotifier<List<TaskEntity>> {
-  late final int tagId;
+  late final String tagId;
 
-  FutureOr<List<TaskEntity>> build({required int tagId});
+  FutureOr<List<TaskEntity>> build({required String tagId});
 }
 
 /// See also [TasksWithTag].
@@ -176,7 +176,7 @@ class TasksWithTagFamily extends Family<AsyncValue<List<TaskEntity>>> {
   const TasksWithTagFamily();
 
   /// See also [TasksWithTag].
-  TasksWithTagProvider call({required int tagId}) {
+  TasksWithTagProvider call({required String tagId}) {
     return TasksWithTagProvider(tagId: tagId);
   }
 
@@ -207,7 +207,7 @@ class TasksWithTagProvider
     extends
         AutoDisposeAsyncNotifierProviderImpl<TasksWithTag, List<TaskEntity>> {
   /// See also [TasksWithTag].
-  TasksWithTagProvider({required int tagId})
+  TasksWithTagProvider({required String tagId})
     : this._internal(
         () => TasksWithTag()..tagId = tagId,
         from: tasksWithTagProvider,
@@ -232,7 +232,7 @@ class TasksWithTagProvider
     required this.tagId,
   }) : super.internal();
 
-  final int tagId;
+  final String tagId;
 
   @override
   FutureOr<List<TaskEntity>> runNotifierBuild(covariant TasksWithTag notifier) {
@@ -279,7 +279,7 @@ class TasksWithTagProvider
 // ignore: unused_element
 mixin TasksWithTagRef on AutoDisposeAsyncNotifierProviderRef<List<TaskEntity>> {
   /// The parameter `tagId` of this provider.
-  int get tagId;
+  String get tagId;
 }
 
 class _TasksWithTagProviderElement
@@ -289,7 +289,7 @@ class _TasksWithTagProviderElement
   _TasksWithTagProviderElement(super.provider);
 
   @override
-  int get tagId => (origin as TasksWithTagProvider).tagId;
+  String get tagId => (origin as TasksWithTagProvider).tagId;
 }
 
 // ignore_for_file: type=lint

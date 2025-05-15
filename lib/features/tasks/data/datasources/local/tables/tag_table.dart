@@ -1,9 +1,12 @@
 import 'package:drift/drift.dart';
+import 'package:uuid/uuid.dart';
 
 class TagTable extends Table {
 
-  IntColumn get id => integer().autoIncrement()();
+  TextColumn get id => text().clientDefault(() => Uuid().v7())();
   TextColumn get title => text()();
   
+  @override
+  Set<Column> get primaryKey => {id};
 }
    

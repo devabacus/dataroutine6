@@ -242,7 +242,7 @@ class MockCategoryDao extends _i1.Mock implements _i6.CategoryDao {
           as _i5.Stream<List<_i2.CategoryTableData>>);
 
   @override
-  _i5.Future<_i2.CategoryTableData> getCategoryById(int? id) =>
+  _i5.Future<_i2.CategoryTableData> getCategoryById(String? id) =>
       (super.noSuchMethod(
             Invocation.method(#getCategoryById, [id]),
             returnValue: _i5.Future<_i2.CategoryTableData>.value(
@@ -255,12 +255,17 @@ class MockCategoryDao extends _i1.Mock implements _i6.CategoryDao {
           as _i5.Future<_i2.CategoryTableData>);
 
   @override
-  _i5.Future<int> createCategory(_i2.CategoryTableCompanion? category) =>
+  _i5.Future<String> createCategory(_i2.CategoryTableCompanion? companion) =>
       (super.noSuchMethod(
-            Invocation.method(#createCategory, [category]),
-            returnValue: _i5.Future<int>.value(0),
+            Invocation.method(#createCategory, [companion]),
+            returnValue: _i5.Future<String>.value(
+              _i7.dummyValue<String>(
+                this,
+                Invocation.method(#createCategory, [companion]),
+              ),
+            ),
           )
-          as _i5.Future<int>);
+          as _i5.Future<String>);
 
   @override
   _i5.Future<void> updateCategory(_i2.CategoryTableCompanion? category) =>
@@ -272,7 +277,7 @@ class MockCategoryDao extends _i1.Mock implements _i6.CategoryDao {
           as _i5.Future<void>);
 
   @override
-  _i5.Future<void> deleteCategory(int? id) =>
+  _i5.Future<void> deleteCategory(String? id) =>
       (super.noSuchMethod(
             Invocation.method(#deleteCategory, [id]),
             returnValue: _i5.Future<void>.value(),

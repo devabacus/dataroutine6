@@ -12,7 +12,7 @@ class TaskFormWidget extends ConsumerWidget {
   final VoidCallback onSaveCurrent;
   final VoidCallback onSave;
   final bool isInitialized;
-  final int? taskId;
+  final String? taskId;
   
 
   const TaskFormWidget({

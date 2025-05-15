@@ -10,6 +10,7 @@ import 'package:dataroutine6/features/tasks/data/datasources/local/interfaces/ca
 import 'package:dataroutine6/features/tasks/data/models/category/category_model.dart'
     as _i2;
 import 'package:mockito/mockito.dart' as _i1;
+import 'package:mockito/src/dummies.dart' as _i5;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -58,7 +59,7 @@ class MockICategoryLocalDataSource extends _i1.Mock
           as _i4.Stream<List<_i2.CategoryModel>>);
 
   @override
-  _i4.Future<_i2.CategoryModel> getCategoryById(int? id) =>
+  _i4.Future<_i2.CategoryModel> getCategoryById(String? id) =>
       (super.noSuchMethod(
             Invocation.method(#getCategoryById, [id]),
             returnValue: _i4.Future<_i2.CategoryModel>.value(
@@ -71,12 +72,17 @@ class MockICategoryLocalDataSource extends _i1.Mock
           as _i4.Future<_i2.CategoryModel>);
 
   @override
-  _i4.Future<int> createCategory(_i2.CategoryModel? category) =>
+  _i4.Future<String> createCategory(_i2.CategoryModel? category) =>
       (super.noSuchMethod(
             Invocation.method(#createCategory, [category]),
-            returnValue: _i4.Future<int>.value(0),
+            returnValue: _i4.Future<String>.value(
+              _i5.dummyValue<String>(
+                this,
+                Invocation.method(#createCategory, [category]),
+              ),
+            ),
           )
-          as _i4.Future<int>);
+          as _i4.Future<String>);
 
   @override
   _i4.Future<void> updateCategory(_i2.CategoryModel? category) =>
@@ -88,7 +94,7 @@ class MockICategoryLocalDataSource extends _i1.Mock
           as _i4.Future<void>);
 
   @override
-  _i4.Future<void> deleteCategory(int? id) =>
+  _i4.Future<void> deleteCategory(String? id) =>
       (super.noSuchMethod(
             Invocation.method(#deleteCategory, [id]),
             returnValue: _i4.Future<void>.value(),

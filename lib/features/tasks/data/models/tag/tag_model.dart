@@ -7,7 +7,7 @@ part 'tag_model.g.dart';
 @freezed
 abstract class TagModel with _$TagModel {
   const factory TagModel({
-    required int id,
+    required String id,
 required String title,
   }) = _TagModel;
 

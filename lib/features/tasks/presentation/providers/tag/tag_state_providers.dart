@@ -31,7 +31,7 @@ class Tag extends _$Tag {
     });
   }
 
-  Future<void> deleteTag(int id) async {
+  Future<void> deleteTag(String id) async {
     state = await AsyncValue.guard(() async {
       await ref.read(deleteTagUseCaseProvider)(id);
       return ref.read(getTagUseCaseProvider)();

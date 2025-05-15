@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$TagModel {
 
- int get id; String get title;
+ String get id; String get title;
 /// Create a copy of TagModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -49,7 +49,7 @@ abstract mixin class $TagModelCopyWith<$Res>  {
   factory $TagModelCopyWith(TagModel value, $Res Function(TagModel) _then) = _$TagModelCopyWithImpl;
 @useResult
 $Res call({
- int id, String title
+ String id, String title
 });
 
 
@@ -69,7 +69,7 @@ class _$TagModelCopyWithImpl<$Res>
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? title = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as int,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
+as String,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,
   ));
 }
@@ -84,7 +84,7 @@ class _TagModel implements TagModel {
   const _TagModel({required this.id, required this.title});
   factory _TagModel.fromJson(Map<String, dynamic> json) => _$TagModelFromJson(json);
 
-@override final  int id;
+@override final  String id;
 @override final  String title;
 
 /// Create a copy of TagModel
@@ -120,7 +120,7 @@ abstract mixin class _$TagModelCopyWith<$Res> implements $TagModelCopyWith<$Res>
   factory _$TagModelCopyWith(_TagModel value, $Res Function(_TagModel) _then) = __$TagModelCopyWithImpl;
 @override @useResult
 $Res call({
- int id, String title
+ String id, String title
 });
 
 
@@ -140,7 +140,7 @@ class __$TagModelCopyWithImpl<$Res>
 @override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? title = null,}) {
   return _then(_TagModel(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as int,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
+as String,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,
   ));
 }

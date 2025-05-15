@@ -26,7 +26,7 @@ class Task extends _$Task {
     });
   }
 
-  Future<void> deleteTask(int id) async {
+  Future<void> deleteTask(String id) async {
     state = await AsyncValue.guard(() async {
       await ref.read(deleteTaskUseCaseProvider)(id);
       return ref.read(getTaskUseCaseProvider)();

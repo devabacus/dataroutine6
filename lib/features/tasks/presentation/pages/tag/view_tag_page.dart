@@ -14,7 +14,7 @@ import '../../common_widgets/entity_list_page_config.dart';
 
 class ViewTagPage extends ConsumerWidget {
   final bool isForTaskSelection;
-  final int? taskId;
+  final String? taskId;
 
   const ViewTagPage({this.isForTaskSelection = false, this.taskId, super.key});
 

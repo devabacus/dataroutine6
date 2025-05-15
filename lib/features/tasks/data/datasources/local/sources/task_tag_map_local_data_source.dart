@@ -13,29 +13,29 @@ class TaskTagMapLocalDataSource implements ITaskTagMapLocalDataSource{
   TaskTagMapLocalDataSource(IDatabaseService databaseService) : _dao = TaskTagMapDao(databaseService);
 
   @override
-  Future<List<TagModel>> getTagsForTask(int taskId) async {
+  Future<List<TagModel>> getTagsForTask(String taskId) async {
     final tags = await _dao.getTagsForTask(taskId);
     return tags.toModels();
   }
 
   @override
-  Future<List<TaskModel>> getTasksWithTag(int tagId) async {
+  Future<List<TaskModel>> getTasksWithTag(String tagId) async {
     final tasks = await _dao.getTasksWithTag(tagId);
     return tasks.toModels();
   }
 
   @override
-  Future<void> addTagToTask(int taskId, int tagId) async {
+  Future<void> addTagToTask(String taskId, String tagId) async {
     await _dao.addTagToTask(taskId, tagId);
   }
 
   @override
-  Future<void> removeTagFromTask(int taskId, int tagId) async {
+  Future<void> removeTagFromTask(String taskId, String tagId) async {
     await _dao.removeTagFromTask(taskId, tagId);
   }
 
   @override
-  Future<void> removeAllTagsFromTask(int taskId) async {
+  Future<void> removeAllTagsFromTask(String taskId) async {
     await _dao.removeAllTagsFromTask(taskId);
   }
 }

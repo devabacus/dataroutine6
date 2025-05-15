@@ -9,8 +9,8 @@ part of 'task_form_state.dart';
 _TaskFormState _$TaskFormStateFromJson(Map<String, dynamic> json) =>
     _TaskFormState(
       isInitialized: json['isInitialized'] as bool? ?? false,
-      taskId: (json['taskId'] as num?)?.toInt(),
-      categoryId: (json['categoryId'] as num?)?.toInt(),
+      taskId: json['taskId'] as String?,
+      categoryId: json['categoryId'] as String?,
       categoryTitle: json['categoryTitle'] as String? ?? '',
       currentTask:
           json['currentTask'] == null
@@ -34,7 +34,7 @@ Map<String, dynamic> _$TaskFormStateToJson(_TaskFormState instance) =>
 // **************************************************************************
 
 String _$taskFormStateNotifierHash() =>
-    r'84314954e8452e2cc6811d26501ae339ea76e5ee';
+    r'dec916825171197db6b4b5d2a22822b19e0b9aa7';
 
 /// See also [TaskFormStateNotifier].
 @ProviderFor(TaskFormStateNotifier)

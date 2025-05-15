@@ -3,19 +3,19 @@ import '../entities/task/task.dart';
 
 abstract class ITaskTagMapRepository {
   /// Получить все теги для определённой задачи
-  Future<List<TagEntity>> getTagsForTask(int taskId);
+  Future<List<TagEntity>> getTagsForTask(String taskId);
 
   /// Получить все задачи с определённым тегом
-  Future<List<TaskEntity>> getTasksWithTag(int tagId);
+  Future<List<TaskEntity>> getTasksWithTag(String tagId);
 
   /// Добавить тег к задаче
-  Future<void> addTagToTask(int taskId, int tagId);
+  Future<void> addTagToTask(String taskId, String tagId);
 
   /// Удалить тег у задачи
-  Future<void> removeTagFromTask(int taskId, int tagId);
+  Future<void> removeTagFromTask(String taskId, String tagId);
 
   /// Удалить все теги у задачи
-  Future<void> removeAllTagsFromTask(int taskId);
+  Future<void> removeAllTagsFromTask(String taskId);
 
   // /// Обновить теги задачи (удаляет старые связи и устанавливает новые)
   // Future<void> updateTaskTags(int taskId, List<int> tagIds);

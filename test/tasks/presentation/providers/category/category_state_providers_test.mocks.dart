@@ -10,12 +10,13 @@ import 'package:dataroutine6/features/tasks/domain/entities/category/category.da
 import 'package:dataroutine6/features/tasks/domain/usecases/category/create.dart'
     as _i5;
 import 'package:dataroutine6/features/tasks/domain/usecases/category/delete.dart'
-    as _i7;
+    as _i8;
 import 'package:dataroutine6/features/tasks/domain/usecases/category/get_all.dart'
     as _i2;
 import 'package:dataroutine6/features/tasks/domain/usecases/category/update.dart'
-    as _i6;
+    as _i7;
 import 'package:mockito/mockito.dart' as _i1;
+import 'package:mockito/src/dummies.dart' as _i6;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -61,19 +62,24 @@ class MockCreateCategoryUseCase extends _i1.Mock
   }
 
   @override
-  _i3.Future<int> call(_i4.CategoryEntity? category) =>
+  _i3.Future<String> call(_i4.CategoryEntity? category) =>
       (super.noSuchMethod(
             Invocation.method(#call, [category]),
-            returnValue: _i3.Future<int>.value(0),
+            returnValue: _i3.Future<String>.value(
+              _i6.dummyValue<String>(
+                this,
+                Invocation.method(#call, [category]),
+              ),
+            ),
           )
-          as _i3.Future<int>);
+          as _i3.Future<String>);
 }
 
 /// A class which mocks [UpdateCategoryUseCase].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockUpdateCategoryUseCase extends _i1.Mock
-    implements _i6.UpdateCategoryUseCase {
+    implements _i7.UpdateCategoryUseCase {
   MockUpdateCategoryUseCase() {
     _i1.throwOnMissingStub(this);
   }
@@ -92,13 +98,13 @@ class MockUpdateCategoryUseCase extends _i1.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockDeleteCategoryUseCase extends _i1.Mock
-    implements _i7.DeleteCategoryUseCase {
+    implements _i8.DeleteCategoryUseCase {
   MockDeleteCategoryUseCase() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i3.Future<void> call(int? id) =>
+  _i3.Future<void> call(String? id) =>
       (super.noSuchMethod(
             Invocation.method(#call, [id]),
             returnValue: _i3.Future<void>.value(),

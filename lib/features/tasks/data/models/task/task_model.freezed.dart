@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$TaskModel {
 
- int get id; String get title; String get description; int get duration; DateTime get createdAt; DateTime get dueDateTime; int get categoryId;
+ String get id; String get title; String get description; int get duration; DateTime get createdAt; DateTime get dueDateTime; String get categoryId;
 /// Create a copy of TaskModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -49,7 +49,7 @@ abstract mixin class $TaskModelCopyWith<$Res>  {
   factory $TaskModelCopyWith(TaskModel value, $Res Function(TaskModel) _then) = _$TaskModelCopyWithImpl;
 @useResult
 $Res call({
- int id, String title, String description, int duration, DateTime createdAt, DateTime dueDateTime, int categoryId
+ String id, String title, String description, int duration, DateTime createdAt, DateTime dueDateTime, String categoryId
 });
 
 
@@ -69,13 +69,13 @@ class _$TaskModelCopyWithImpl<$Res>
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? title = null,Object? description = null,Object? duration = null,Object? createdAt = null,Object? dueDateTime = null,Object? categoryId = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as int,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
+as String,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String,duration: null == duration ? _self.duration : duration // ignore: cast_nullable_to_non_nullable
 as int,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,dueDateTime: null == dueDateTime ? _self.dueDateTime : dueDateTime // ignore: cast_nullable_to_non_nullable
 as DateTime,categoryId: null == categoryId ? _self.categoryId : categoryId // ignore: cast_nullable_to_non_nullable
-as int,
+as String,
   ));
 }
 
@@ -89,13 +89,13 @@ class _TaskModel implements TaskModel {
   const _TaskModel({required this.id, required this.title, required this.description, required this.duration, required this.createdAt, required this.dueDateTime, required this.categoryId});
   factory _TaskModel.fromJson(Map<String, dynamic> json) => _$TaskModelFromJson(json);
 
-@override final  int id;
+@override final  String id;
 @override final  String title;
 @override final  String description;
 @override final  int duration;
 @override final  DateTime createdAt;
 @override final  DateTime dueDateTime;
-@override final  int categoryId;
+@override final  String categoryId;
 
 /// Create a copy of TaskModel
 /// with the given fields replaced by the non-null parameter values.
@@ -130,7 +130,7 @@ abstract mixin class _$TaskModelCopyWith<$Res> implements $TaskModelCopyWith<$Re
   factory _$TaskModelCopyWith(_TaskModel value, $Res Function(_TaskModel) _then) = __$TaskModelCopyWithImpl;
 @override @useResult
 $Res call({
- int id, String title, String description, int duration, DateTime createdAt, DateTime dueDateTime, int categoryId
+ String id, String title, String description, int duration, DateTime createdAt, DateTime dueDateTime, String categoryId
 });
 
 
@@ -150,13 +150,13 @@ class __$TaskModelCopyWithImpl<$Res>
 @override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? title = null,Object? description = null,Object? duration = null,Object? createdAt = null,Object? dueDateTime = null,Object? categoryId = null,}) {
   return _then(_TaskModel(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as int,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
+as String,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String,duration: null == duration ? _self.duration : duration // ignore: cast_nullable_to_non_nullable
 as int,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,dueDateTime: null == dueDateTime ? _self.dueDateTime : dueDateTime // ignore: cast_nullable_to_non_nullable
 as DateTime,categoryId: null == categoryId ? _self.categoryId : categoryId // ignore: cast_nullable_to_non_nullable
-as int,
+as String,
   ));
 }
 

@@ -27,9 +27,8 @@ class CategoryFirestoreDataSource implements ICategoryRemoteDataSource {
         final data = doc.data();
         // Здесь мы можем использовать doc.id как строковый ID, 
         // но для совместимости с существующим кодом преобразуем в int
-        final id = int.tryParse(doc.id) ?? 0;
         return CategoryModel(
-          id: id,
+          id: doc.id,
           title: data['title'] as String,
         );
       }).toList();
@@ -39,7 +38,7 @@ class CategoryFirestoreDataSource implements ICategoryRemoteDataSource {
   }
   
   @override
-  Future<CategoryModel?> getCategoryById(int id) async {
+  Future<CategoryModel?> getCategoryById(String id) async {
     try {
       final doc = await _categoriesRef.doc(id.toString()).get();
       
@@ -62,7 +61,7 @@ class CategoryFirestoreDataSource implements ICategoryRemoteDataSource {
     try {
       // При создании используем временную метку обновления
       final timestamp = FieldValue.serverTimestamp();
-      final docRef = category.id > 0 
+      final docRef = category.id != ''
           ? _categoriesRef.doc(category.id.toString())
           : _categoriesRef.doc();
           
@@ -125,9 +124,8 @@ class CategoryFirestoreDataSource implements ICategoryRemoteDataSource {
           
       return snapshot.docs.map((doc) {
         final data = doc.data();
-        final id = int.tryParse(doc.id) ?? 0;
         return CategoryModel(
-          id: id,
+          id: doc.id,
           title: data['title'] as String,
         );
       }).toList();
@@ -141,9 +139,8 @@ class CategoryFirestoreDataSource implements ICategoryRemoteDataSource {
     return _categoriesRef.snapshots().map((snapshot) {
       return snapshot.docs.map((doc) {
         final data = doc.data();
-        final id = int.tryParse(doc.id) ?? 0;
         return CategoryModel(
-          id: id,
+          id: doc.id,
           title: data['title'] as String,
         );
       }).toList();

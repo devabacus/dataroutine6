@@ -9,12 +9,13 @@ import '../../../features/tasks/data/datasources/local/converters/sync_type_conv
 
 import 'package:drift/drift.dart';
 import 'package:drift_flutter/drift_flutter.dart';
+import 'package:uuid/uuid.dart';
 
 part 'database.g.dart';
 
 @DriftDatabase(tables: [CategoryTable, TagTable, TaskTable, TaskTagMapTable, SyncMetadataTable])
 class AppDatabase extends _$AppDatabase {
-  AppDatabase([QueryExecutor? excutor]) : super(excutor ?? _openConnection());
+  AppDatabase([QueryExecutor? executor]) : super(executor ?? _openConnection());
 
   @override
   int get schemaVersion => 5;
@@ -25,25 +26,13 @@ MigrationStrategy get migration => MigrationStrategy(
         return m.createAll();
       },
       onUpgrade: (Migrator m, int from, int to) async {
-            
-        if (from < 2) {
-          //await m.addColumn(taskItems, taskItems.createAt);
-        await m.createTable(tagTable);
-        }        
-        if (from < 3) {
-          await m.createTable(taskTable);
-          
-        }
 
-         if (from < 4) {
-          await m.createTable(taskTagMapTable);
-          
-        }
+        await m.drop(taskTagMapTable);
+        await m.drop(taskTable);
+        await m.drop(tagTable);
+        await m.drop(categoryTable);
 
-        if (from < 5) {
-          await m.createTable(syncMetadataTable);
-          
-        }
+        await m.createAll();
       },
     );
 

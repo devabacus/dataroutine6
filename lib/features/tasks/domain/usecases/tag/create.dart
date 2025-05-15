@@ -6,7 +6,7 @@ class CreateTagUseCase {
 
   CreateTagUseCase(this._repository);
 
-  Future<int> call(TagEntity tag) {
+  Future<String> call(TagEntity tag) {
     return _repository.createTag(tag);
   }
 }

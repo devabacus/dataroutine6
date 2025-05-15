@@ -6,7 +6,7 @@ import '../../../providers/task_tag/task_tag_state_providers.dart';
 
 class TagSectionWidget extends ConsumerWidget {
 
-  final int? taskId;
+  final String? taskId;
   
   final VoidCallback onAddTagPressed;
 

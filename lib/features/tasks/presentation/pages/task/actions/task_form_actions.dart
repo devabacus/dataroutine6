@@ -53,7 +53,7 @@ class TaskFormActions {
     }
   }
 
-  Future<void> loadCategoryInfo(int categoryId) async {
+  Future<void> loadCategoryInfo(String categoryId) async {
     try {
       final category = await ref.read(
         getCategoryByIdProvider(categoryId).future,
@@ -154,13 +154,13 @@ class TaskFormActions {
     );
 
     return TaskEntity(
-      id: formState.taskId ?? 0,
+      id: formState.taskId ?? '',
       title: controllers.title.text,
       description: controllers.description.text,
       duration: duration,
       createdAt: createdAt,
       dueDateTime: dueDate ?? DateTime.now(),
-      categoryId: formState.categoryId ?? 0,
+      categoryId: formState.categoryId ?? '',
     );
   }
 }

@@ -11,29 +11,29 @@ class TaskTagMapRepositoryImpl implements ITaskTagMapRepository {
   TaskTagMapRepositoryImpl(this._dataSource);
 
   @override
-  Future<List<TagEntity>> getTagsForTask(int taskId) async {
+  Future<List<TagEntity>> getTagsForTask(String taskId) async {
     final tagModels = await _dataSource.getTagsForTask(taskId);
     return tagModels.toEntities(); //for tag
   }
 
   @override
-  Future<List<TaskEntity>> getTasksWithTag(int tagId) async {
+  Future<List<TaskEntity>> getTasksWithTag(String tagId) async {
     final taskModels = await _dataSource.getTasksWithTag(tagId);
     return taskModels.toEntities(); // for task
   }
 
   @override
-  Future<void> addTagToTask(int taskId, int tagId) async {
+  Future<void> addTagToTask(String taskId, String tagId) async {
     await _dataSource.addTagToTask(taskId, tagId);
   }
 
   @override
-  Future<void> removeTagFromTask(int taskId, int tagId) async {
+  Future<void> removeTagFromTask(String taskId, String tagId) async {
     await _dataSource.removeTagFromTask(taskId, tagId);
   }
 
   @override
-  Future<void> removeAllTagsFromTask(int taskId) async {
+  Future<void> removeAllTagsFromTask(String taskId) async {
     await _dataSource.removeAllTagsFromTask(taskId);
   }
 }

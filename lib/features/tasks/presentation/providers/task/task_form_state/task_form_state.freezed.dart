@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$TaskFormState {
 
- bool get isInitialized; int? get taskId; int? get categoryId; String get categoryTitle; TaskEntity? get currentTask;
+ bool get isInitialized; String? get taskId; String? get categoryId; String get categoryTitle; TaskEntity? get currentTask;
 /// Create a copy of TaskFormState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -49,7 +49,7 @@ abstract mixin class $TaskFormStateCopyWith<$Res>  {
   factory $TaskFormStateCopyWith(TaskFormState value, $Res Function(TaskFormState) _then) = _$TaskFormStateCopyWithImpl;
 @useResult
 $Res call({
- bool isInitialized, int? taskId, int? categoryId, String categoryTitle, TaskEntity? currentTask
+ bool isInitialized, String? taskId, String? categoryId, String categoryTitle, TaskEntity? currentTask
 });
 
 
@@ -70,8 +70,8 @@ class _$TaskFormStateCopyWithImpl<$Res>
   return _then(_self.copyWith(
 isInitialized: null == isInitialized ? _self.isInitialized : isInitialized // ignore: cast_nullable_to_non_nullable
 as bool,taskId: freezed == taskId ? _self.taskId : taskId // ignore: cast_nullable_to_non_nullable
-as int?,categoryId: freezed == categoryId ? _self.categoryId : categoryId // ignore: cast_nullable_to_non_nullable
-as int?,categoryTitle: null == categoryTitle ? _self.categoryTitle : categoryTitle // ignore: cast_nullable_to_non_nullable
+as String?,categoryId: freezed == categoryId ? _self.categoryId : categoryId // ignore: cast_nullable_to_non_nullable
+as String?,categoryTitle: null == categoryTitle ? _self.categoryTitle : categoryTitle // ignore: cast_nullable_to_non_nullable
 as String,currentTask: freezed == currentTask ? _self.currentTask : currentTask // ignore: cast_nullable_to_non_nullable
 as TaskEntity?,
   ));
@@ -100,8 +100,8 @@ class _TaskFormState implements TaskFormState {
   factory _TaskFormState.fromJson(Map<String, dynamic> json) => _$TaskFormStateFromJson(json);
 
 @override@JsonKey() final  bool isInitialized;
-@override final  int? taskId;
-@override final  int? categoryId;
+@override final  String? taskId;
+@override final  String? categoryId;
 @override@JsonKey() final  String categoryTitle;
 @override final  TaskEntity? currentTask;
 
@@ -138,7 +138,7 @@ abstract mixin class _$TaskFormStateCopyWith<$Res> implements $TaskFormStateCopy
   factory _$TaskFormStateCopyWith(_TaskFormState value, $Res Function(_TaskFormState) _then) = __$TaskFormStateCopyWithImpl;
 @override @useResult
 $Res call({
- bool isInitialized, int? taskId, int? categoryId, String categoryTitle, TaskEntity? currentTask
+ bool isInitialized, String? taskId, String? categoryId, String categoryTitle, TaskEntity? currentTask
 });
 
 
@@ -159,8 +159,8 @@ class __$TaskFormStateCopyWithImpl<$Res>
   return _then(_TaskFormState(
 isInitialized: null == isInitialized ? _self.isInitialized : isInitialized // ignore: cast_nullable_to_non_nullable
 as bool,taskId: freezed == taskId ? _self.taskId : taskId // ignore: cast_nullable_to_non_nullable
-as int?,categoryId: freezed == categoryId ? _self.categoryId : categoryId // ignore: cast_nullable_to_non_nullable
-as int?,categoryTitle: null == categoryTitle ? _self.categoryTitle : categoryTitle // ignore: cast_nullable_to_non_nullable
+as String?,categoryId: freezed == categoryId ? _self.categoryId : categoryId // ignore: cast_nullable_to_non_nullable
+as String?,categoryTitle: null == categoryTitle ? _self.categoryTitle : categoryTitle // ignore: cast_nullable_to_non_nullable
 as String,currentTask: freezed == currentTask ? _self.currentTask : currentTask // ignore: cast_nullable_to_non_nullable
 as TaskEntity?,
   ));

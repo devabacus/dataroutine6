@@ -10,8 +10,8 @@ part 'task_form_state.g.dart';
 abstract class TaskFormState with _$TaskFormState {
   const factory TaskFormState({
     @Default(false) bool isInitialized,
-    int? taskId,
-    int? categoryId,
+    String? taskId,
+    String? categoryId,
     @Default('') String categoryTitle,
     TaskEntity? currentTask,
   }) = _TaskFormState;
@@ -37,7 +37,7 @@ class TaskFormStateNotifier extends _$TaskFormStateNotifier {
     );
   }
 
-  void setCategoryId(int categoryId, String categoryTitle) {
+  void setCategoryId(String categoryId, String categoryTitle) {
     state = state.copyWith(
       categoryId: categoryId,
       categoryTitle: categoryTitle,

@@ -11,7 +11,7 @@ part 'task_tag_map_dao.g.dart';
 class TaskTagMapDao extends DatabaseAccessor<AppDatabase> with _$TaskTagMapDaoMixin {
   TaskTagMapDao(IDatabaseService databaseService) : super(databaseService.database);
 
-  Future<List<TagTableData>> getTagsForTask(int taskId) {
+  Future<List<TagTableData>> getTagsForTask(String taskId) {
     return (select(tagTable)
       ..where((t) => t.id.isInQuery(
           selectOnly(taskTagMapTable)
@@ -20,7 +20,7 @@ class TaskTagMapDao extends DatabaseAccessor<AppDatabase> with _$TaskTagMapDaoMi
         .get();
   }
 
-  Future<List<TaskTableData>> getTasksWithTag(int tagId) {
+  Future<List<TaskTableData>> getTasksWithTag(String tagId) {
     return (select(taskTable)
       ..where((t) => t.id.isInQuery(
           selectOnly(taskTagMapTable)
@@ -29,19 +29,19 @@ class TaskTagMapDao extends DatabaseAccessor<AppDatabase> with _$TaskTagMapDaoMi
         .get();
   }
 
-  Future<void> addTagToTask(int taskId, int tagId) {
+  Future<void> addTagToTask(String taskId, String tagId) {
     return into(taskTagMapTable).insert(
       TaskTagMapTableCompanion.insert(taskId: taskId, tagId: tagId),
     );
   }
 
-  Future<void> removeTagFromTask(int taskId, int tagId) {
+  Future<void> removeTagFromTask(String taskId, String tagId) {
     return (delete(taskTagMapTable)
       ..where((t) => t.taskId.equals(taskId) & t.tagId.equals(tagId)))
         .go();
   }
 
-  Future<void> removeAllTagsFromTask(int taskId) {
+  Future<void> removeAllTagsFromTask(String taskId) {
     return (delete(taskTagMapTable)..where((t) => t.taskId.equals(taskId))).go();
   }
 }

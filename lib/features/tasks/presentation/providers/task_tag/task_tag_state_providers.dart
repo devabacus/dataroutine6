@@ -8,27 +8,27 @@ part 'task_tag_state_providers.g.dart';
 @riverpod
 class TaskTags extends _$TaskTags {
   @override
-  Future<List<TagEntity>> build({required int taskId}) {
+  Future<List<TagEntity>> build({required String taskId}) {
     ref.keepAlive();
     return ref.read(getTagsForTaskUseCaseProvider)(taskId);
 
   }
 
-  Future<void> addTagToTask(int taskId, int tagId) async {
+  Future<void> addTagToTask(String taskId, String tagId) async {
     state = await AsyncValue.guard(() async {
       await ref.read(addTagToTaskUseCaseProvider)(taskId, tagId);
       return ref.read(getTagsForTaskUseCaseProvider)(taskId);
     });
   }
 
-  Future<void> removeTagFromTask(int taskId, int tagId) async {
+  Future<void> removeTagFromTask(String taskId, String tagId) async {
     state = await AsyncValue.guard(() async {
       await ref.read(removeTagFromTaskUseCaseProvider)(taskId, tagId);
       return ref.read(getTagsForTaskUseCaseProvider)(taskId);
     });
   }
 
-  Future<void> removeAllTagsFromTask(int taskId) async {
+  Future<void> removeAllTagsFromTask(String taskId) async {
     state = await AsyncValue.guard(() async {
       await ref.read(removeAllTagsFromTaskUseCaseProvider)(taskId);
       return ref.read(getTagsForTaskUseCaseProvider)(taskId);
@@ -39,7 +39,7 @@ class TaskTags extends _$TaskTags {
 @riverpod
 class TasksWithTag extends _$TasksWithTag {
   @override
-  Future<List<TaskEntity>> build({required int tagId}) {
+  Future<List<TaskEntity>> build({required String tagId}) {
     return ref.read(getTaskWithTagUseCaseProvider)(tagId);
   }
 }

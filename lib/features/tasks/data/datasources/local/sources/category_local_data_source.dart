@@ -22,13 +22,13 @@ class CategoryLocalDataSource implements ICategoryLocalDataSource {
   }
 
   @override
-  Future<CategoryModel> getCategoryById(int id) async {
+  Future<CategoryModel> getCategoryById(String id) async {
     final category = await categoryDao.getCategoryById(id);
     return category.toModel();
   }
 
   @override
-  Future<int> createCategory(CategoryModel category) {
+  Future<String> createCategory(CategoryModel category) {
     return categoryDao.createCategory(category.toCompanion());
   }
 
@@ -38,7 +38,7 @@ class CategoryLocalDataSource implements ICategoryLocalDataSource {
   }
 
   @override
-  Future<void> deleteCategory(int id) async {
+  Future<void> deleteCategory(String id) async {
     await categoryDao.deleteCategory(id);
   }
 }

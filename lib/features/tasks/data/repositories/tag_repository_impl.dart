@@ -17,18 +17,18 @@ class TagRepositoryImpl implements ITagRepository {
   }
 
   @override
-  Future<TagEntity> getTagById(int id) async {
+  Future<TagEntity> getTagById(String id) async {
     final model = await _localDataSource.getTagById(id);
     return model.toEntity();
   }
 
   @override
-  Future<int> createTag(TagEntity tag) {
+  Future<String> createTag(TagEntity tag) {
     return _localDataSource.createTag(tag.toModel());
   }
 
   @override
-  Future<void> deleteTag(int id) async {
+  Future<void> deleteTag(String id) async {
     _localDataSource.deleteTag(id);
   }
 

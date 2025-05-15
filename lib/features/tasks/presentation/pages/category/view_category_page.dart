@@ -63,11 +63,10 @@ class ViewCategoryPage extends ConsumerWidget {
             if (task != null) {
               selectedTask.setTask(task.copyWith(categoryId: category.id));
             }
-
+            
             context.goNamed(TasksRoutes.editTask);
           } else {
             ref.read(categorySelectedProvider.notifier).setCategory(category);
-
             context.goNamed(TasksRoutes.editCategory);
           }
         },
