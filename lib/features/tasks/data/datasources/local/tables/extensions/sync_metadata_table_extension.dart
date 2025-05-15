@@ -24,7 +24,7 @@ extension SyncMetadataTableDataListExtension on List<SyncMetadataTableData> {
 extension SyncMetadataModelCompanionExtension on SyncMetadataModel {
   SyncMetadataTableCompanion toCompanion() => SyncMetadataTableCompanion(
     id: Value(id),
-    entityId: Value(entityId),
+    entityId: Value(entityId),  
     entityType: Value(entityType),
     action: Value(action),
     lastLocalUpdate: Value(lastLocalUpdate),
