@@ -22,9 +22,6 @@ class CategoryDao extends DatabaseAccessor<AppDatabase> with _$CategoryDaoMixin 
       (select(categoryTable)..where((t) => t.id.equals(id)))
       .getSingle();
   
-  // Future<int> createCategory(CategoryTableCompanion category) =>
-  //     into(categoryTable).insert(category);
-  
 Future<String> createCategory(CategoryTableCompanion companion) async {
   String idToInsert;
   CategoryTableCompanion companionForInsert;

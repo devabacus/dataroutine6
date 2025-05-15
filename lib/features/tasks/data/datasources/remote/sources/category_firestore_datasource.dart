@@ -90,7 +90,7 @@ class CategoryFirestoreDataSource implements ICategoryRemoteDataSource {
   }
   
   @override
-  Future<void> deleteCategory(int id) async {
+  Future<void> deleteCategory(String id) async {
     try {
       await _categoriesRef.doc(id.toString()).delete();
     } catch (e) {

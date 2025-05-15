@@ -125,7 +125,7 @@ class TaskFormActions {
     final selectedTask = ref.read(selectedTaskProvider);
     final selectTaskContr = ref.read(selectedTaskProvider.notifier);
 
-    if (selectedTask == null || selectedTask.id == 0) {
+    if (selectedTask == null || selectedTask.id.isEmpty) {
       taskContr.addTask(taskEntity);
     } else {
       taskContr.updateTask(taskEntity);

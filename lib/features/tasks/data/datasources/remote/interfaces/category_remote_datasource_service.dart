@@ -5,7 +5,7 @@ abstract class ICategoryRemoteDataSource {
   Future<CategoryModel?> getCategoryById(String id);
   Future<String> createCategory(CategoryModel category);
   Future<void> updateCategory(CategoryModel category);
-  Future<void> deleteCategory(int id);
+  Future<void> deleteCategory(String id);
   
   // Методы синхронизации
   Future<void> syncToRemote(List<CategoryModel> categories);
