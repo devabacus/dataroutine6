@@ -10,7 +10,6 @@ import 'sync/entity_handlers/base_entity_handler.dart';
 import 'sync/entity_handlers/category_sync_handler.dart';
 // --- НОВОЕ: Импорт менеджера слушателей ---
 import 'sync/firestore_listener_manager.dart';
-// TODO: Импортировать другие обработчики
 import 'sync/sync_metadata_service.dart';
 import 'sync/last_sync_time_service.dart';
 
