@@ -36,7 +36,6 @@ MigrationStrategy get migration => MigrationStrategy(
       },
     );
 
-
   static QueryExecutor _openConnection() {
     return driftDatabase(
       name: 'dataroutine6',
